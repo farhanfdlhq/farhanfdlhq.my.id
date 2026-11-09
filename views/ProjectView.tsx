@@ -22,7 +22,7 @@ export function ProjectView({ lang, slug }: { lang: Lang; slug: string }) {
   const p = projectBySlug(slug);
   if (!p) notFound();
   const { prev, next } = neighbors(slug);
-  const images = projectImages(p.id);
+  const images = projectImages(p.id).filter((im) => im.url !== p.hero_image);
   const host = hostOf(p.live_url) || p.title;
   return (
     <PublicShell lang={lang} path={projectPath(lang, slug)}>
@@ -47,7 +47,7 @@ export function ProjectView({ lang, slug }: { lang: Lang; slug: string }) {
           <section className="gallery-sec" aria-label={t(lang, "gallery")}>
             <h2>{t(lang, "gallery")}</h2>
             <div className="gallery">
-              {images.map((im) => <figure key={im.id} className="frame"><img src={im.url} alt={pick(im, "alt", lang).text} loading="lazy" decoding="async" /></figure>)}
+              {images.map((im, i) => <figure key={im.id} className="frame"><img src={im.url} alt={pick(im, "alt", lang).text || `${p.title}, ${t(lang, "gallery").toLowerCase()} ${i + 1}`} loading="lazy" decoding="async" /></figure>)}
             </div>
           </section>
         ) : null}

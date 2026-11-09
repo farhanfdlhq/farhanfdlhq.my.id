@@ -115,6 +115,33 @@ try {
     await ap.locator(".admin-row", { hasText: "Uji Draf" }).waitFor({ state: "detached" });
     const gone = await ap.request.get(BASE + "/proyek/uji-draf/");
     check("admin: proyek terhapus", gone.status() === 404);
+    // Gambar dan CV
+    const png = Buffer.from("iVBORw0KGgoAAAANSUhEUgAAAAgAAAAGCAIAAABxZ0isAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAAEUlEQVQImWNQWpWGFTEMpAQAw+Y5YaYB/O4AAAAASUVORK5CYII=", "base64");
+    await ap.goto(BASE + "/admin/");
+    await ap.locator(".admin-row a.row-title", { hasText: "Agendain" }).click();
+    await ap.waitForURL(/\/admin\/proyek\/\d+\/$/);
+    await ap.locator(".upload-form input[type=file]").setInputFiles({ name: "jadwal.png", mimeType: "image/png", buffer: png });
+    check("admin: nama file tampil setelah dipilih", (await ap.locator(".upload-form .file-name").textContent()).includes("jadwal.png"));
+    await ap.locator(".upload-form button[type=submit]").click();
+    await ap.locator(".gal-item").first().waitFor();
+    await ap.locator(".upload-form input[type=file]").setInputFiles({ name: "palsu.jpg", mimeType: "image/jpeg", buffer: Buffer.from("bukan gambar") });
+    await ap.locator(".upload-form button[type=submit]").click();
+    const upErr = await ap.locator(".upload-form .field-error").textContent({ timeout: 5000 }).catch(() => "");
+    check("admin: file palsu ditolak dengan pesan di bawah kolom", upErr.includes("bukan gambar"), upErr);
+    const galSrc = await ap.locator(".gal-item img").first().getAttribute("src");
+    const det = await ap.request.get(BASE + "/proyek/agendain/");
+    check("admin: gambar baru tampil di galeri halaman detail", (await det.text()).includes(galSrc), galSrc);
+    const img = await ap.request.get(BASE + galSrc);
+    check("admin: gambar disajikan sebagai WebP", img.headers()["content-type"] === "image/webp");
+    await ap.goto(BASE + "/admin/cv/");
+    await ap.fill("#cv-label", "CV Uji");
+    await ap.locator("input[type=file]").setInputFiles({ name: "cv.pdf", mimeType: "application/pdf", buffer: Buffer.from("%PDF-1.4\n%%EOF\n") });
+    await ap.locator("button[type=submit]", { hasText: "Unggah CV" }).click();
+    await ap.locator(".admin-row", { hasText: "CV Uji" }).locator(".badge", { hasText: "Utama" }).waitFor();
+    await ap.goto(BASE + "/");
+    const cvHref = await ap.locator("a", { hasText: "Unduh CV" }).first().getAttribute("href");
+    const cvRes = await ap.request.get(BASE + cvHref);
+    check("Beranda: Unduh CV mengunduh PDF", cvRes.status() === 200 && cvRes.headers()["content-type"] === "application/pdf" && (cvRes.headers()["content-disposition"] || "").includes("CV Uji.pdf"), `${cvHref} ${cvRes.headers()["content-type"]}`);
     await actx.close();
   }
 

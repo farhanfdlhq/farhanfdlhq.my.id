@@ -1,4 +1,6 @@
 /** Logika admin proyek tanpa ketergantungan Next.js, supaya bisa diuji langsung. Server Action memanggil fungsi ini. */
+import { projectFiles } from "@/lib/media";
+import { removeUpload } from "@/lib/uploads";
 import { getDb } from "./db";
 import { slugify, uniqueSlug } from "./slug";
 import type { ProjectRow } from "./content";
@@ -66,7 +68,11 @@ export function moveProject(id: number, dir: -1 | 1): void {
 }
 
 export function deleteProjectById(id: number): void {
-  getDb().prepare("DELETE FROM projects WHERE id = ?").run(id);
+  const db = getDb();
+  const files = projectFiles(id);
+  db.prepare("DELETE FROM projects WHERE id = ?").run(id);
+  const stillUsed = db.prepare("SELECT 1 FROM project_images WHERE url = ? UNION SELECT 1 FROM projects WHERE hero_image = ?");
+  for (const f of files) if (!stillUsed.get(f, f)) removeUpload(f);
 }
 
 export function setProjectStatus(id: number, status: "draft" | "published"): void {

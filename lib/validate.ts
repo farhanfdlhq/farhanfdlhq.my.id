@@ -34,7 +34,7 @@ export function validateForm(form: HTMLFormElement): boolean {
     msg.className = "field-error";
     msg.id = id;
     msg.textContent = messageFor(el);
-    (el.closest(".pw-wrap") ?? el).insertAdjacentElement("afterend", msg);
+    (el.closest(".pw-wrap, .file-wrap") ?? el).insertAdjacentElement("afterend", msg);
     el.setAttribute("aria-invalid", "true");
     el.setAttribute("data-err-id", id);
     el.setAttribute("aria-describedby", [el.getAttribute("aria-describedby"), id].filter(Boolean).join(" "));
@@ -57,7 +57,7 @@ export function showServerErrors(form: HTMLFormElement, errors: Record<string, s
     p.className = "field-error";
     p.id = id;
     p.textContent = msg;
-    (el.closest(".pw-wrap") ?? el).insertAdjacentElement("afterend", p);
+    (el.closest(".pw-wrap, .file-wrap") ?? el).insertAdjacentElement("afterend", p);
     el.setAttribute("aria-invalid", "true");
     el.setAttribute("data-err-id", id);
     el.setAttribute("aria-describedby", [el.getAttribute("aria-describedby"), id].filter(Boolean).join(" "));
