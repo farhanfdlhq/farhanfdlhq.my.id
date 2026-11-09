@@ -56,6 +56,31 @@ try {
     check(`HP 390: tidak ada scroll samping di ${p}`, w <= 390, `lebar ${w}`);
   }
   await ctx.close();
+
+  // ---------- Gerak ----------
+  ctx = await browser.newContext({ reducedMotion: "reduce", viewport: { width: 1280, height: 900 } });
+  page = await ctx.newPage();
+  await page.goto(BASE + "/");
+  check("kurangi gerak: nama tidak dianimasikan", (await page.evaluate(() => getComputedStyle(document.querySelector("h1 .w > span")).animationName)) === "none");
+  await ctx.close();
+
+  ctx = await browser.newContext({ viewport: { width: 1280, height: 900 } });
+  page = await ctx.newPage();
+  watch(page);
+  await page.goto(BASE + "/");
+  check("gerak: nama dianimasikan", (await page.evaluate(() => getComputedStyle(document.querySelector("h1 .w > span")).animationName)) === "rise");
+  await page.goto(BASE + "/proyek/agendain/");
+  const before = await page.evaluate(() => getComputedStyle(document.querySelector(".progress")).transform);
+  await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
+  await page.waitForTimeout(300);
+  const after = await page.evaluate(() => getComputedStyle(document.querySelector(".progress")).transform);
+  check("detail: garis progres baca bertambah saat scroll", before !== after, `${before} -> ${after}`);
+  await page.goto(BASE + "/");
+  await page.locator(".proj").first().scrollIntoViewIfNeeded();
+  await page.waitForTimeout(400);
+  check("titik Live berdenyut saat kartu terlihat", (await page.locator(".proj.seen").count()) >= 1);
+  check("transisi antarhalaman diaktifkan lewat CSS", await page.evaluate(() => [...document.styleSheets].some((s) => { try { return [...s.cssRules].some((r) => r.cssText.includes("@view-transition")); } catch { return false; } })));
+  await ctx.close();
 } finally {
   await browser.close();
 }

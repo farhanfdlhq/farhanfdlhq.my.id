@@ -1,6 +1,7 @@
 import { Header } from "./Header";
 import { SceneSlot } from "./SceneSlot";
 import { Footer } from "./Footer";
+import { Motion } from "./Motion";
 import { profile } from "@/lib/content";
 import type { Lang } from "@/lib/i18n";
 
@@ -12,6 +13,7 @@ export function PublicShell({ lang, path, isHome, children }: { lang: Lang; path
       <Header lang={lang} path={path} />
       {children}
       <Footer name={profile(lang).name} />
+      <Motion />
     </div>
   );
 }

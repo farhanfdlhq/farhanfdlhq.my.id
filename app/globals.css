@@ -280,3 +280,9 @@ main h2 { font-size: clamp(1.6rem, 9.2cqi, 3.4rem); overflow-wrap: anywhere; }
 .gallery img { display: block; width: 100%; height: auto; }
 .pager a { max-width: 48%; }
 main > section, #hero { scroll-margin-top: 76px; }
+
+/* Transisi antarhalaman: bingkai dan judul proyek berpindah mulus dari kartu ke halaman detail (browser yang mendukung) */
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition { navigation: auto; }
+  ::view-transition-group(*) { animation-duration: .45s; animation-timing-function: cubic-bezier(.2, .75, .2, 1); }
+}
