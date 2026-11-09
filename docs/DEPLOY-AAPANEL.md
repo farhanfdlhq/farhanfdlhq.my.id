@@ -46,10 +46,10 @@ Pastikan port 3300 masih kosong. Kalau perintah ini tidak menampilkan apa-apa, p
 ss -ltnp | grep ":3300 "
 ```
 
-Ambil kode. Selama versi terbaru masih di branch `dev`, ganti `main` dengan `dev`:
+Ambil kode dari branch `dev` (repo ini belum punya branch `main`). `./scripts/deploy.sh` nanti menarik update dari branch yang sedang dipakai:
 
 ```bash
-git clone -b main https://github.com/farhanfdlhq/farhanfdlhq.my.id.git /opt/farhanfdlhq
+git clone -b dev https://github.com/farhanfdlhq/farhanfdlhq.my.id.git /opt/farhanfdlhq
 ```
 
 Pakai Node v24 (ulangi setiap membuka terminal baru, karena Node bawaan terminal masih v20):
