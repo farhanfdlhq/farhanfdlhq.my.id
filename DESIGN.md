@@ -17,12 +17,14 @@ Seperti halaman produk perangkat keras. Satu objek menjadi pusat perhatian: meja
 | Token | Nilai | Dipakai untuk |
 | --- | --- | --- |
 | `--bg` | `#050505` | Latar halaman dan adegan |
-| `--panel` | `rgba(6, 6, 7, .86)` + blur 14 px | Panel isi di atas adegan |
+| `--panel` | Kaca gelap: `rgba(9, 10, 13, .58)`, blur 24 px, saturasi 170%, tepi `rgba(255, 255, 255, .13)`, sorotan dalam di tepi atas | Panel isi di atas adegan |
 | `--surface` | `#0C0D0F` | Bingkai tangkapan layar |
 | `--line` | `rgba(221, 230, 240, .14)` | Garis pemisah dan tepi panel |
 | `--text` | `#DDE6F0` (putih es) | Teks utama, garis server, tombol utama |
 | `--muted` | `#8B929B` | Teks pendukung dan label |
 | `--red` | `#FF4D3D` | Satu-satunya aksen: CPU, nomor bagian, status Live, node proyek yang disorot, garis linimasa |
+
+**RGB** (permintaan Farhan, 9 November 2026): lampu RGB yang berganti warna pelan dipakai di dalam adegan, yaitu headset, keyboard, mouse, kipas CPU/GPU/casing, RAM, strip di casing, dan strip LED di tepi meja. Di luar adegan, RGB hanya muncul sebagai garis tipis di tepi atas panel kaca. Merah `#FF4D3D` tetap menjadi aksen antarmuka (nomor bagian, status, jalur).
 
 Tombol utama berwarna putih es dengan teks hitam. Link berwarna putih es dengan garis bawah tipis. Merah dipakai hemat. Semua pasangan teks dan latar dicek dengan `antislop-human/contrast-check.py`.
 
@@ -44,7 +46,14 @@ Tombol utama berwarna putih es dengan teks hitam. Link berwarna putih es dengan 
   - Di desktop, panel selain Proyek dibatasi 600 px di sisi kiri supaya server terlihat di kanan.
   - Jarak antarpanel 34svh.
 - **HUD:** pojok kanan bawah adegan selalu menampilkan lapisan yang sedang terbuka, misalnya "03 CPU".
-- Radius 2 px di semua elemen, supaya kesannya tegas seperti perangkat keras.
+- **Panel kaca ala Liquid Glass:**
+  - Radius 16 px.
+  - Pantulan cahaya radial yang mengikuti kursor.
+  - Garis RGB 2 px yang mengalir di tepi atas.
+  - Bayangan dalam di tepi atas dan bayangan luar yang lembut.
+  - Warna kaca dibuat cukup gelap supaya teks tetap terbaca.
+- **Radius lain:** 2 px untuk tombol, kontrol, dan pil ID/EN, supaya tetap tegas. 10 px untuk bingkai tangkapan layar.
+- **Judul bagian** memakai ukuran berbasis lebar panel (`clamp(1.6rem, 9.2cqi, 3.4rem)`), jadi tidak pernah keluar dari panel.
 
 ## Adegan: meja kerja, PC, lalu CPU yang dibongkar
 
@@ -52,9 +61,11 @@ Revisi 9 November 2026 (ide Farhan): adegan dimulai dari meja kerja, lalu kamera
 
 - **Isi meja:**
   - Monitor dengan baris kode abstrak yang bergulir (garis tanpa teks).
-  - Keyboard, mouse, dan router dengan lampu hijau dan dua antena.
-  - Casing PC dengan lampu power merah dan ventilasi.
-- **Isi PC:** motherboard, CPU (substrat berpin, IHS, dan die merah yang bercahaya), pendingin CPU dengan kipas, 4 RAM, GPU dengan dua kipas, PSU, SSD, dan dua kipas casing. Semua kipas berputar.
+  - Keyboard RGB (gelombang warna per tombol), mouse RGB, dan headset RGB di atas stand.
+  - Router dengan lampu hijau dan dua antena.
+  - Strip LED RGB di tepi depan meja.
+  - Casing PC dengan lampu power merah, ventilasi, dan dua strip RGB di depan.
+- **Isi PC:** motherboard, CPU (substrat berpin, IHS, dan die merah yang bercahaya), pendingin CPU dengan kipas, 4 RAM, GPU dengan dua kipas, PSU, SSD, dan dua kipas casing. Semua kipas berputar dan cincinnya RGB. RAM punya lampu RGB di atasnya.
 - **Jaringan:**
   - Router tersambung kabel LAN ke PC.
   - Dari antena router, kabel menuju 8 node di belakang meja (6 di HP). Node juga tersambung satu sama lain.
@@ -75,7 +86,6 @@ Revisi 9 November 2026 (ide Farhan): adegan dimulai dari meja kerja, lalu kamera
   - Semua panel dihubungkan satu jalur vertikal tipis di tepi kiri, dengan titik merah di setiap panel.
   - Di antara panel ada jeda tipis (`.beat`, 18svh di HP dan 16svh di desktop). Di jeda itu, sinyal merah berjalan di jalur mengikuti scroll.
   - Momen bongkar terjadi di jeda tersebut.
-  - Panel hampir tidak transparan (`rgba(6, 6, 7, .95)`) supaya teks tidak tembus.
 - **Tombol mata:**
   - Ada di header, di sebelah ID/EN.
   - Saat ditekan, semua isi disembunyikan (hero, panel, footer, dan menu) supaya pengunjung bisa scroll menikmati bongkar-pasang PC dan CPU tanpa terhalang.
@@ -87,7 +97,7 @@ Revisi 9 November 2026 (ide Farhan): adegan dimulai dari meja kerja, lalu kamera
   - Pixel ratio maksimal 1,5 di HP, dan jumlah node lebih sedikit.
   - Animasi berhenti saat tab disembunyikan.
   - Tanpa WebGL, latar hitam polos.
-- **Kurangi gerak:** kalau perangkat meminta `prefers-reduced-motion`, bongkar-pasang tetap mengikuti scroll, tetapi kipas, paket, kode, dan lampu diam.
+- **Kurangi gerak:** kalau perangkat meminta `prefers-reduced-motion`, bongkar-pasang tetap mengikuti scroll, tetapi kipas, paket, kode, dan lampu diam, dan warna RGB berhenti di satu pola.
 
 ## Gerak lain
 
