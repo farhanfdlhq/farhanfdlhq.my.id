@@ -29,7 +29,7 @@ Tombol utama berwarna putih es dengan teks hitam. Link berwarna putih es dengan 
 ## Huruf
 
 - **Archivo** (variable). Judul memakai lebar 125 dan berat 800, huruf kapital:
-  - Nama di hero: `clamp(2.3rem, 10.4cqw, 7.4rem)`, tinggi baris 0,86.
+  - Nama di hero: `clamp(1.9rem, 6.2cqw, 4.4rem)`, tinggi baris 0,9 (diperkecil atas permintaan Farhan).
   - Judul bagian: `clamp(2rem, 7.2cqw, 3.6rem)`.
   - Alasan huruf kapital: ini konvensi halaman produk perangkat keras. Hurufnya lebar, jadi jarak antarhurufnya tetap normal dan tidak direnggangkan.
 - Isi memakai Archivo lebar normal, 16 sampai 17 px.
@@ -71,7 +71,16 @@ Revisi 9 November 2026 (ide Farhan): adegan dimulai dari meja kerja, lalu kamera
   | 5 | Jeda, lalu Keahlian | Zoom ke CPU. Pendingin terangkat, IHS terangkat, die merah terlihat | 04 CPU |
   | 6 | Kontak | Kamera mundur ke meja dan PC menyatu lagi | 05 Meja |
 
-- **Jeda kosong:** di antara bagian halaman ada jeda (`.beat`) setinggi 78svh di HP dan 64svh di desktop. Momen bongkar terjadi di jeda ini, jadi tidak tertutup panel.
+- **Bagian yang menyatu:**
+  - Semua panel dihubungkan satu jalur vertikal tipis di tepi kiri, dengan titik merah di setiap panel.
+  - Di antara panel ada jeda tipis (`.beat`, 18svh di HP dan 16svh di desktop). Di jeda itu, sinyal merah berjalan di jalur mengikuti scroll.
+  - Momen bongkar terjadi di jeda tersebut.
+  - Panel hampir tidak transparan (`rgba(6, 6, 7, .95)`) supaya teks tidak tembus.
+- **Tombol mata:**
+  - Ada di header, di sebelah ID/EN.
+  - Saat ditekan, semua isi disembunyikan (hero, panel, footer, dan menu) supaya pengunjung bisa scroll menikmati bongkar-pasang PC dan CPU tanpa terhalang.
+  - Petunjuk kecil di bawah menjelaskan cara kembali. Tombol Esc juga mengembalikan isi.
+  - Label aksesibilitasnya berganti: "Sembunyikan isi untuk melihat animasi" dan "Tampilkan isi".
 - **Layout desktop:** semua panel isi berada di kolom kiri, maksimal 520 px. Kartu proyek tersusun satu kolom. Bidang pandang kamera digeser (`setViewOffset`) supaya meja dan PC tampil di kanan.
 - **Halaman detail proyek:** kamera menyorot monitor.
 - **Kinerja:**
