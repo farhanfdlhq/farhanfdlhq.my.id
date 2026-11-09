@@ -261,3 +261,22 @@ main h2 { font-size: clamp(1.6rem, 9.2cqi, 3.4rem); overflow-wrap: anywhere; }
 .mark { display: inline-flex; align-items: center; gap: 8px; }
 .mark .logo { width: 22px; height: 22px; flex: none; }
 .mark .wm span { color: var(--red); }
+
+/* Halaman publik di Next.js: bagian yang tidak ada di mockup */
+.pill.langs a { position: relative; display: inline-grid; place-items: center; font: 500 13px/1 var(--mono); color: var(--muted); text-decoration: none; min-height: 34px; min-width: 36px; padding: 0 9px; transition: color .2s; }
+.pill.langs a[aria-current="true"] { color: var(--text); }
+.more { margin: 28px 0 0; }
+.subhead { margin: 30px 0 14px; font: 500 13px/1 var(--mono); color: var(--red); text-transform: none; }
+.timeline .detail { display: block; font-size: 15px; }
+.certs { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.social a { margin-right: 2px; }
+.list-title { margin: 0 0 18px; font-weight: 800; font-stretch: 125%; font-variation-settings: "wdth" 125; text-transform: uppercase; font-size: clamp(1.8rem, 9cqi, 3.4rem); line-height: .9; }
+#list { padding-top: 20svh; }
+.filters { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 28px; }
+.filters a { font: 500 13px/1 var(--mono); color: var(--muted); text-decoration: none; border: 1px solid var(--line); border-radius: 2px; padding: 9px 11px; min-height: 36px; display: inline-flex; align-items: center; }
+.filters a[aria-current="true"] { color: var(--bg); background: var(--text); border-color: var(--text); }
+.gallery { display: grid; gap: 14px; }
+.gallery figure { margin: 0; }
+.gallery img { display: block; width: 100%; height: auto; }
+.pager a { max-width: 48%; }
+main > section, #hero { scroll-margin-top: 76px; }

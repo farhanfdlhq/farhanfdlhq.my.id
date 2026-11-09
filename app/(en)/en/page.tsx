@@ -1,9 +1,3 @@
-export default function HomeEn() {
-  return (
-    <div className="site" id="site">
-      <main id="home">
-        <h1 className="giant">Farhan Achmad Fadhillah</h1>
-      </main>
-    </div>
-  );
-}
+import { HomeView } from "@/views/HomeView";
+export const dynamic = "force-dynamic";
+export default function Page() { return <HomeView lang="en" />; }

@@ -12,7 +12,7 @@
     "start": "sh scripts/start.sh",
     "test": "vitest run",
     "typecheck": "tsc --noEmit",
-    "test:e2e": "node e2e/flow.mjs",
+    "test:e2e": "bash e2e/run.sh",
     "seed": "tsx scripts/seed.ts",
     "user": "tsx scripts/user.ts",
     "backup": "bash scripts/backup.sh",
