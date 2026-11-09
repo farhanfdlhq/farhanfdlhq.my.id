@@ -2,130 +2,94 @@
 
 Arah visual untuk website pribadi Farhan. Dipakai bersama skill anti-slop: file ini menentukan arah, dan anti-slop menyaring hasilnya.
 
+Riwayat: versi 1 sampai 6 memakai arah "lembar spesifikasi" dengan biru tinta. Pada 9 November 2026 Farhan memilih arah **C. Server terurai** dari tiga alternatif baru (cetak biru, ruang kendali, server terurai). Bagian dari versi lama yang tetap dipakai: isi dari CV, tangkapan layar proyek yang bergulir di dalam bingkai, transisi ke halaman detail, linimasa, dan dua bahasa.
+
 ## Karakter
 
-**Teknis dan presisi.** Kesannya mirip lembar spesifikasi yang rapi, bukan kostum "hacker". Rasa teknisnya datang dari isi yang nyata: tanggal, peran, stack, angka dari CV, dan tangkapan layar asli dengan domainnya. Efek visual tidak dipakai untuk membangun kesan itu.
+Seperti halaman produk perangkat keras. Satu objek, yaitu server blade, menjadi pusat perhatian. Hitam pekat, garis putih es, huruf sangat lebar, dan sedikit kata. Nuansa IT-nya datang dari server itu dan dari jaringan node yang terus bertukar paket data di sekelilingnya.
 
-Pilihan Farhan (9 November 2026): kesan teknis dan presisi, hanya mode gelap, aksen biru tinta, nama ditampilkan sebelum proyek, huruf IBM Plex, gerak sedang dan terkoreografi (direvisi dari minimal), tanpa foto diri, dan judul peran "UI/UX | Software Engineer".
-
-## Latar sinematik: server di atas papan sirkuit
-
-Revisi 9 November 2026. Gabungan adegan ruang server dan papan sirkuit (pilihan Farhan dari tiga alternatif), dengan hanya mode gelap. Tidak ada nama domain atau label teks di dalam animasi.
-
-- **Adegan:** WebGL (three.js) di belakang seluruh halaman, menempel di layar (`position: sticky`).
-  - Lantai berupa papan sirkuit gelap dengan titik grid.
-  - Di atasnya berdiri rak-rak server dengan lampu status yang berkedip.
-  - Rak terhubung lewat jalur tembaga di lantai yang berbelok 45 derajat dan tidak saling silang. Sinyal cahaya berjalan di sepanjang jalur itu.
-  - Di tengah papan ada CPU yang menggantikan core switch.
-- **Topologi:**
-  - Empat rak proyek (Agendain, qiran, bynana, Andiamo) di kiri, masing-masing dengan bus 4 jalur ke sisi kiri CPU.
-  - Tiga rak data di kanan, terhubung ke sisi kanan CPU.
-  - Satu rak edge di belakang, terhubung ke CPU dengan bus 6 jalur dan sinar vertikal ke internet.
-  - Konektor di tepi depan papan, serta jalur dan via hiasan di antara rak latar.
-- **Kamera mengikuti scroll:**
-
-  | Bagian | Yang terlihat |
-  | --- | --- |
-  | Hero | Ruangan dari depan |
-  | Proyek | Rak proyek |
-  | Tentang | CPU |
-  | Pengalaman | Jalur di depan CPU |
-  | Keahlian | Rak data |
-  | Kontak | Rak edge dan sinar ke internet |
-  | Detail proyek | Rak proyek itu sendiri |
-
-- **Sorotan:** rak proyek dan jalurnya menyala, dan sinyalnya mengalir lebih cepat, saat kartu proyeknya di-hover atau sedang dibaca.
-- **Hero:** tidak ada kalimat pernyataan (keputusan Farhan). Isinya nama sebagai `h1` (IBM Plex Sans 600, `clamp(2rem, 8cqw, 3.5rem)`), peran dan kota, tombol "Lihat proyek", serta link Unduh CV dan Email. Adegannya yang menjadi pusat perhatian.
-- **Isi halaman:** setiap bagian berada di panel gelap transparan dengan blur. Jarak antarpanel 34svh supaya adegan terlihat di sela-selanya.
-- **Kinerja:**
-  - Rak latar 9 per baris di HP dan 13 di desktop. Pixel ratio maksimal 1,5 di HP.
-  - Animasi berhenti saat tab disembunyikan.
-  - Tanpa WebGL, latar memakai gradien CSS diam.
-- **Kurangi gerak:** kalau perangkat meminta `prefers-reduced-motion`, lampu dan sinyal diam, dan adegan hanya digambar ulang saat scroll dengan kamera langsung melompat.
-- Glow, cahaya aditif, panel transparan, dan blur hanya dipakai untuk adegan ini dan panel isinya.
-
-## Yang tidak dipakai
-
-- Terminal palsu, efek ketik, kursor berkedip, matrix, atau glow neon.
-- Judul besar dengan huruf monospace, atau label huruf kapital dengan jarak huruf lebar (misalnya "PROJECTS", "ABOUT ME").
-- Grid hiasan, noise, blob, dan gradien di luar adegan jaringan. Lantai raised floor di adegan adalah bagian dari ruang server, bukan hiasan.
-- Angka karangan ("10.000+ baris kode", "99% kepuasan"), bar persentase keahlian, atau bintang rating skill.
-- Emoji di antarmuka, ikon dekoratif di setiap judul, dan tombol berbentuk pill di semua tempat.
+- Hanya mode gelap. Tidak ada tombol tema.
+- Tidak ada nama domain atau label teks di dalam animasi.
+- Hero tanpa kalimat pernyataan. Nama adalah judulnya.
 
 ## Warna
 
-**Hanya mode gelap.** Tidak ada mode terang dan tidak ada tombol tema (keputusan Farhan, 9 November 2026).
-
 | Token | Nilai | Dipakai untuk |
 | --- | --- | --- |
-| `--bg` | `#05070C` | Latar halaman dan warna dasar adegan |
-| `--panel` | `rgba(8, 11, 18, .82)` + blur 14 px | Panel isi di atas adegan |
-| `--surface` | `#0E131C` | Bingkai tangkapan layar |
-| `--line` | `rgba(142, 169, 242, .17)` | Garis pemisah dan tepi panel |
-| `--text` | `#E7E9EC` | Teks utama |
-| `--muted` | `#9AA3AF` | Teks pendukung dan label |
-| `--accent` | `#8EA9F2` | Link, fokus, dan detail kecil |
-| `--accent-fill` | `#2F4FA8` | Latar tombol utama, dengan teks putih di atasnya |
-| `--live` | `#6FCF97` | Status Live dan sebagian lampu rak |
+| `--bg` | `#050505` | Latar halaman dan adegan |
+| `--panel` | `rgba(6, 6, 7, .86)` + blur 14 px | Panel isi di atas adegan |
+| `--surface` | `#0C0D0F` | Bingkai tangkapan layar |
+| `--line` | `rgba(221, 230, 240, .14)` | Garis pemisah dan tepi panel |
+| `--text` | `#DDE6F0` (putih es) | Teks utama, garis server, tombol utama |
+| `--muted` | `#8B929B` | Teks pendukung dan label |
+| `--red` | `#FF4D3D` | Satu-satunya aksen: CPU, nomor bagian, status Live, node proyek yang disorot, garis linimasa |
 
-Biru tinta pekat (`#2F4FA8`) dipakai untuk tombol dan tepi rak. Versi terangnya (`#8EA9F2`) dipakai untuk teks dan link supaya terbaca di latar gelap. Hanya ada satu warna aksen. Hijau hanya dipakai sebagai warna status. Semua pasangan teks dan latar sudah dicek dengan `antislop-human/contrast-check.py` dan memenuhi WCAG AA, termasuk teks redup di atas panel.
+Tombol utama berwarna putih es dengan teks hitam. Link berwarna putih es dengan garis bawah tipis. Merah dipakai hemat. Semua pasangan teks dan latar dicek dengan `antislop-human/contrast-check.py`.
 
 ## Huruf
 
-- **IBM Plex Sans** untuk semua teks dan judul (400, 500, 600). Alasannya: keluarga huruf ini dirancang untuk identitas perusahaan teknik, terbaca jelas di layar kecil, dan punya pasangan mono dari keluarga yang sama.
-- **IBM Plex Mono** hanya untuk data kecil: tanggal, nama teknologi, domain di bingkai tangkapan layar, dan label kolom spesifikasi. Ukurannya selalu sama atau lebih kecil dari teks isi, dan tidak pernah dipakai untuk judul.
-- Teks isi 16 px di HP dan 17 px di desktop, dengan tinggi baris 1,6. Judul nama: `clamp(2rem, 7vw, 3.25rem)`, berat 600, jarak huruf normal.
-- Font di-host sendiri dalam format WOFF2, hanya subset Latin, dengan `font-display: swap`.
+- **Archivo** (variable). Judul memakai lebar 125 dan berat 800, huruf kapital:
+  - Nama di hero: `clamp(2.3rem, 10.4cqw, 7.4rem)`, tinggi baris 0,86.
+  - Judul bagian: `clamp(2rem, 7.2cqw, 3.6rem)`.
+  - Alasan huruf kapital: ini konvensi halaman produk perangkat keras. Hurufnya lebar, jadi jarak antarhurufnya tetap normal dan tidak direnggangkan.
+- Isi memakai Archivo lebar normal, 16 sampai 17 px.
+- **IBM Plex Mono** untuk label kecil, nomor bagian (01 sampai 05), HUD lapisan, tombol, tanggal, dan stack.
 
-## Jarak dan grid
+## Layout
 
-- Skala jarak 4 px: 4, 8, 12, 16, 24, 32, 48, 72.
-- Di HP: margin samping 20 px dan satu kolom.
-- Di desktop: lebar konten maksimal 1080 px dengan 12 kolom. Teks panjang dibatasi sekitar 68 karakter per baris.
-- Radius 6 px untuk kartu dan bingkai, 4 px untuk tombol. Tidak ada elemen yang membulat penuh, kecuali indikator status.
+- Adegan 3D menempel di belakang seluruh halaman (`position: sticky`).
+- **Hero:** nama raksasa di kiri bawah, lalu satu kalimat, tombol "Lihat proyek", serta link Unduh CV dan Email. Server berada di kanan atas.
+- **Bagian lain:** Proyek, Tentang, Pengalaman, Keahlian, dan Kontak masing-masing ada di panel hitam transparan.
+  - Setiap panel diberi nomor merah dan judul lebar.
+  - Di desktop, panel selain Proyek dibatasi 600 px di sisi kiri supaya server terlihat di kanan.
+  - Jarak antarpanel 34svh.
+- **HUD:** pojok kanan bawah adegan selalu menampilkan lapisan yang sedang terbuka, misalnya "03 CPU".
+- Radius 2 px di semua elemen, supaya kesannya tegas seperti perangkat keras.
 
-## Komponen khas
+## Adegan: server terurai di tengah jaringan
 
-**Lembar spesifikasi proyek.** Setiap proyek punya blok berisi pasangan label dan isi, misalnya:
+- **Server blade** (three.js, kode sendiri):
+  - Baki dengan 4 kipas yang berputar dan 6 port jaringan.
+  - Motherboard dengan jalur.
+  - CPU merah dengan heatsink yang bercahaya.
+  - 8 keping RAM, 4 disk, dan tutup berventilasi.
+- **Terurai mengikuti scroll:**
 
-```
-Peran    Full-Stack Developer (remote)
-Waktu    Mei 2026 – sekarang
-Stack    Next.js · TypeScript · Prisma · MySQL
-Status   ● Live  agendain.com ↗
-```
+  | Bagian halaman | Lapisan yang terbuka |
+  | --- | --- |
+  | Hero | 00 Utuh |
+  | Proyek | 01 Tutup terangkat |
+  | Tentang | 02 RAM |
+  | Pengalaman | 03 CPU |
+  | Keahlian | 04 Motherboard |
+  | Kontak | 05 Disk dan baki turun |
 
-Label memakai Plex Mono berwarna `--muted`, isinya memakai Plex Sans. Blok ini muncul di kartu proyek (versi ringkas) dan di halaman detail (versi lengkap).
+  Saat server terbuka, jalur data merah muncul di antara CPU, RAM, motherboard, dan disk, dan paket data berjalan di sana.
+- **Jaringan:**
+  - 12 node di desktop (9 di HP) mengelilingi server. Empat di antaranya kubus yang mewakili proyek Farhan.
+  - Setiap node tersambung kabel ke port server, dan sebagian node tersambung satu sama lain.
+  - Paket data berjalan dua arah di semua kabel, dan node berputar pelan.
+- **Sorotan:** saat kartu proyek dibaca atau di-hover, kubus proyeknya berubah merah dengan cahaya, dan paketnya mengalir 2,6 kali lebih cepat. Di halaman detail proyek, kamera pindah ke node proyek itu.
+- **Kamera:** berpindah halus antar titik per bagian, dan bergeser sedikit mengikuti kursor.
+- **Kinerja:**
+  - Pixel ratio maksimal 1,5 di HP, dan jumlah node lebih sedikit.
+  - Animasi berhenti saat tab disembunyikan.
+  - Tanpa WebGL, latar hitam polos.
+- **Kurangi gerak:** kalau perangkat meminta `prefers-reduced-motion`, server tetap terurai mengikuti scroll, tetapi tidak ada putaran, paket, atau kipas yang bergerak. Adegan hanya digambar ulang saat scroll.
 
-**Bingkai tangkapan layar.** Bingkainya tipis memakai `--surface` dan `--line`, dengan satu baris atas berisi domain asli dalam Plex Mono (misalnya `qiran.my.id`). Tidak ada tiga titik warna ala macOS. Gambar selalu punya `width`, `height`, dan `alt` yang menjelaskan isinya.
+## Gerak lain
 
-**Tombol.** Tombol utama ("Unduh CV") memakai `--accent-fill` dengan teks putih. Tombol kedua ("Email") memakai garis `--line` dengan teks `--text`. Tinggi minimal 44 px.
+| Gerakan | Kapan | Tujuan |
+| --- | --- | --- |
+| Kata-kata nama naik dari balik garis, lalu kalimat dan tombol muncul berurutan | Sekali saat Beranda dibuka | Mengarahkan mata dari nama ke tombol |
+| Tangkapan layar halaman penuh bergulir di dalam bingkai mengikuti scroll | Saat kartu proyek dilewati | Melihat seluruh situs proyek tanpa membukanya |
+| Kartu proyek muncul pelan | Sekali saat masuk layar | Ritme saat membaca |
+| Bingkai dan judul proyek berpindah mulus ke halaman detail (View Transitions) | Saat membuka atau menutup detail | Tetap tahu proyek mana yang dibuka |
+| Penanda pilihan meluncur di tombol ID/EN | Saat diklik | Menunjukkan pilihan aktif |
+| Garis linimasa merah tergambar mengikuti scroll | Saat menggulir Pengalaman | Menunjukkan urutan waktu |
+| Garis progres baca merah di atas | Di halaman detail | Sisa studi kasus |
 
-**Link.** Memakai `--accent`, dengan garis bawah tipis yang menebal saat hover. Link ke luar situs diberi tanda ↗.
-
-## Gerak
-
-Sedang dan terkoreografi. Farhan meminta animasi yang bagus (9 November 2026, revisi dari "minimal"). Setiap gerakan punya tujuan yang ditulis di bawah ini. Tidak ada yang berputar terus, dan tidak semua elemen bergerak bersamaan. Referensinya dari katalog style-ui: Motion Primitives, Kinetics, dan Transitions.dev.
-
-| # | Gerakan | Kapan | Tujuan |
-| --- | --- | --- | --- |
-| 0 | Server di atas papan sirkuit: lampu status berkedip, sinyal berjalan di jalur tembaga, dan kamera berpindah antar bagian mengikuti scroll | Selama halaman terbuka, berhenti saat tab disembunyikan | Identitas situs. Proyek tampil sebagai host di jaringan yang hidup |
-| 1 | Kata-kata nama di hero naik dari balik garis, lalu peran, ringkasan, dan tombol muncul berurutan (sekitar 900 ms) | Sekali saat Beranda dibuka | Mengarahkan mata dari nama ke tombol Lihat proyek |
-| 2 | Tangkapan layar halaman penuh bergulir di dalam bingkai mengikuti scroll halaman | Saat kartu proyek dilewati | Pengunjung melihat seluruh situs proyek tanpa membukanya |
-| 3 | Kartu proyek muncul pelan dan naik 16 px | Sekali saat pertama masuk layar | Memberi ritme saat membaca daftar proyek |
-| 4 | Titik hijau "Live" berdenyut dua kali, lalu diam | Saat kartunya muncul | Menandai bahwa situsnya benar-benar online |
-| 5 | Bingkai dan judul proyek berpindah mulus dari kartu ke halaman detail (View Transitions) | Saat membuka atau menutup detail proyek | Pembaca tetap tahu sedang membuka proyek yang mana |
-| 6 | Penanda pilihan meluncur di tombol ID/EN (pola "pill glide") | Saat diklik | Menunjukkan pilihan yang aktif |
-| 7 | Garis linimasa pengalaman tergambar mengikuti scroll, dan tiap baris menyala saat dilewati | Saat menggulir Pengalaman | Menunjukkan urutan waktu |
-| 8 | Garis progres baca tipis berwarna biru tinta di atas halaman | Di halaman detail proyek | Menunjukkan sisa studi kasus yang belum dibaca |
-| 9 | Panah ↗ bergeser 2 px dan tepi kartu berubah ke warna aksen | Hover dan fokus | Menandai elemen yang bisa diklik |
-
-Aturan teknis:
-
-- Utamakan CSS: `animation-timeline: view()` untuk gerakan 2, 3, dan 7, dan View Transitions API untuk gerakan 5. Library Motion (`motion/react`) hanya dipakai kalau CSS tidak cukup.
-- Kalau browser tidak mendukung animasi berbasis scroll, semua elemen tampil diam dalam keadaan akhirnya. Halaman harus lengkap tanpa animasi.
-- Yang dianimasikan hanya `transform`, `opacity`, `clip-path`, dan `object-position`. Tidak ada animasi yang menggeser layout.
-- Semua gerakan, kecuali perubahan warna, mati kalau perangkat meminta `prefers-reduced-motion: reduce`.
+Semua gerakan, kecuali perubahan warna, mati kalau perangkat meminta `prefers-reduced-motion: reduce`. Kalau browser tidak mendukung animasi berbasis scroll, elemen tampil diam dalam keadaan akhirnya.
 
 ## Nada teks
 

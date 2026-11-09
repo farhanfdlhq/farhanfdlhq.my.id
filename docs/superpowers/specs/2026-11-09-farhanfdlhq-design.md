@@ -2,7 +2,7 @@
 
 Tanggal: 9 November 2026
 Status: draf, menunggu persetujuan
-Mockup: https://claude.ai/artifact/QVgQ1ovueJ5UPccyhtcnKN (versi 6, server di atas papan sirkuit)
+Mockup: https://claude.ai/artifact/QVgQ1ovueJ5UPccyhtcnKN (versi 7, arah C: server terurai di tengah jaringan)
 
 ## Untuk apa dan untuk siapa
 
@@ -129,7 +129,7 @@ Dikerjakan dengan kombinasi style-ui x anti-slop:
 2. **Mockup** sebagai artifact, dicek di lebar 390 px dulu baru desktop, lalu disaring dengan `antislop-ui` dan `antislop-layoutmobile` sebelum ditunjukkan.
 3. **Komponen** diambil dari katalog style-ui UI Components sesuai `DESIGN.md`. Animasi tetap ringan dan menghormati `prefers-reduced-motion`.
 
-Arah visual terbaru ada di `DESIGN.md`: hanya mode gelap, dengan rak server di atas papan sirkuit (WebGL) di belakang seluruh halaman, dan isi halaman ditaruh di panel bergaya lembar spesifikasi.
+Arah visual terbaru ada di `DESIGN.md`: arah C, yaitu server blade 3D yang terurai mengikuti scroll di tengah jaringan node, dengan warna hitam, putih es, dan aksen merah, huruf Archivo Expanded, dan hanya mode gelap.
 
 ## Keputusan
 
