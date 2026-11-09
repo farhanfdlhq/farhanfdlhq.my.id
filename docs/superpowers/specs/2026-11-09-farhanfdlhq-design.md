@@ -1,8 +1,8 @@
 # Desain farhanfdlhq.my.id
 
 Tanggal: 9 November 2026
-Status: draf, menunggu persetujuan
-Mockup: https://claude.ai/artifact/QVgQ1ovueJ5UPccyhtcnKN (versi 8, arah C: meja kerja, PC, dan CPU yang dibongkar)
+Status: disetujui Farhan (9 November 2026)
+Mockup: https://claude.ai/artifact/QVgQ1ovueJ5UPccyhtcnKN (versi 9.4). Sumbernya disimpan di `docs/mockup/` sebagai acuan saat membangun.
 
 ## Untuk apa dan untuk siapa
 
@@ -64,15 +64,15 @@ Proyek lain (LMS BPKP, Billing Hub, aplikasi mobile ISP, dan seterusnya) ditamba
 
 ## Halaman publik
 
-Bahasa bawaan Indonesia di `/`, bahasa Inggris di `/en/`. Setiap halaman punya pasangan bahasanya, ditautkan dengan `hreflang` dan tombol ganti bahasa yang membuka halaman yang sama dalam bahasa lain.
+Bahasa bawaan Indonesia, bahasa Inggris di bawah `/en/`. Setiap halaman punya pasangan bahasanya, ditautkan dengan `hreflang` dan tombol ID/EN yang membuka halaman yang sama dalam bahasa lain.
 
-| Halaman | Isi |
-| --- | --- |
-| Beranda | Hero berisi nama, peran, tombol Lihat proyek, Unduh CV, dan Email (tanpa kalimat pernyataan). Lalu proyek unggulan, Tentang, Pengalaman, Keahlian, dan Kontak dalam panel di atas adegan. |
-| Proyek | Semua proyek terbit, bisa disaring per teknologi. Kartu berisi judul, satu kalimat ringkasan, tangkapan layar bagian hero situsnya, dan tahun. |
-| Detail proyek | Studi kasus lengkap, galeri tangkapan layar, link live dan repo, proyek sebelumnya dan berikutnya. |
-| Tentang | Pengalaman, pendidikan, sertifikasi, keahlian per kelompok, dan tombol Unduh CV. |
-| Kontak | Email, LinkedIn, dan GitHub. Nomor telepon tidak ditampilkan. |
+| Halaman | ID | EN | Isi |
+| --- | --- | --- | --- |
+| Beranda | `/` | `/en/` | Hero (nama, peran, kota, tombol Lihat proyek, Unduh CV, dan Email). Lalu panel Proyek (unggulan), Tentang, Pengalaman (beserta pendidikan dan sertifikasi), Keahlian, dan Kontak, di atas adegan 3D. |
+| Proyek | `/proyek/` | `/en/projects/` | Semua proyek terbit, bisa disaring per teknologi. Kartu berisi judul, satu kalimat ringkasan, tangkapan layar hero situsnya, tahun, peran, stack, dan status. |
+| Detail proyek | `/proyek/<slug>/` | `/en/projects/<slug>/` | Studi kasus lengkap (konteks, peran, masalah, pendekatan, hasil), galeri tangkapan layar, link live dan repo, serta proyek sebelumnya dan berikutnya. |
+
+Tentang dan Kontak menjadi bagian di Beranda (`#tentang`, `#kontak`), bukan halaman sendiri, karena satu halaman yang di-scroll adalah inti adegan 3D-nya (keputusan Claude, mengikuti mockup).
 
 Semua halaman punya judul dan deskripsi SEO per bahasa, gambar OG otomatis per proyek, data terstruktur `Person` (JSON-LD), `sitemap.xml`, dan `robots.txt`.
 
@@ -95,7 +95,9 @@ Polanya sama dengan qiran-blog, supaya skrip deploy, backup, login, dan upload f
 | --- | --- |
 | Framework | Next.js (App Router), TypeScript |
 | Database | SQLite (better-sqlite3), satu file di `DATA_DIR` |
-| Gaya | Tailwind CSS. Komponen dari katalog style-ui (misalnya shadcn/ui) dipakai sesuai `DESIGN.md`. |
+| Gaya | CSS biasa dengan token di `app/globals.css`, diambil langsung dari mockup. Tailwind tidak dipakai karena seluruh gaya sudah jadi di mockup dan tinggal dipindahkan (keputusan Claude). |
+| Adegan 3D | three.js (paket npm), kode dari `docs/mockup/desk.js` yang dipecah per bagian |
+| Huruf | Archivo dan IBM Plex Mono di-host sendiri lewat paket `@fontsource`, jadi tidak ada request ke Google Fonts |
 | Login | Password di-hash, sesi di cookie `HttpOnly` `Secure` `SameSite=Lax`, batas percobaan login per IP (IP asli dari `CF-Connecting-IP`) |
 | Gambar | sharp, hasil WebP |
 | Tes | Vitest untuk logika, Playwright untuk e2e |
@@ -133,14 +135,13 @@ Arah visual terbaru ada di `DESIGN.md`: arah C, yaitu meja kerja 3D yang kameran
 
 ## Keputusan
 
-- Proyek awal: Elenmor (Andiamo), Agendain, qiran.my.id, dan bynana.my.id. Proyek lain diisi lewat admin.
+- Proyek awal: Elenmor (Andiamo) di elenmor.id, Agendain, qiran.my.id, dan bynana.my.id. Proyek lain diisi lewat admin.
 - Bahasa bawaan: Indonesia.
-- Kontak: email saja, ditambah LinkedIn dan GitHub. Nomor WhatsApp tidak tampil di situs.
-
-## Pertanyaan terbuka
-
-1. **Arah visual:** `DESIGN.md` dibuat sendiri lewat generator di style-ui, atau ditulis dari referensi situs yang Farhan suka?
-2. **Peran di judul:** "Software Engineer" saja, atau "UI/UX | Software Engineer" seperti di CV?
-3. **CV bahasa Inggris:** perlu versi EN untuk halaman `/en/`?
-4. **Foto diri:** dipakai atau tidak?
-5. **Link repo:** qiran dan bynana repo-nya publik. Apakah Andiamo dan Agendain punya repo yang boleh ditautkan, atau cukup link situs live saja?
+- Kontak: email, LinkedIn, dan GitHub. Nomor telepon tidak tampil di situs.
+- Arah visual: `DESIGN.md` (arah C, meja kerja, PC, dan CPU yang dibongkar), mockup versi 9.4.
+- Peran di judul: "UI/UX | Software Engineer".
+- Foto diri: tidak dipakai.
+- Database: SQLite (dipilih Farhan, bukan MySQL).
+- CV: bisa lebih dari satu file. Setiap file punya label dan bahasa (ID, EN, atau keduanya). Tombol Unduh CV memakai file utama untuk bahasa halaman. Kalau tidak ada file khusus bahasa itu, tombol memakai file utama yang mana saja.
+- Link repo: kolom opsional per proyek. Saat ini hanya qiran dan bynana yang diisi. Agendain dan Andiamo cukup memakai link situs live sampai Farhan mengisinya.
+- Logo: huruf f dengan titik merah, file di `brand/`.

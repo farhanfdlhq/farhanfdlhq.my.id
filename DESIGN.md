@@ -40,11 +40,11 @@ Tombol utama berwarna putih es dengan teks hitam. Link berwarna putih es dengan 
 ## Layout
 
 - Adegan 3D menempel di belakang seluruh halaman (`position: sticky`).
-- **Hero:** nama raksasa di kiri bawah, lalu satu kalimat, tombol "Lihat proyek", serta link Unduh CV dan Email. Server berada di kanan atas.
+- **Hero:** nama di kiri bawah, lalu satu kalimat, tombol "Lihat proyek", serta link Unduh CV dan Email. Meja kerja berada di kanan.
 - **Bagian lain:** Proyek, Tentang, Pengalaman, Keahlian, dan Kontak masing-masing ada di panel hitam transparan.
   - Setiap panel diberi nomor merah dan judul lebar.
-  - Di desktop, panel selain Proyek dibatasi 600 px di sisi kiri supaya server terlihat di kanan.
-  - Jarak antarpanel 34svh.
+  - Di desktop, semua panel ada di kolom kiri, maksimal 520 px, supaya meja dan PC terlihat di kanan.
+  - Jarak antarpanel dijelaskan di bagian "Bagian yang menyatu".
 - **HUD:** pojok kanan bawah adegan selalu menampilkan lapisan yang sedang terbuka, misalnya "03 CPU".
 - **Panel kaca ala Liquid Glass:**
   - Radius 16 px.

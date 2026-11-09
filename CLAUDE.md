@@ -33,7 +33,7 @@ Kombinasi utama untuk semua UI dan teks.
   - `antislop-human` untuk foto diri, testimoni, dan aksesibilitas
   - `antislop-code` untuk komentar kode
 - **style-ui** ([style.ai.id](https://style.ai.id)) adalah sumber arah desain. anti-slop hanya membuang slop dan tidak menentukan arah, jadi arahnya ditulis di `DESIGN.md`, disusun dengan bantuan generator Design.md dari katalog style-ui.
-- Komponen diambil dari katalog style-ui UI Components (shadcn/ui, Motion Primitives, dan sejenisnya) sesuai `DESIGN.md`, lalu tetap disaring anti-slop. Animasi ringan dan menghormati `prefers-reduced-motion`.
+- Gaya dan komponen mengikuti mockup di `docs/mockup/` dan `DESIGN.md`, lalu tetap disaring anti-slop. Animasi ringan dan menghormati `prefers-reduced-motion`.
 - Kalau `DESIGN.md` meminta sesuatu yang dianggap slop oleh anti-slop, sebutkan elemen dan aturannya, lalu tanyakan ke Farhan. Jangan diam-diam mengikuti salah satunya.
 - **codegraph** dipasang setelah ada kode, untuk menelusuri kode.
 - **logo-generator** (`.claude/skills/logo-generator`, dari op7418/logo-generator-skill, MIT) untuk logo dan favicon. Dikerjakan setelah `DESIGN.md` ada, supaya logo mengikuti warna dan huruf situs, dan hasilnya tetap disaring anti-slop. Bagian SVG dan PNG jalan tanpa API key. Gambar showcase lewat Gemini (Nano Banana) butuh `GEMINI_API_KEY` dan sifatnya opsional. Key itu jangan pernah masuk repo atau chat.
@@ -60,7 +60,7 @@ Kombinasi utama untuk semua UI dan teks.
 
 ## Teknis
 
-- Next.js (App Router) + TypeScript + SQLite (better-sqlite3) + Tailwind, Node v24. Konfigurasi dari `.env.production`, dengan port 3300.
-- Sebelum commit: lint, typecheck, `npm test` (Vitest), dan `npm run test:e2e` (Playwright).
+- Next.js (App Router) + TypeScript + SQLite (better-sqlite3) + CSS biasa dengan token, three.js untuk adegan 3D, Node v24. Konfigurasi dari `.env.production`, dengan port 3300.
+- Sebelum commit: `npm run typecheck`, `npm test` (Vitest), dan `npm run test:e2e` (Playwright).
 - Kerja di branch `dev`. Jangan merge ke `main` tanpa diminta.
 - Jangan menulis secret di repo, termasuk password tes. Buat acak saat tes jalan.
