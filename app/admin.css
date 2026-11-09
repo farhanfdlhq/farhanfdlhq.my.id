@@ -1,0 +1,30 @@
+/* Gaya panel admin: gelap seperti situs, tanpa adegan 3D. Kontrol tidak memakai tampilan bawaan browser. */
+.admin { min-height: 100svh; background: var(--bg); color: var(--text); font-family: var(--sans); }
+.admin a { color: var(--text); }
+.admin h1 { margin: 0 0 6px; font-weight: 800; font-stretch: 125%; font-variation-settings: "wdth" 125; text-transform: uppercase; font-size: clamp(1.5rem, 5vw, 2.2rem); line-height: 1; }
+.admin-sub { margin: 0 0 24px; color: var(--muted); }
+.form { display: grid; gap: 18px; max-width: 720px; }
+.field { display: grid; gap: 6px; min-width: 0; }
+.field label, .field .label { font-size: 15px; font-weight: 600; }
+.field .hint { font-size: 14px; color: var(--muted); margin: 0; }
+.field input, .field textarea, .field .control { width: 100%; font: 400 16px/1.5 var(--sans); color: var(--text); background: #0C0D0F; border: 1px solid var(--line); border-radius: 6px; padding: 11px 13px; }
+.field textarea { min-height: 120px; resize: vertical; }
+.field input:focus, .field textarea:focus { outline: 2px solid var(--text); outline-offset: 1px; }
+.field input[aria-invalid="true"], .field textarea[aria-invalid="true"] { border-color: var(--red); }
+.field-error { margin: 0; font-size: 14px; color: #FF8A7D; }
+.form-msg { margin: 0; padding: 12px 14px; border-radius: 6px; font-size: 15px; }
+.form-msg.err { background: rgba(255, 77, 61, .14); color: #FFB3AA; }
+.form-msg.ok { background: rgba(111, 207, 151, .14); color: #B6F0CD; }
+.form-note { margin: 0; color: var(--muted); font-size: 14px; }
+.btn-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.btn-quiet { background: transparent; color: var(--text); border: 1px solid var(--line); }
+.btn-danger { background: transparent; color: #FF8A7D; border: 1px solid currentColor; }
+.btn-small { min-height: 36px; padding: 0 14px; font-size: 14px; }
+.btn:disabled { opacity: .6; cursor: progress; }
+.pw-wrap { position: relative; }
+.pw-wrap input { padding-right: 52px; }
+.pw-toggle { position: absolute; right: 4px; top: 50%; transform: translateY(-50%); width: 44px; height: 40px; display: grid; place-items: center; border: 0; border-radius: 4px; background: transparent; color: var(--muted); cursor: pointer; }
+.pw-toggle:hover { color: var(--text); }
+.login { min-height: 100svh; display: grid; place-items: center; padding: 24px 16px; }
+.login-card { width: 100%; max-width: 420px; }
+.login-mark { display: inline-flex; margin-bottom: 20px; }
