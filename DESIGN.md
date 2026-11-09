@@ -6,7 +6,7 @@ Arah visual untuk website pribadi Farhan. Dipakai bersama skill anti-slop: file 
 
 **Teknis dan presisi.** Kesannya mirip lembar spesifikasi yang rapi, bukan kostum "hacker". Rasa teknisnya datang dari isi yang nyata: tanggal, peran, stack, angka dari CV, dan tangkapan layar asli dengan domainnya. Efek visual tidak dipakai untuk membangun kesan itu.
 
-Pilihan Farhan (9 November 2026): kesan teknis dan presisi, mode gelap sebagai bawaan, aksen biru tinta, nama ditampilkan sebelum proyek, huruf IBM Plex, gerak minimal, tanpa foto diri, dan judul peran "UI/UX | Software Engineer".
+Pilihan Farhan (9 November 2026): kesan teknis dan presisi, mode gelap sebagai bawaan, aksen biru tinta, nama ditampilkan sebelum proyek, huruf IBM Plex, gerak sedang dan terkoreografi (direvisi dari minimal), tanpa foto diri, dan judul peran "UI/UX | Software Engineer".
 
 ## Yang tidak dipakai
 
@@ -69,7 +69,26 @@ Label memakai Plex Mono berwarna `--muted`, isinya memakai Plex Sans. Blok ini m
 
 ## Gerak
 
-Minimal. Hanya ada transisi warna dan garis bawah saat hover dan fokus (150 ms), serta transisi halus saat pindah halaman. Tidak ada animasi saat scroll. Semua gerak mati kalau perangkat meminta `prefers-reduced-motion: reduce`.
+Sedang dan terkoreografi. Farhan meminta animasi yang bagus (9 November 2026, revisi dari "minimal"). Setiap gerakan punya tujuan yang ditulis di bawah ini. Tidak ada yang berputar terus, dan tidak semua elemen bergerak bersamaan. Referensinya dari katalog style-ui: Motion Primitives, Kinetics, dan Transitions.dev.
+
+| # | Gerakan | Kapan | Tujuan |
+| --- | --- | --- | --- |
+| 1 | Kata-kata nama naik dari balik garis, lalu peran, ringkasan, dan tombol muncul berurutan (sekitar 900 ms) | Sekali saat Beranda dibuka | Mengarahkan mata dari nama ke tombol Unduh CV |
+| 2 | Tangkapan layar halaman penuh bergulir di dalam bingkai mengikuti scroll halaman | Saat kartu proyek dilewati | Pengunjung melihat seluruh situs proyek tanpa membukanya |
+| 3 | Kartu proyek muncul pelan dan naik 16 px | Sekali saat pertama masuk layar | Memberi ritme saat membaca daftar proyek |
+| 4 | Titik hijau "Live" berdenyut dua kali, lalu diam | Saat kartunya muncul | Menandai bahwa situsnya benar-benar online |
+| 5 | Bingkai dan judul proyek berpindah mulus dari kartu ke halaman detail (View Transitions) | Saat membuka atau menutup detail proyek | Pembaca tetap tahu sedang membuka proyek yang mana |
+| 6 | Penanda pilihan meluncur di tombol ID/EN dan Gelap/Terang (pola "pill glide") | Saat diklik | Menunjukkan pilihan yang aktif |
+| 7 | Garis linimasa pengalaman tergambar mengikuti scroll, dan tiap baris menyala saat dilewati | Saat menggulir Pengalaman | Menunjukkan urutan waktu |
+| 8 | Garis progres baca tipis berwarna biru tinta di atas halaman | Di halaman detail proyek | Menunjukkan sisa studi kasus yang belum dibaca |
+| 9 | Panah ↗ bergeser 2 px dan tepi kartu berubah ke warna aksen | Hover dan fokus | Menandai elemen yang bisa diklik |
+
+Aturan teknis:
+
+- Utamakan CSS: `animation-timeline: view()` untuk gerakan 2, 3, dan 7, dan View Transitions API untuk gerakan 5. Library Motion (`motion/react`) hanya dipakai kalau CSS tidak cukup.
+- Kalau browser tidak mendukung animasi berbasis scroll, semua elemen tampil diam dalam keadaan akhirnya. Halaman harus lengkap tanpa animasi.
+- Yang dianimasikan hanya `transform`, `opacity`, `clip-path`, dan `object-position`. Tidak ada animasi yang menggeser layout.
+- Semua gerakan, kecuali perubahan warna, mati kalau perangkat meminta `prefers-reduced-motion: reduce`.
 
 ## Nada teks
 
