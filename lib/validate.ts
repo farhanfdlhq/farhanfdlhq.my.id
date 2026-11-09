@@ -44,3 +44,25 @@ export function validateForm(form: HTMLFormElement): boolean {
   first?.focus();
   return !first;
 }
+
+/** Tampilkan pesan error dari server di bawah kolom yang namanya cocok. Kolom pertama yang salah difokuskan. */
+export function showServerErrors(form: HTMLFormElement, errors: Record<string, string>): void {
+  let first: HTMLElement | null = null;
+  for (const [name, msg] of Object.entries(errors)) {
+    const el = form.querySelector<HTMLInputElement | HTMLTextAreaElement>(`[name="${CSS.escape(name)}"]`);
+    if (!el) continue;
+    clear(el);
+    const id = `err-${Math.random().toString(36).slice(2, 8)}`;
+    const p = document.createElement("p");
+    p.className = "field-error";
+    p.id = id;
+    p.textContent = msg;
+    (el.closest(".pw-wrap") ?? el).insertAdjacentElement("afterend", p);
+    el.setAttribute("aria-invalid", "true");
+    el.setAttribute("data-err-id", id);
+    el.setAttribute("aria-describedby", [el.getAttribute("aria-describedby"), id].filter(Boolean).join(" "));
+    el.addEventListener("input", () => clear(el), { once: true });
+    first ??= el;
+  }
+  first?.focus();
+}

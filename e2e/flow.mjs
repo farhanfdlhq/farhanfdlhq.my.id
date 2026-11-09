@@ -82,6 +82,42 @@ try {
   check("transisi antarhalaman diaktifkan lewat CSS", await page.evaluate(() => [...document.styleSheets].some((s) => { try { return [...s.cssRules].some((r) => r.cssText.includes("@view-transition")); } catch { return false; } })));
   await ctx.close();
 
+  // ---------- Admin proyek ----------
+  {
+    const actx = await browser.newContext({ viewport: { width: 1280, height: 900 } });
+    const ap = await actx.newPage();
+    watch(ap);
+    await ap.goto(BASE + "/admin/");
+    check("admin tanpa login diarahkan ke halaman masuk", ap.url().includes("/admin/masuk/"));
+    await ap.fill("#email", process.env.ADMIN_EMAIL);
+    await ap.fill("#password", process.env.ADMIN_PW);
+    await ap.click("button[type=submit]");
+    await ap.waitForURL(BASE + "/admin/");
+    check("admin: login berhasil", (await ap.locator("h1").textContent()) === "Proyek");
+    await ap.click("text=Proyek baru");
+    await ap.fill("#title", "Uji Draf");
+    await ap.fill("#summary_id", "Proyek uji yang hanya berisi teks bahasa Indonesia.");
+    await ap.click("button[type=submit]:has-text('Buat proyek')");
+    await ap.waitForURL(/\/admin\/proyek\/\d+\/$/);
+    const draft = await ap.request.get(BASE + "/proyek/uji-draf/");
+    check("admin: proyek draf belum tampil (404)", draft.status() === 404, String(draft.status()));
+    await ap.goto(BASE + "/admin/");
+    const row = ap.locator(".admin-row", { hasText: "Uji Draf" });
+    check("admin: lencana Draf dan EN kosong", (await row.locator(".badge", { hasText: "Draf" }).count()) === 1 && (await row.locator(".badge", { hasText: "EN kosong" }).count()) === 1);
+    await row.locator("button", { hasText: "Terbitkan" }).click();
+    await ap.locator(".admin-row", { hasText: "Uji Draf" }).locator(".badge", { hasText: "Terbit" }).waitFor();
+    const pub = await ap.request.get(BASE + "/proyek/uji-draf/");
+    check("admin: setelah terbit halaman 200", pub.status() === 200, String(pub.status()));
+    const en = await ap.request.get(BASE + "/en/projects/uji-draf/");
+    check("admin: halaman EN memakai teks ID", en.status() === 200 && (await en.text()).includes("hanya berisi teks bahasa Indonesia"));
+    await ap.locator(".admin-row", { hasText: "Uji Draf" }).locator("button", { hasText: "Hapus" }).click();
+    await ap.locator("dialog.confirm button", { hasText: "Hapus" }).click();
+    await ap.locator(".admin-row", { hasText: "Uji Draf" }).waitFor({ state: "detached" });
+    const gone = await ap.request.get(BASE + "/proyek/uji-draf/");
+    check("admin: proyek terhapus", gone.status() === 404);
+    await actx.close();
+  }
+
   // ---------- Adegan 3D ----------
   const glBrowser = await chromium.launch({ args: ["--use-gl=angle", "--use-angle=swiftshader", "--enable-unsafe-swiftshader"] });
   try {
