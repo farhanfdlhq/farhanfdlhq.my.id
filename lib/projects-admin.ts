@@ -10,8 +10,8 @@ export type FormResult = { ok: true; id?: number } | { ok: false; errors: Record
 export const BI_FIELDS = ["summary", "role", "period", "context", "problem", "approach", "result"] as const;
 const TEXT_LIMIT = 8000;
 
-const str = (v: unknown) => String(v ?? "").trim();
-const validUrl = (u: string) => !u || /^https?:\/\/[^\s]+$/i.test(u);
+export const str = (v: unknown) => String(v ?? "").trim();
+export const validUrl = (u: string) => !u || /^https?:\/\/[^\s]+$/i.test(u);
 
 /** Kolom yang isian EN-nya kosong padahal ID-nya terisi. */
 export function missingEn(row: Partial<ProjectRow>): string[] {

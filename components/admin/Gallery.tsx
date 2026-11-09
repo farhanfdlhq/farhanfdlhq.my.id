@@ -19,7 +19,7 @@ export function Gallery({ projectId, hero, images }: { projectId: number; hero: 
       <ol className="gal-admin">
         {images.map((im, i) => (
           <li key={im.id} className="gal-item">
-            <img src={im.url} alt="" width={240} height={150} loading="lazy" />
+            <img src={im.url} alt="" width={240} height={150} />
             <div className="gal-body">
               {im.url === hero ? <span className="badge ok">Gambar utama</span> : null}
               <ActionForm action={saveImageAltAction} className="form alt-form">

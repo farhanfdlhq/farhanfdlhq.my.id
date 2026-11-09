@@ -115,6 +115,36 @@ try {
     await ap.locator(".admin-row", { hasText: "Uji Draf" }).waitFor({ state: "detached" });
     const gone = await ap.request.get(BASE + "/proyek/uji-draf/");
     check("admin: proyek terhapus", gone.status() === 404);
+    // Profil
+    await ap.goto(BASE + "/admin/profil/");
+    const oldRole = await ap.inputValue("#role");
+    await ap.fill("#role", "Software Engineer");
+    await ap.click("button[type=submit]:has-text('Simpan profil')");
+    await ap.locator(".toast", { hasText: "Profil disimpan." }).waitFor();
+    const heroRole = async (path) => { const r = await ap.request.get(BASE + path); return /<b>Software Engineer<\/b>/.test(await r.text()); };
+    check("profil: peran baru tampil di hero ID dan EN", (await heroRole("/")) && (await heroRole("/en/")));
+    await ap.fill("#email", "bukan-email");
+    await ap.click("button[type=submit]:has-text('Simpan profil')");
+    const emailErr = await ap.locator("#email[aria-invalid=true]").count();
+    check("profil: email salah ditandai di kolomnya", emailErr === 1);
+    await ap.goto(BASE + "/admin/profil/");
+    await ap.fill("#role", oldRole);
+    await ap.click("button[type=submit]:has-text('Simpan profil')");
+    await ap.locator(".toast", { hasText: "Profil disimpan." }).waitFor();
+    check("profil: peran dikembalikan", (await ap.request.get(BASE + "/").then((r) => r.text())).includes(`<b>${oldRole.replace(/&/g, "&amp;")}</b>`), oldRole);
+    // Riwayat
+    await ap.goto(BASE + "/admin/riwayat/");
+    const sec = ap.locator("#certification");
+    await sec.locator(".add-box > summary").click();
+    await sec.locator(".add-box input[name=name]").fill("Sertifikat Uji E2E");
+    await sec.locator(".add-box button[type=submit]").click();
+    await sec.locator(".list-item", { hasText: "Sertifikat Uji E2E" }).waitFor();
+    check("riwayat: sertifikasi baru tampil di Beranda", (await ap.request.get(BASE + "/").then((r) => r.text())).includes("Sertifikat Uji E2E"));
+    await sec.locator(".list-item", { hasText: "Sertifikat Uji E2E" }).locator("button", { hasText: "Hapus" }).click();
+    await ap.locator("dialog.confirm button", { hasText: "Hapus" }).click();
+    await sec.locator(".list-item", { hasText: "Sertifikat Uji E2E" }).waitFor({ state: "detached" });
+    check("riwayat: sertifikasi terhapus", !(await ap.request.get(BASE + "/").then((r) => r.text())).includes("Sertifikat Uji E2E"));
+
     // Gambar dan CV
     const png = Buffer.from("iVBORw0KGgoAAAANSUhEUgAAAAgAAAAGCAIAAABxZ0isAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAAEUlEQVQImWNQWpWGFTEMpAQAw+Y5YaYB/O4AAAAASUVORK5CYII=", "base64");
     await ap.goto(BASE + "/admin/");
