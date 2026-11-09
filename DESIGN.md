@@ -65,7 +65,7 @@ Revisi 9 November 2026 (ide Farhan): adegan dimulai dari meja kerja, lalu kamera
   - Router dengan lampu hijau dan dua antena.
   - Strip LED RGB di tepi depan meja.
   - Casing PC dengan lampu power merah, ventilasi, dan dua strip RGB di depan.
-  - Headset RGB diletakkan di atas casing, dengan earcup bertumpu di permukaan atas, bantalan, dan cincin RGB di sisi luar.
+  - Headset RGB tergantung di stand-nya. Satu paket headset dan stand berdiri di atas casing. Earcup punya bantalan dan cincin RGB di sisi luar.
   - Nama domain `farhanfdlhq.my.id` timbul samar dan menempel di tengah panel samping casing (permintaan Farhan). Ini satu-satunya teks di dalam adegan, dan ikut bergeser saat panel dibuka.
 - **Isi PC:** motherboard, CPU (substrat berpin, IHS, dan die merah yang bercahaya), pendingin CPU dengan kipas, 4 RAM, GPU dengan dua kipas, PSU, SSD, dan dua kipas casing. Semua kipas berputar dan cincinnya RGB. RAM punya lampu RGB di atasnya.
 - **Jaringan:**
