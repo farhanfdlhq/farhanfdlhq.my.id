@@ -36,6 +36,7 @@ Kombinasi utama untuk semua UI dan teks.
 - Komponen diambil dari katalog style-ui UI Components (shadcn/ui, Motion Primitives, dan sejenisnya) sesuai `DESIGN.md`, lalu tetap disaring anti-slop. Animasi ringan dan menghormati `prefers-reduced-motion`.
 - Kalau `DESIGN.md` meminta sesuatu yang dianggap slop oleh anti-slop, sebutkan elemen dan aturannya, lalu tanyakan ke Farhan. Jangan diam-diam mengikuti salah satunya.
 - **codegraph** dipasang setelah ada kode, untuk menelusuri kode.
+- **logo-generator** (`.claude/skills/logo-generator`, dari op7418/logo-generator-skill, MIT) untuk logo dan favicon. Dikerjakan setelah `DESIGN.md` ada, supaya logo mengikuti warna dan huruf situs, dan hasilnya tetap disaring anti-slop. Bagian SVG dan PNG jalan tanpa API key. Gambar showcase lewat Gemini (Nano Banana) butuh `GEMINI_API_KEY` dan sifatnya opsional. Key itu jangan pernah masuk repo atau chat.
 
 ## Desain
 
