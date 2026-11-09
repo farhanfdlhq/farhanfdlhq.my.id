@@ -19,7 +19,7 @@ export function CvUploadForm() {
           <label className="choice"><input type="radio" name="lang" value="both" /><span>Dua bahasa</span></label>
         </div>
       </fieldset>
-      <FileInput label="File PDF" accept="application/pdf,.pdf" hint="PDF saja, maksimal 10 MB." />
+      <FileInput maxBytes={10 * 1024 * 1024} tooBig="PDF lebih dari 10 MB. Kecilkan dulu sebelum diunggah." label="File PDF" accept="application/pdf,.pdf" hint="PDF saja, maksimal 10 MB." />
       <div><button className="btn primary" type="submit">Unggah CV</button></div>
     </ActionForm>
   );

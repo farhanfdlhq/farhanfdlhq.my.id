@@ -6,7 +6,8 @@ export function PeekButton({ labelOn, labelOff }: { labelOn: string; labelOff: s
   const [ready, setReady] = useState(false);
   const [on, setOn] = useState(false);
   useEffect(() => {
-    const check = () => setReady(document.getElementById("site")?.dataset.gl === "on");
+    // Saat pengguna minta kurangi gerak, adegan diam, jadi tidak ada yang perlu ditonton
+    const check = () => setReady(document.getElementById("site")?.dataset.gl === "on" && !matchMedia("(prefers-reduced-motion: reduce)").matches);
     check();
     window.addEventListener("fdq:gl", check);
     return () => window.removeEventListener("fdq:gl", check);

@@ -4,7 +4,9 @@ import { allTech, publishedProjects } from "@/lib/content";
 import { projectsPath } from "@/lib/paths";
 import { t, type Lang } from "@/lib/i18n";
 
-export function ProjectsView({ lang, tech }: { lang: Lang; tech?: string }) {
+export function ProjectsView({ lang, tech: raw }: { lang: Lang; tech?: string | string[] }) {
+  // ?tech=a&tech=b menghasilkan array; yang dipakai yang pertama
+  const tech = Array.isArray(raw) ? raw[0] : raw;
   const techs = allTech();
   const active = tech && techs.some((x) => x.toLowerCase() === tech.toLowerCase()) ? tech : undefined;
   const list = publishedProjects({ tech: active });

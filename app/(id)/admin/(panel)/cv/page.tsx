@@ -1,3 +1,4 @@
+import { requireAdmin } from "@/lib/auth";
 import { AdminNav } from "@/components/admin/AdminNav";
 import { ConfirmButton } from "@/components/admin/ConfirmButton";
 import { CvUploadForm } from "@/components/admin/CvUploadForm";
@@ -9,7 +10,9 @@ export const metadata = { title: "CV" };
 const LANG = { id: "Indonesia", en: "Inggris", both: "Dua bahasa" } as const;
 const date = (ms: number) => new Intl.DateTimeFormat("id-ID", { day: "numeric", month: "short", year: "numeric", timeZone: "Asia/Jakarta" }).format(ms);
 
-export default function CvAdmin() {
+export default async function CvAdmin() {
+  // Layout tidak cukup: navigasi RSC bisa melewati layout, jadi setiap halaman memeriksa login sendiri
+  await requireAdmin();
   const list = allCvs();
   return (
     <>

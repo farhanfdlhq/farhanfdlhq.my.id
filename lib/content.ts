@@ -75,6 +75,11 @@ export function skills(lang: Lang) {
 }
 
 /** CV utama untuk bahasa halaman: file utama berbahasa itu (atau "both"), lalu file utama mana saja. */
+/** CV yang boleh diunduh publik: hanya yang berstatus utama. CV lama tidak bisa ditebak lewat /cv/1/, /cv/2/, dan seterusnya. */
+export function publicCv(id: number): CvRow | null {
+  return (getDb().prepare("SELECT * FROM cvs WHERE id = ? AND is_primary = 1").get(id) as CvRow | undefined) ?? null;
+}
+
 export function primaryCv(lang: Lang): CvRow | null {
   const db = getDb();
   return (db.prepare("SELECT * FROM cvs WHERE is_primary = 1 AND lang IN (?, 'both') ORDER BY sort, id LIMIT 1").get(lang) as CvRow | undefined)

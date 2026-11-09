@@ -1,3 +1,4 @@
+import { requireAdmin } from "@/lib/auth";
 import { AdminNav } from "@/components/admin/AdminNav";
 import { ActionForm } from "@/components/admin/ActionForm";
 import { LangFields } from "@/components/admin/LangFields";
@@ -6,7 +7,9 @@ import { getSetting, type SettingKey } from "@/lib/settings";
 
 export const metadata = { title: "Profil" };
 
-export default function ProfileAdmin() {
+export default async function ProfileAdmin() {
+  // Layout tidak cukup: navigasi RSC bisa melewati layout, jadi setiap halaman memeriksa login sendiri
+  await requireAdmin();
   const s = (k: SettingKey) => getSetting(k);
   const pair = (k: "hero_line" | "about" | "seo_title" | "seo_desc") => ({ id: s(`${k}_id`), en: s(`${k}_en`) });
   return (

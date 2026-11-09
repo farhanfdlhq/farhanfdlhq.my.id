@@ -1,9 +1,12 @@
+import { requireAdmin } from "@/lib/auth";
 import { AdminNav } from "@/components/admin/AdminNav";
 import { ListEditor } from "@/components/admin/ListEditor";
 
 export const metadata = { title: "Riwayat" };
 
-export default function HistoryAdmin() {
+export default async function HistoryAdmin() {
+  // Layout tidak cukup: navigasi RSC bisa melewati layout, jadi setiap halaman memeriksa login sendiri
+  await requireAdmin();
   return (
     <>
       <AdminNav current="/admin/riwayat/" />

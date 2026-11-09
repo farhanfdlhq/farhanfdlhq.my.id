@@ -162,15 +162,17 @@ cat /www/server/nginx/conf/cloudflare-real-ip.conf
 2. Blok **location /** (di blok server baris ini diabaikan):
    ```nginx
    proxy_set_header X-Forwarded-Proto $scheme;
+   proxy_set_header X-Real-IP $remote_addr;
    ```
+   Baris `X-Real-IP` wajib ada. Aplikasi memercayai header ini lebih dulu untuk menghitung batas login. Kalau Nginx tidak mengisinya, pengunjung bisa mengirim nilai palsu.
 
 Cek:
 
 ```bash
-nginx -t && grep -rn "Forwarded-Proto\|client_max_body_size\|cloudflare-real-ip" /www/server/panel/vhost/nginx/ | grep -i farhanfdlhq
+nginx -t && grep -rn "Forwarded-Proto\|X-Real-IP\|client_max_body_size\|cloudflare-real-ip" /www/server/panel/vhost/nginx/ | grep -i farhanfdlhq
 ```
 
-Hasil yang benar: `test is successful` dan tiga baris grep. Peringatan `protocol options redefined` aman diabaikan.
+Hasil yang benar: `test is successful` dan baris grep untuk keempatnya. Kalau `X-Real-IP` muncul dua kali (satu dari aaPanel), tidak apa-apa. Peringatan `protocol options redefined` aman diabaikan.
 
 ## 5. Nyalakan Cloudflare
 

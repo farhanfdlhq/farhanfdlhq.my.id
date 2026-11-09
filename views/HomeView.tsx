@@ -1,3 +1,4 @@
+import { lines } from "@/lib/text";
 import { PublicShell } from "@/components/site/PublicShell";
 import { ProjectCard } from "@/components/site/ProjectCard";
 import { CopyEmail } from "@/components/site/CopyEmail";
@@ -46,7 +47,7 @@ export function HomeView({ lang }: { lang: Lang }) {
         <div className="beat" id="beat-open" aria-hidden="true" />
         <section aria-labelledby="h-about" id="tentang">
           <h2 data-n="02" id="h-about">{t(lang, "about")}</h2>
-          <p className="about">{me.about}</p>
+          {lines(me.about).map((l, i) => <p className="about" key={i}>{l}</p>)}
         </section>
 
         <div className="beat" id="beat-explode" aria-hidden="true" />

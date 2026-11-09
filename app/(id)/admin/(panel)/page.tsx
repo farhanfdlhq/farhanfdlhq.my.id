@@ -1,3 +1,4 @@
+import { requireAdmin } from "@/lib/auth";
 import { AdminNav } from "@/components/admin/AdminNav";
 import { ConfirmButton } from "@/components/admin/ConfirmButton";
 import { allProjectsForAdmin, missingEn } from "@/lib/projects-admin";
@@ -6,7 +7,9 @@ import { projectPath } from "@/lib/paths";
 
 export const metadata = { title: "Proyek" };
 
-export default function AdminProjects() {
+export default async function AdminProjects() {
+  // Layout tidak cukup: navigasi RSC bisa melewati layout, jadi setiap halaman memeriksa login sendiri
+  await requireAdmin();
   const list = allProjectsForAdmin();
   return (
     <>

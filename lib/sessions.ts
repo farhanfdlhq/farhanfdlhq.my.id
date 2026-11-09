@@ -32,12 +32,21 @@ export function deleteSession(token: string) {
   getDb().prepare("DELETE FROM sessions WHERE token_hash = ?").run(hashToken(token));
 }
 
-export function tooManyAttempts(key: string): boolean {
+export function tooManyAttempts(key: string, max = MAX_ATTEMPTS): boolean {
   const db = getDb();
   const since = Date.now() - WINDOW_MS;
   db.prepare("DELETE FROM login_attempts WHERE at < ?").run(since);
   const n = (db.prepare("SELECT COUNT(*) AS n FROM login_attempts WHERE key = ? AND at >= ?").get(key, since) as { n: number }).n;
-  return n >= MAX_ATTEMPTS;
+  return n >= max;
+}
+
+/**
+ * Batas per IP 5, batas per akun 20. Email admin tampil di situs, jadi batas per akun yang sama ketatnya
+ * membuat siapa pun bisa mengunci pemilik akun dari IP mana saja.
+ */
+export const ACCOUNT_MAX_ATTEMPTS = 20;
+export function loginLimited(ip: string, email: string): boolean {
+  return tooManyAttempts(`login:${ip}`) || tooManyAttempts(`akun:${email}`, ACCOUNT_MAX_ATTEMPTS);
 }
 
 export function recordFailure(key: string) {

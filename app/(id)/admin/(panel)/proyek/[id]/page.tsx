@@ -1,3 +1,4 @@
+import { requireAdmin } from "@/lib/auth";
 import { notFound } from "next/navigation";
 import { AdminNav } from "@/components/admin/AdminNav";
 import { ProjectForm } from "@/components/admin/ProjectForm";
@@ -8,6 +9,8 @@ import { projectImages } from "@/lib/content";
 export const metadata = { title: "Proyek" };
 
 export default async function EditProject({ params }: { params: Promise<{ id: string }> }) {
+  // Layout tidak cukup: navigasi RSC bisa melewati layout, jadi setiap halaman memeriksa login sendiri
+  await requireAdmin();
   const { id } = await params;
   const p = id === "baru" ? null : projectById(Number(id));
   if (id !== "baru" && !p) notFound();

@@ -1,4 +1,5 @@
 /** Mengisi data awal dari CV. Jalankan: npm run seed (aman diulang). */
+try { process.loadEnvFile(".env.production"); } catch {}
 import fs from "node:fs";
 import path from "node:path";
 import { uploadsDir } from "@/lib/db";

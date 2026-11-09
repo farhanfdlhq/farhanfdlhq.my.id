@@ -13,7 +13,7 @@ export function Gallery({ projectId, hero, images }: { projectId: number; hero: 
       {hero ? <figure className="hero-now"><img src={hero} alt="" /><figcaption>Gambar utama sekarang</figcaption></figure> : <p className="muted">Belum ada gambar utama.</p>}
       <ActionForm action={uploadProjectImage} className="form upload-form">
         <input type="hidden" name="project_id" value={projectId} />
-        <FileInput label="Tambah gambar" accept="image/jpeg,image/png,image/webp" image hint="JPG, PNG, atau WebP, maksimal 12 MB. Disimpan sebagai WebP selebar 1600 px, data lokasi di foto dibuang." />
+        <FileInput maxBytes={12 * 1024 * 1024} tooBig="Foto lebih dari 12 MB. Kecilkan dulu atau pilih foto lain." label="Tambah gambar" accept="image/jpeg,image/png,image/webp" image hint="JPG, PNG, atau WebP, maksimal 12 MB. Disimpan sebagai WebP selebar 1600 px, data lokasi di foto dibuang." />
         <div><button className="btn primary" type="submit">Unggah</button></div>
       </ActionForm>
       <ol className="gal-admin">

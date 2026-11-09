@@ -39,6 +39,16 @@ try {
 
   const res404 = await page.goto(BASE + "/proyek/tidak-ada/");
   check("proyek yang tidak ada: 404", res404.status() === 404);
+  for (const [path, lang] of [["/tidak-ada/", "id"], ["/en/tidak-ada/", "en"]]) {
+    const r = await page.goto(BASE + path);
+    check(`404 umum memakai halaman situs: ${path}`, r.status() === 404 && (await page.locator("html").getAttribute("lang")) === lang && (await page.locator("#h-404").count()) === 1);
+  }
+  for (const path of ["/proyek/%E0%A4%A/", "/en/projects/%E0%A4%A/", "/og/%25/"]) {
+    const r = await fetch(BASE + path);
+    check(`alamat rusak jadi 404, bukan 500: ${path}`, r.status === 404, String(r.status));
+  }
+  const multi = await fetch(BASE + "/en/projects/?tech=x&tech=y");
+  check("parameter tech ganda tidak membuat 500", multi.status === 200, String(multi.status));
   await ctx.close();
 
   ctx = await browser.newContext({ javaScriptEnabled: false });
@@ -112,6 +122,15 @@ try {
     await ap.click("button[type=submit]");
     await ap.waitForURL(BASE + "/admin/");
     check("admin: login berhasil", (await ap.locator("h1").textContent()) === "Proyek");
+    await ap.goto(BASE + "/admin/cv/");
+    const rscReq = ap.waitForRequest((r) => r.url().includes("_rsc") && new URL(r.url()).pathname === "/admin/");
+    await ap.evaluate(() => window.next.router.push("/admin/"));
+    const captured = await rscReq;
+    const hdr = await captured.allHeaders();
+    const replay = await fetch(captured.url(), { headers: Object.fromEntries(Object.entries(hdr).filter(([k]) => !/^(cookie|host|content-length)$/i.test(k))) });
+    const replayBody = await replay.text();
+    check("admin: navigasi RSC tanpa cookie tidak membocorkan isi admin", !replayBody.includes("Jadikan draf") && !replayBody.includes("admin-row"), `${replay.status} ${replayBody.length} byte`);
+    await ap.waitForURL(BASE + "/admin/");
     await ap.click("text=Proyek baru");
     await ap.fill("#title", "Uji Draf");
     await ap.fill("#summary_id", "Proyek uji yang hanya berisi teks bahasa Indonesia.");
@@ -136,17 +155,22 @@ try {
     // Profil
     await ap.goto(BASE + "/admin/profil/");
     const oldRole = await ap.inputValue("#role");
+    const oldAbout = await ap.inputValue("#about_id");
     await ap.fill("#role", "Software Engineer");
+    await ap.fill("#about_id", "Paragraf satu.\nParagraf dua.");
     await ap.click("button[type=submit]:has-text('Simpan profil')");
     await ap.locator(".toast", { hasText: "Profil disimpan." }).waitFor();
     const heroRole = async (path) => { const r = await ap.request.get(BASE + path); return /<b>Software Engineer<\/b>/.test(await r.text()); };
     check("profil: peran baru tampil di hero ID dan EN", (await heroRole("/")) && (await heroRole("/en/")));
+    const homeHtml = await ap.request.get(BASE + "/").then((r) => r.text());
+    check("profil: Tentang dipecah per baris jadi paragraf", /<p[^>]*>Paragraf satu\.<\/p><p[^>]*>Paragraf dua\.<\/p>/.test(homeHtml));
     await ap.fill("#email", "bukan-email");
     await ap.click("button[type=submit]:has-text('Simpan profil')");
     const emailErr = await ap.locator("#email[aria-invalid=true]").count();
     check("profil: email salah ditandai di kolomnya", emailErr === 1);
     await ap.goto(BASE + "/admin/profil/");
     await ap.fill("#role", oldRole);
+    await ap.fill("#about_id", oldAbout);
     await ap.click("button[type=submit]:has-text('Simpan profil')");
     await ap.locator(".toast", { hasText: "Profil disimpan." }).waitFor();
     check("profil: peran dikembalikan", (await ap.request.get(BASE + "/").then((r) => r.text())).includes(`<b>${oldRole.replace(/&/g, "&amp;")}</b>`), oldRole);
@@ -175,6 +199,11 @@ try {
     await ap.locator(".upload-form input[type=file]").setInputFiles({ name: "palsu.jpg", mimeType: "image/jpeg", buffer: Buffer.from("bukan gambar") });
     await ap.locator(".upload-form button[type=submit]").click();
     const upErr = await ap.locator(".upload-form .field-error").textContent({ timeout: 5000 }).catch(() => "");
+    const big = Buffer.alloc(14 * 1024 * 1024, 7); big[0] = 0xff; big[1] = 0xd8; big[2] = 0xff;
+    await ap.locator(".upload-form input[type=file]").setInputFiles({ name: "foto-hp.jpg", mimeType: "image/jpeg", buffer: big });
+    await ap.locator(".upload-form button[type=submit]").click();
+    const bigErr = await ap.locator(".upload-form .field-error").textContent({ timeout: 8000 }).catch(() => "");
+    check("admin: foto di atas 12 MB ditolak dengan pesan, halaman tetap utuh", bigErr.includes("12 MB") && (await ap.locator(".gal-item").count()) > 0, bigErr);
     check("admin: file palsu ditolak dengan pesan di bawah kolom", upErr.includes("bukan gambar"), upErr);
     const galSrc = await ap.locator(".gal-item img").first().getAttribute("src");
     const det = await ap.request.get(BASE + "/proyek/agendain/");
@@ -215,6 +244,13 @@ try {
     await gpage.waitForTimeout(800);
     check("HUD di halaman detail", (await gpage.locator("#hud .n").textContent()) === "Project");
     await gctx.close();
+    const rctx = await glBrowser.newContext({ viewport: { width: 1280, height: 900 }, reducedMotion: "reduce" });
+    const rpage = await rctx.newPage();
+    await rpage.goto(BASE + "/");
+    await rpage.waitForTimeout(2500);
+    const glOn = await rpage.evaluate(() => document.getElementById("site")?.dataset.gl === "on");
+    check("kurangi gerak: tombol mata tidak tampil", glOn && (await rpage.locator("#peek").count()) === 0, `gl ${glOn}`);
+    await rctx.close();
   } finally {
     await glBrowser.close();
   }
@@ -239,7 +275,7 @@ try {
 }
 
 // 404 dari kunjungan sengaja ke alamat yang tidak ada bukan error
-const real = errors.filter((e) => !/favicon/i.test(e) && !/404 \(Not Found\) \[[^\]]*\/(proyek|projects)\/(tidak-ada|uji-draf)\/\]$/.test(e));
+const real = errors.filter((e) => !/favicon/i.test(e) && !/404 \(Not Found\) \[[^\]]*\/(tidak-ada|uji-draf|%E0%A4%A)\/\]$/.test(e));
 check("tidak ada error di console", real.length === 0, real.slice(0, 3).join(" | "));
 const failed = results.filter((r) => !r.ok).length;
 console.log(`\n${results.length - failed}/${results.length} lolos`);

@@ -15,7 +15,15 @@ export async function createUser(input: { email: string; name: string; password:
 
 export async function setPassword(userId: number, password: string): Promise<void> {
   if (password.length < MIN_PASSWORD) throw new Error(`Password minimal ${MIN_PASSWORD} karakter.`);
-  getDb().prepare("UPDATE users SET password_hash = ? WHERE id = ?").run(await hashPassword(password), userId);
+  const db = getDb();
+  const hash = await hashPassword(password);
+  const row = db.prepare("SELECT email FROM users WHERE id = ?").get(userId) as { email: string } | undefined;
+  // Ganti password biasanya karena curiga bocor: semua sesi lama dikeluarkan dan kunci percobaan login dibuka
+  db.transaction(() => {
+    db.prepare("UPDATE users SET password_hash = ? WHERE id = ?").run(hash, userId);
+    db.prepare("DELETE FROM sessions WHERE user_id = ?").run(userId);
+    if (row) db.prepare("DELETE FROM login_attempts WHERE key = ?").run(`akun:${row.email}`);
+  })();
 }
 
 export async function authenticate(email: string, password: string): Promise<User | null> {

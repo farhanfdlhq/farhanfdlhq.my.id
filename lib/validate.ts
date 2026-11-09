@@ -5,6 +5,7 @@
 function messageFor(el: HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement): string {
   const v = el.validity;
   const label = el.labels?.[0]?.textContent?.trim().replace(/\s*\(.*\)$/, "") || "Kolom ini";
+  if (v.customError) return el.validationMessage;
   if (v.valueMissing) return `${label} wajib diisi.`;
   if (v.typeMismatch && el.type === "email") return "Format email belum benar, contoh: nama@gmail.com.";
   if (v.typeMismatch && el.type === "url") return "Alamat harus diawali https://.";
