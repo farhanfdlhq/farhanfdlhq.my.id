@@ -2,11 +2,11 @@
 
 Arah visual untuk website pribadi Farhan. Dipakai bersama skill anti-slop: file ini menentukan arah, dan anti-slop menyaring hasilnya.
 
-Riwayat: versi 1 sampai 6 memakai arah "lembar spesifikasi" dengan biru tinta. Pada 9 November 2026 Farhan memilih arah **C. Server terurai** dari tiga alternatif baru (cetak biru, ruang kendali, server terurai). Bagian dari versi lama yang tetap dipakai: isi dari CV, tangkapan layar proyek yang bergulir di dalam bingkai, transisi ke halaman detail, linimasa, dan dua bahasa.
+Riwayat: versi 1 sampai 6 memakai arah "lembar spesifikasi" dengan biru tinta. Pada 9 November 2026 Farhan memilih arah **C. Server terurai** dari tiga alternatif baru (cetak biru, ruang kendali, server terurai). Bagian dari versi lama yang tetap dipakai: isi dari CV, tangkapan layar proyek (hanya bagian hero, keputusan Farhan), transisi ke halaman detail, linimasa, dan dua bahasa.
 
 ## Karakter
 
-Seperti halaman produk perangkat keras. Satu objek, yaitu server blade, menjadi pusat perhatian. Hitam pekat, garis putih es, huruf sangat lebar, dan sedikit kata. Nuansa IT-nya datang dari server itu dan dari jaringan node yang terus bertukar paket data di sekelilingnya.
+Seperti halaman produk perangkat keras. Satu objek menjadi pusat perhatian: meja kerja dengan PC yang dibongkar sampai ke CPU. Hitam pekat, garis putih es, huruf sangat lebar, dan sedikit kata. Nuansa IT-nya datang dari komputer itu dan dari jaringan node yang terus bertukar paket data di sekelilingnya.
 
 - Hanya mode gelap. Tidak ada tombol tema.
 - Tidak ada nama domain atau label teks di dalam animasi.
@@ -46,43 +46,46 @@ Tombol utama berwarna putih es dengan teks hitam. Link berwarna putih es dengan 
 - **HUD:** pojok kanan bawah adegan selalu menampilkan lapisan yang sedang terbuka, misalnya "03 CPU".
 - Radius 2 px di semua elemen, supaya kesannya tegas seperti perangkat keras.
 
-## Adegan: server terurai di tengah jaringan
+## Adegan: meja kerja, PC, lalu CPU yang dibongkar
 
-- **Server blade** (three.js, kode sendiri):
-  - Baki dengan 4 kipas yang berputar dan 6 port jaringan.
-  - Motherboard dengan jalur.
-  - CPU merah dengan heatsink yang bercahaya.
-  - 8 keping RAM, 4 disk, dan tutup berventilasi.
-- **Terurai mengikuti scroll:**
+Revisi 9 November 2026 (ide Farhan): adegan dimulai dari meja kerja, lalu kamera masuk ke PC dan membongkar komponennya, sampai ke CPU. Dibuat dengan three.js, kode sendiri, bergaya garis putih es di atas hitam.
 
-  | Bagian halaman | Lapisan yang terbuka |
-  | --- | --- |
-  | Hero | 00 Utuh |
-  | Proyek | 01 Tutup terangkat |
-  | Tentang | 02 RAM |
-  | Pengalaman | 03 CPU |
-  | Keahlian | 04 Motherboard |
-  | Kontak | 05 Disk dan baki turun |
-
-  Saat server terbuka, jalur data merah muncul di antara CPU, RAM, motherboard, dan disk, dan paket data berjalan di sana.
+- **Isi meja:**
+  - Monitor dengan baris kode abstrak yang bergulir (garis tanpa teks).
+  - Keyboard, mouse, dan router dengan lampu hijau dan dua antena.
+  - Casing PC dengan lampu power merah dan ventilasi.
+- **Isi PC:** motherboard, CPU (substrat berpin, IHS, dan die merah yang bercahaya), pendingin CPU dengan kipas, 4 RAM, GPU dengan dua kipas, PSU, SSD, dan dua kipas casing. Semua kipas berputar.
 - **Jaringan:**
-  - 12 node di desktop (9 di HP) mengelilingi server. Empat di antaranya kubus yang mewakili proyek Farhan.
-  - Setiap node tersambung kabel ke port server, dan sebagian node tersambung satu sama lain.
-  - Paket data berjalan dua arah di semua kabel, dan node berputar pelan.
-- **Sorotan:** saat kartu proyek dibaca atau di-hover, kubus proyeknya berubah merah dengan cahaya, dan paketnya mengalir 2,6 kali lebih cepat. Di halaman detail proyek, kamera pindah ke node proyek itu.
-- **Kamera:** berpindah halus antar titik per bagian, dan bergeser sedikit mengikuti kursor.
+  - Router tersambung kabel LAN ke PC.
+  - Dari antena router, kabel menuju 8 node di belakang meja (6 di HP). Node juga tersambung satu sama lain.
+  - Paket data berjalan dua arah di semua kabel.
+  - Empat node kubus mewakili proyek dan menyala merah saat kartunya dibaca.
+- **Alur scroll:**
+
+  | Urutan | Bagian halaman | Yang terjadi | HUD |
+  | --- | --- | --- | --- |
+  | 1 | Hero | Seluruh meja | 00 Meja |
+  | 2 | Jeda, lalu Proyek | Zoom ke PC | 01 PC |
+  | 3 | Jeda, lalu Tentang | Panel samping terbuka dan bergeser ke samping | 02 Panel samping |
+  | 4 | Jeda, lalu Pengalaman | Komponen terurai keluar. Jalur data merah muncul antara CPU, RAM, GPU, SSD, dan PSU | 03 Komponen |
+  | 5 | Jeda, lalu Keahlian | Zoom ke CPU. Pendingin terangkat, IHS terangkat, die merah terlihat | 04 CPU |
+  | 6 | Kontak | Kamera mundur ke meja dan PC menyatu lagi | 05 Meja |
+
+- **Jeda kosong:** di antara bagian halaman ada jeda (`.beat`) setinggi 78svh di HP dan 64svh di desktop. Momen bongkar terjadi di jeda ini, jadi tidak tertutup panel.
+- **Layout desktop:** semua panel isi berada di kolom kiri, maksimal 520 px. Kartu proyek tersusun satu kolom. Bidang pandang kamera digeser (`setViewOffset`) supaya meja dan PC tampil di kanan.
+- **Halaman detail proyek:** kamera menyorot monitor.
 - **Kinerja:**
   - Pixel ratio maksimal 1,5 di HP, dan jumlah node lebih sedikit.
   - Animasi berhenti saat tab disembunyikan.
   - Tanpa WebGL, latar hitam polos.
-- **Kurangi gerak:** kalau perangkat meminta `prefers-reduced-motion`, server tetap terurai mengikuti scroll, tetapi tidak ada putaran, paket, atau kipas yang bergerak. Adegan hanya digambar ulang saat scroll.
+- **Kurangi gerak:** kalau perangkat meminta `prefers-reduced-motion`, bongkar-pasang tetap mengikuti scroll, tetapi kipas, paket, kode, dan lampu diam.
 
 ## Gerak lain
 
 | Gerakan | Kapan | Tujuan |
 | --- | --- | --- |
 | Kata-kata nama naik dari balik garis, lalu kalimat dan tombol muncul berurutan | Sekali saat Beranda dibuka | Mengarahkan mata dari nama ke tombol |
-| Tangkapan layar halaman penuh bergulir di dalam bingkai mengikuti scroll | Saat kartu proyek dilewati | Melihat seluruh situs proyek tanpa membukanya |
+| Tangkapan layar hero proyek sedikit membesar | Saat kartu di-hover | Menandai kartu yang bisa dibuka |
 | Kartu proyek muncul pelan | Sekali saat masuk layar | Ritme saat membaca |
 | Bingkai dan judul proyek berpindah mulus ke halaman detail (View Transitions) | Saat membuka atau menutup detail | Tetap tahu proyek mana yang dibuka |
 | Penanda pilihan meluncur di tombol ID/EN | Saat diklik | Menunjukkan pilihan aktif |

@@ -2,7 +2,7 @@
 
 Tanggal: 9 November 2026
 Status: draf, menunggu persetujuan
-Mockup: https://claude.ai/artifact/QVgQ1ovueJ5UPccyhtcnKN (versi 7, arah C: server terurai di tengah jaringan)
+Mockup: https://claude.ai/artifact/QVgQ1ovueJ5UPccyhtcnKN (versi 8, arah C: meja kerja, PC, dan CPU yang dibongkar)
 
 ## Untuk apa dan untuk siapa
 
@@ -55,7 +55,7 @@ Empat proyek ini diisi sejak awal dan semuanya tampil sebagai unggulan di Berand
 
 | Proyek | Catatan |
 | --- | --- |
-| Elenmor (Andiamo): jastip cross-border | Antarmuka dan frontend e-commerce dengan React, TypeScript, Vite, dan Tailwind, untuk mengelola batch pesanan internasional. |
+| Elenmor (Andiamo): jastip cross-border, [elenmor.id](https://elenmor.id) | Antarmuka dan frontend e-commerce dengan React, TypeScript, Vite, dan Tailwind, untuk mengelola batch pesanan internasional. |
 | Agendain: website dan panel admin travel agency | CMS dwibahasa, booking yang mencegah overbooking, invoice dan itinerary PDF bertoken, RBAC, audit keamanan 7 temuan, SEO teknis, deploy VPS + CDN. Live. |
 | qiran.my.id: blog dan pembuat PDF tugas | Next.js + SQLite, PDF A4 dua kolom, Daftar Pustaka APA 7. Live, repo publik. |
 | bynana.my.id: halaman link affiliate | SvelteKit + SQLite, dua tema, Shopee Affiliate API. Live, repo publik. |
@@ -69,7 +69,7 @@ Bahasa bawaan Indonesia di `/`, bahasa Inggris di `/en/`. Setiap halaman punya p
 | Halaman | Isi |
 | --- | --- |
 | Beranda | Hero berisi nama, peran, tombol Lihat proyek, Unduh CV, dan Email (tanpa kalimat pernyataan). Lalu proyek unggulan, Tentang, Pengalaman, Keahlian, dan Kontak dalam panel di atas adegan. |
-| Proyek | Semua proyek terbit, bisa disaring per teknologi. Kartu berisi judul, satu kalimat ringkasan, gambar, dan tahun. |
+| Proyek | Semua proyek terbit, bisa disaring per teknologi. Kartu berisi judul, satu kalimat ringkasan, tangkapan layar bagian hero situsnya, dan tahun. |
 | Detail proyek | Studi kasus lengkap, galeri tangkapan layar, link live dan repo, proyek sebelumnya dan berikutnya. |
 | Tentang | Pengalaman, pendidikan, sertifikasi, keahlian per kelompok, dan tombol Unduh CV. |
 | Kontak | Email, LinkedIn, dan GitHub. Nomor telepon tidak ditampilkan. |
@@ -129,7 +129,7 @@ Dikerjakan dengan kombinasi style-ui x anti-slop:
 2. **Mockup** sebagai artifact, dicek di lebar 390 px dulu baru desktop, lalu disaring dengan `antislop-ui` dan `antislop-layoutmobile` sebelum ditunjukkan.
 3. **Komponen** diambil dari katalog style-ui UI Components sesuai `DESIGN.md`. Animasi tetap ringan dan menghormati `prefers-reduced-motion`.
 
-Arah visual terbaru ada di `DESIGN.md`: arah C, yaitu server blade 3D yang terurai mengikuti scroll di tengah jaringan node, dengan warna hitam, putih es, dan aksen merah, huruf Archivo Expanded, dan hanya mode gelap.
+Arah visual terbaru ada di `DESIGN.md`: arah C, yaitu meja kerja 3D yang kameranya masuk ke PC dan membongkar komponennya sampai CPU mengikuti scroll, dengan jaringan node, dengan warna hitam, putih es, dan aksen merah, huruf Archivo Expanded, dan hanya mode gelap.
 
 ## Keputusan
 
