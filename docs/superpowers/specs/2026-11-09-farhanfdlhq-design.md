@@ -2,7 +2,7 @@
 
 Tanggal: 9 November 2026
 Status: draf, menunggu persetujuan
-Mockup: https://claude.ai/artifact/QVgQ1ovueJ5UPccyhtcnKN (versi 4, jaringan server)
+Mockup: https://claude.ai/artifact/QVgQ1ovueJ5UPccyhtcnKN (versi 6, server di atas papan sirkuit)
 
 ## Untuk apa dan untuk siapa
 
@@ -68,7 +68,7 @@ Bahasa bawaan Indonesia di `/`, bahasa Inggris di `/en/`. Setiap halaman punya p
 
 | Halaman | Isi |
 | --- | --- |
-| Beranda | Nama, peran, ringkasan dua sampai tiga kalimat, tombol Unduh CV dan Hubungi, 3 sampai 4 proyek unggulan, stack utama. |
+| Beranda | Hero berisi nama, peran, tombol Lihat proyek, Unduh CV, dan Email (tanpa kalimat pernyataan). Lalu proyek unggulan, Tentang, Pengalaman, Keahlian, dan Kontak dalam panel di atas adegan. |
 | Proyek | Semua proyek terbit, bisa disaring per teknologi. Kartu berisi judul, satu kalimat ringkasan, gambar, dan tahun. |
 | Detail proyek | Studi kasus lengkap, galeri tangkapan layar, link live dan repo, proyek sebelumnya dan berikutnya. |
 | Tentang | Pengalaman, pendidikan, sertifikasi, keahlian per kelompok, dan tombol Unduh CV. |
@@ -129,7 +129,7 @@ Dikerjakan dengan kombinasi style-ui x anti-slop:
 2. **Mockup** sebagai artifact, dicek di lebar 390 px dulu baru desktop, lalu disaring dengan `antislop-ui` dan `antislop-layoutmobile` sebelum ditunjukkan.
 3. **Komponen** diambil dari katalog style-ui UI Components sesuai `DESIGN.md`. Animasi tetap ringan dan menghormati `prefers-reduced-motion`.
 
-Arah visual terbaru ada di `DESIGN.md`: hanya mode gelap, dengan ruang server WebGL di belakang seluruh halaman, dan isi halaman ditaruh di panel bergaya lembar spesifikasi.
+Arah visual terbaru ada di `DESIGN.md`: hanya mode gelap, dengan rak server di atas papan sirkuit (WebGL) di belakang seluruh halaman, dan isi halaman ditaruh di panel bergaya lembar spesifikasi.
 
 ## Keputusan
 

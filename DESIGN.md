@@ -8,35 +8,40 @@ Arah visual untuk website pribadi Farhan. Dipakai bersama skill anti-slop: file 
 
 Pilihan Farhan (9 November 2026): kesan teknis dan presisi, hanya mode gelap, aksen biru tinta, nama ditampilkan sebelum proyek, huruf IBM Plex, gerak sedang dan terkoreografi (direvisi dari minimal), tanpa foto diri, dan judul peran "UI/UX | Software Engineer".
 
-## Latar sinematik: jaringan server
+## Latar sinematik: server di atas papan sirkuit
 
-Revisi 9 November 2026. Farhan meminta kesan yang "IT banget" (server dengan jaringan yang berjalan) di seluruh halaman, dan hanya mode gelap.
+Revisi 9 November 2026. Gabungan adegan ruang server dan papan sirkuit (pilihan Farhan dari tiga alternatif), dengan hanya mode gelap. Tidak ada nama domain atau label teks di dalam animasi.
 
-- **Adegan:** ruang server 3D (WebGL, three.js, dibuat sendiri) di belakang seluruh halaman, menempel di layar (`position: sticky`). Ada lantai raised floor, deretan rak dengan lampu status yang berkedip, kabel jaringan, dan paket data yang berjalan di antara rak.
+- **Adegan:** WebGL (three.js) di belakang seluruh halaman, menempel di layar (`position: sticky`).
+  - Lantai berupa papan sirkuit gelap dengan titik grid.
+  - Di atasnya berdiri rak-rak server dengan lampu status yang berkedip.
+  - Rak terhubung lewat jalur tembaga di lantai yang berbelok 45 derajat dan tidak saling silang. Sinyal cahaya berjalan di sepanjang jalur itu.
+  - Di tengah papan ada CPU yang menggantikan core switch.
 - **Topologi:**
-  - Empat rak proyek berlabel `agendain.com`, `qiran.my.id`, `bynana.my.id`, dan `andiamo`, terhubung ke `core-switch`.
-  - Dari `core-switch` ada kabel ke rak data (`mysql-01`, `sqlite-02`, `backup`) dan ke `cdn-edge`, yang lalu naik ke internet.
-  - Proyek Farhan menjadi host di jaringan ini.
+  - Empat rak proyek (Agendain, qiran, bynana, Andiamo) di kiri, masing-masing dengan bus 4 jalur ke sisi kiri CPU.
+  - Tiga rak data di kanan, terhubung ke sisi kanan CPU.
+  - Satu rak edge di belakang, terhubung ke CPU dengan bus 6 jalur dan sinar vertikal ke internet.
+  - Konektor di tepi depan papan, serta jalur dan via hiasan di antara rak latar.
 - **Kamera mengikuti scroll:**
 
   | Bagian | Yang terlihat |
   | --- | --- |
-  | Hero | Seluruh jaringan |
-  | Proyek | Rak-rak proyek |
-  | Pengalaman | `core-switch` |
+  | Hero | Ruangan dari depan |
+  | Proyek | Rak proyek |
+  | Tentang | CPU |
+  | Pengalaman | Jalur di depan CPU |
   | Keahlian | Rak data |
-  | Kontak | `cdn-edge` dan sinar ke internet |
+  | Kontak | Rak edge dan sinar ke internet |
   | Detail proyek | Rak proyek itu sendiri |
 
-  Kamera juga bergeser sedikit mengikuti kursor.
-- **Sorotan:** rak proyek menyala dan paketnya mengalir lebih cepat saat kartu proyeknya di-hover atau sedang dibaca.
-- **Isi halaman:** setiap bagian berada di panel gelap transparan (`rgba(8, 11, 18, .82)` dengan blur), dengan jarak antarpanel 34svh supaya adegan terlihat di sela-selanya. Hero tidak memakai panel. Teksnya berada di kiri bawah dengan lapisan gelap transparan di bawahnya.
-- **Judul hero:** "Dari database sampai production." (EN: "From database to production."), IBM Plex Sans 700.
+- **Sorotan:** rak proyek dan jalurnya menyala, dan sinyalnya mengalir lebih cepat, saat kartu proyeknya di-hover atau sedang dibaca.
+- **Hero:** tidak ada kalimat pernyataan (keputusan Farhan). Isinya nama sebagai `h1` (IBM Plex Sans 600, `clamp(2rem, 8cqw, 3.5rem)`), peran dan kota, tombol "Lihat proyek", serta link Unduh CV dan Email. Adegannya yang menjadi pusat perhatian.
+- **Isi halaman:** setiap bagian berada di panel gelap transparan dengan blur. Jarak antarpanel 34svh supaya adegan terlihat di sela-selanya.
 - **Kinerja:**
-  - HP: 9 rak latar per baris dan pixel ratio maksimal 1,5. Desktop: 13 rak latar per baris.
+  - Rak latar 9 per baris di HP dan 13 di desktop. Pixel ratio maksimal 1,5 di HP.
   - Animasi berhenti saat tab disembunyikan.
   - Tanpa WebGL, latar memakai gradien CSS diam.
-- **Kurangi gerak:** kalau perangkat meminta `prefers-reduced-motion`, lampu dan paket diam, dan adegan hanya digambar ulang saat scroll dengan kamera langsung melompat.
+- **Kurangi gerak:** kalau perangkat meminta `prefers-reduced-motion`, lampu dan sinyal diam, dan adegan hanya digambar ulang saat scroll dengan kamera langsung melompat.
 - Glow, cahaya aditif, panel transparan, dan blur hanya dipakai untuk adegan ini dan panel isinya.
 
 ## Yang tidak dipakai
@@ -104,8 +109,8 @@ Sedang dan terkoreografi. Farhan meminta animasi yang bagus (9 November 2026, re
 
 | # | Gerakan | Kapan | Tujuan |
 | --- | --- | --- | --- |
-| 0 | Ruang server: lampu status berkedip, paket data berjalan, dan kamera berpindah antar bagian jaringan mengikuti scroll | Selama halaman terbuka, berhenti saat tab disembunyikan | Identitas situs. Proyek tampil sebagai host di jaringan yang hidup |
-| 1 | Kata-kata judul hero naik dari balik garis, lalu peran, ringkasan, dan tombol muncul berurutan (sekitar 900 ms) | Sekali saat Beranda dibuka | Mengarahkan mata dari judul ke nama, lalu ke tombol Lihat proyek |
+| 0 | Server di atas papan sirkuit: lampu status berkedip, sinyal berjalan di jalur tembaga, dan kamera berpindah antar bagian mengikuti scroll | Selama halaman terbuka, berhenti saat tab disembunyikan | Identitas situs. Proyek tampil sebagai host di jaringan yang hidup |
+| 1 | Kata-kata nama di hero naik dari balik garis, lalu peran, ringkasan, dan tombol muncul berurutan (sekitar 900 ms) | Sekali saat Beranda dibuka | Mengarahkan mata dari nama ke tombol Lihat proyek |
 | 2 | Tangkapan layar halaman penuh bergulir di dalam bingkai mengikuti scroll halaman | Saat kartu proyek dilewati | Pengunjung melihat seluruh situs proyek tanpa membukanya |
 | 3 | Kartu proyek muncul pelan dan naik 16 px | Sekali saat pertama masuk layar | Memberi ritme saat membaca daftar proyek |
 | 4 | Titik hijau "Live" berdenyut dua kali, lalu diam | Saat kartunya muncul | Menandai bahwa situsnya benar-benar online |
@@ -124,9 +129,16 @@ Aturan teknis:
 
 ## Nada teks
 
-Ditulis dengan sudut pandang orang pertama ("Saya membangun...") dalam bahasa yang lugas. Kalimat menyebut hal nyata, tanpa kata sifat promosi. Contoh ringkasan Beranda, diambil dari CV:
+Ditulis dengan sudut pandang orang pertama ("Saya membangun...") dalam bahasa yang lugas. Setiap kalimat menyebut pelakunya dan menyebut hal yang nyata.
 
-> Saya membangun aplikasi web dari rancangan database sampai rilis di server: billing ISP, e-commerce lintas negara, LMS untuk instansi pemerintah, dan website travel agency. Sehari-hari memakai Laravel dan React/Next.js.
+Yang dihindari (dicek dengan `antislop-copywriting`):
+- Rentang kosong seperti "dari database sampai production". Judul hero versi 3 sampai 5 dihapus karena memakai pola ini.
+- Kalimat pasif tanpa pelaku ("dikerjakan dengan...", "dibangun dari...").
+- Kata promosi, slogan, dan angka atau klaim yang tidak ada di CV.
+
+Contoh panel Tentang, diambil dari CV:
+
+> Saya software engineer di Bogor, lulusan Sistem Informasi tahun 2026. Sejak 2023 saya mengerjakan proyek freelance: sistem billing ISP, e-commerce jastip lintas negara, LMS untuk BPKP, dan website travel agency Agendain. Sehari-hari saya memakai Laravel dan React/Next.js, dan saya juga merancang tampilannya di Figma sebelum menulis kode.
 
 Teks bahasa Inggris ditulis ulang dengan wajar, tidak diterjemahkan kata per kata.
 
