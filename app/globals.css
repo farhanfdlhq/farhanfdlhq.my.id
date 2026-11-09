@@ -247,7 +247,7 @@ main > section::after { content: ""; position: absolute; left: -4px; top: 30px; 
 .peek-hint { position: absolute; left: 50%; bottom: 46px; transform: translateX(-50%); max-width: calc(100% - 32px); text-align: center; white-space: normal; line-height: 1.4; font: 500 12px/1 var(--mono); color: var(--muted); opacity: 0; transition: opacity .45s; }
 .peek .peek-hint { opacity: 1; }
 /* v9: panel kaca gelap ala liquid glass, garis RGB di tepi atas, judul selalu muat di panel */
-main > section, .detail-head { container-type: inline-size; border-radius: 16px; border: 1px solid rgba(255, 255, 255, .13); background: radial-gradient(420px circle at var(--mx, 20%) var(--my, -10%), rgba(255, 255, 255, .09), rgba(255, 255, 255, 0) 60%), linear-gradient(160deg, rgba(255, 255, 255, .07), rgba(255, 255, 255, .015) 45%, rgba(255, 255, 255, .04)), rgba(9, 10, 13, .58); backdrop-filter: blur(24px) saturate(170%); -webkit-backdrop-filter: blur(24px) saturate(170%); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .16), inset 0 -1px 0 rgba(255, 255, 255, .04), 0 24px 60px rgba(0, 0, 0, .5); overflow: hidden; }
+main > section, .detail-head { container-type: inline-size; border-radius: 16px; border: 1px solid rgba(255, 255, 255, .13); background: radial-gradient(420px circle at var(--mx, 20%) var(--my, -10%), rgba(255, 255, 255, .09), rgba(255, 255, 255, 0) 60%), linear-gradient(160deg, rgba(255, 255, 255, .07), rgba(255, 255, 255, .015) 45%, rgba(255, 255, 255, .04)), rgba(9, 10, 13, .58); backdrop-filter: blur(24px) saturate(170%); -webkit-backdrop-filter: blur(24px) saturate(170%); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .16), inset 0 -1px 0 rgba(255, 255, 255, .04), 0 24px 60px rgba(0, 0, 0, .5); overflow: clip; }
 main > section::after { left: auto; right: 18px; top: 18px; }
 main > section::before, .detail-head::before { content: ""; position: absolute; left: 16px; right: 16px; top: 0; height: 2px; border-radius: 2px; background: linear-gradient(90deg, #ff3d3d, #ffb13d, #f5ff3d, #3dff8a, #3dd5ff, #6a3dff, #ff3dd2, #ff3d3d); background-size: 200% 100%; opacity: .85; }
 @media (prefers-reduced-motion: no-preference) {
@@ -260,6 +260,7 @@ main h2 { font-size: clamp(1.6rem, 9.2cqi, 3.4rem); overflow-wrap: anywhere; }
 .head { box-shadow: 0 1px 0 rgba(255, 255, 255, .06); }
 .mark { display: inline-flex; align-items: center; gap: 8px; }
 .mark .logo { width: 22px; height: 22px; flex: none; }
+.mark .wm { color: var(--text); }
 .mark .wm span { color: var(--red); }
 
 /* Halaman publik di Next.js: bagian yang tidak ada di mockup */

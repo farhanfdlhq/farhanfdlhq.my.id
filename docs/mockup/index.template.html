@@ -272,7 +272,7 @@ main > section, .detail-head {
     rgba(9, 10, 13, .58);
   backdrop-filter: blur(24px) saturate(170%); -webkit-backdrop-filter: blur(24px) saturate(170%);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, .16), inset 0 -1px 0 rgba(255, 255, 255, .04), 0 24px 60px rgba(0, 0, 0, .5);
-  overflow: hidden;
+  overflow: clip;
 }
 main > section::after { left: auto; right: 18px; top: 18px; }
 main > section::before, .detail-head::before { content: ""; position: absolute; left: 16px; right: 16px; top: 0; height: 2px; border-radius: 2px;
@@ -285,6 +285,7 @@ main h2 { font-size: clamp(1.6rem, 9.2cqi, 3.4rem); overflow-wrap: anywhere; }
 .head { box-shadow: 0 1px 0 rgba(255, 255, 255, .06); }
 .mark { display: inline-flex; align-items: center; gap: 8px; }
 .mark .logo { width: 22px; height: 22px; flex: none; }
+.mark .wm { color: var(--text); }
 .mark .wm span { color: var(--red); }
 </style>
 <div class="bar" role="region" aria-label="Kendali mockup">

@@ -81,6 +81,48 @@ try {
   check("titik Live berdenyut saat kartu terlihat", (await page.locator(".proj.seen").count()) >= 1);
   check("transisi antarhalaman diaktifkan lewat CSS", await page.evaluate(() => [...document.styleSheets].some((s) => { try { return [...s.cssRules].some((r) => r.cssText.includes("@view-transition")); } catch { return false; } })));
   await ctx.close();
+
+  // ---------- Adegan 3D ----------
+  const glBrowser = await chromium.launch({ args: ["--use-gl=angle", "--use-angle=swiftshader", "--enable-unsafe-swiftshader"] });
+  try {
+    const gctx = await glBrowser.newContext({ viewport: { width: 1280, height: 900 } });
+    const gpage = await gctx.newPage();
+    watch(gpage);
+    await gpage.goto(BASE + "/");
+    await gpage.waitForSelector("#site[data-gl=on]", { timeout: 15000 }).catch(() => {});
+    check("adegan: WebGL menyala", (await gpage.locator("#site[data-gl=on]").count()) === 1);
+    await gpage.click("#peek");
+    const hidden = await gpage.waitForFunction(() => getComputedStyle(document.querySelector("main")).opacity === "0", null, { timeout: 4000 }).then(() => true, () => false);
+    check("tombol mata: isi disembunyikan", hidden);
+    await gpage.keyboard.press("Escape");
+    const back = await gpage.waitForFunction(() => getComputedStyle(document.querySelector("main")).opacity === "1", null, { timeout: 4000 }).then(() => true, () => false);
+    check("Esc: isi kembali", back, await gpage.evaluate(() => `opacity ${getComputedStyle(document.querySelector("main")).opacity}, peek ${document.getElementById("site").classList.contains("peek")}`));
+    await gpage.evaluate(() => { const e = document.querySelector("#beat-cpu"); const r = e.getBoundingClientRect(); window.scrollTo(0, r.top + scrollY + r.height / 2 - innerHeight / 2); });
+    await gpage.waitForTimeout(800);
+    check("HUD menunjukkan 04 saat di CPU", (await gpage.locator("#hud .i").textContent()) === "04", await gpage.locator("#hud").textContent());
+    await gpage.goto(BASE + "/en/projects/qiran/");
+    await gpage.waitForTimeout(800);
+    check("HUD di halaman detail", (await gpage.locator("#hud .n").textContent()) === "Project");
+    await gctx.close();
+  } finally {
+    await glBrowser.close();
+  }
+  const noGl = await chromium.launch({ args: ["--disable-gpu", "--disable-webgl", "--disable-3d-apis"] });
+  try {
+    const nctx = await noGl.newContext({ viewport: { width: 1280, height: 900 } });
+    const npage = await nctx.newPage();
+    const nerr = [];
+    npage.on("pageerror", (e) => nerr.push(e.message));
+    npage.on("console", (m) => { if (m.type() === "error") nerr.push(m.text()); });
+    await npage.goto(BASE + "/");
+    await npage.waitForTimeout(1500);
+    check("tanpa WebGL: isi lengkap", (await npage.locator(".proj").count()) === 4 && (await npage.locator("#kontak").isVisible()));
+    check("tanpa WebGL: tombol mata tidak ada", (await npage.locator("#peek").count()) === 0);
+    check("tanpa WebGL: tidak ada error", nerr.length === 0, nerr.slice(0, 2).join(" | "));
+    await nctx.close();
+  } finally {
+    await noGl.close();
+  }
 } finally {
   await browser.close();
 }
