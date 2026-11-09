@@ -2,7 +2,7 @@
 
 Tanggal: 9 November 2026
 Status: draf, menunggu persetujuan
-Mockup: https://claude.ai/artifact/QVgQ1ovueJ5UPccyhtcnKN (versi 3, hero WebGL)
+Mockup: https://claude.ai/artifact/QVgQ1ovueJ5UPccyhtcnKN (versi 4, jaringan server)
 
 ## Untuk apa dan untuk siapa
 
@@ -129,7 +129,7 @@ Dikerjakan dengan kombinasi style-ui x anti-slop:
 2. **Mockup** sebagai artifact, dicek di lebar 390 px dulu baru desktop, lalu disaring dengan `antislop-ui` dan `antislop-layoutmobile` sebelum ditunjukkan.
 3. **Komponen** diambil dari katalog style-ui UI Components sesuai `DESIGN.md`. Animasi tetap ringan dan menghormati `prefers-reduced-motion`.
 
-Arah awal sebelum `DESIGN.md` dibuat: tenang dan mudah dipindai, dengan tipografi sebagai elemen utama, satu warna aksen, serta mode terang dan gelap. Yang paling menonjol adalah tangkapan layar proyek.
+Arah visual terbaru ada di `DESIGN.md`: hanya mode gelap, dengan ruang server WebGL di belakang seluruh halaman, dan isi halaman ditaruh di panel bergaya lembar spesifikasi.
 
 ## Keputusan
 

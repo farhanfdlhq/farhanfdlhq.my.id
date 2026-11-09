@@ -6,45 +6,64 @@ Arah visual untuk website pribadi Farhan. Dipakai bersama skill anti-slop: file 
 
 **Teknis dan presisi.** Kesannya mirip lembar spesifikasi yang rapi, bukan kostum "hacker". Rasa teknisnya datang dari isi yang nyata: tanggal, peran, stack, angka dari CV, dan tangkapan layar asli dengan domainnya. Efek visual tidak dipakai untuk membangun kesan itu.
 
-Pilihan Farhan (9 November 2026): kesan teknis dan presisi, mode gelap sebagai bawaan, aksen biru tinta, nama ditampilkan sebelum proyek, huruf IBM Plex, gerak sedang dan terkoreografi (direvisi dari minimal), tanpa foto diri, dan judul peran "UI/UX | Software Engineer".
+Pilihan Farhan (9 November 2026): kesan teknis dan presisi, hanya mode gelap, aksen biru tinta, nama ditampilkan sebelum proyek, huruf IBM Plex, gerak sedang dan terkoreografi (direvisi dari minimal), tanpa foto diri, dan judul peran "UI/UX | Software Engineer".
 
-## Hero sinematik
+## Latar sinematik: jaringan server
 
-Revisi 9 November 2026 setelah Farhan menunjukkan referensi style.ai.id: layar pertama dibuat sinematik, sedangkan bagian lainnya tetap tenang bergaya lembar spesifikasi.
+Revisi 9 November 2026. Farhan meminta kesan yang "IT banget" (server dengan jaringan yang berjalan) di seluruh halaman, dan hanya mode gelap.
 
-- **Adegan:** jalur cahaya yang terhubung. Serat-serat biru tinta mengalir dari tepi layar, berputar, lalu bertemu di satu simpul terang. Adegan ini menggambarkan serat optik (proyek ISP), rute perjalanan (Agendain), dan data yang sampai ke production. Dibuat dengan WebGL (three.js) dalam kode sendiri, tanpa video atau gambar.
-- **Judul:** kalimat pernyataan besar "Dari database sampai production." (EN: "From database to production."), IBM Plex Sans 700, `clamp(2.75rem, 12.5cqw, 6.25rem)`. Di bawahnya ada nama, peran, satu kalimat ringkasan, tombol "Lihat proyek", serta link Unduh CV dan Email.
-- **Tata letak:** teks di kiri bawah. Simpul cahaya berada di kanan pada layar lebar dan di kanan atas pada HP. Lapisan gelap transparan di bawah teks menjaga kontras.
-- **Warna hero:** tetap malam (`#05070C`) di mode gelap maupun terang. Glow, cahaya aditif, dan gradien transparan hanya boleh dipakai di hero.
-- **Interaksi:** kamera bergeser sedikit mengikuti kursor dan scroll.
-- **Kinerja:** jumlah serat 90 di HP dan 150 di desktop. Pixel ratio dibatasi 1,5 di HP. Animasi berhenti saat hero tidak terlihat atau tab disembunyikan. Kalau WebGL tidak tersedia, tampil gambar CSS diam dengan komposisi yang sama.
-- **Kurangi gerak:** kalau perangkat meminta `prefers-reduced-motion`, adegan dirender satu bingkai diam saja.
+- **Adegan:** ruang server 3D (WebGL, three.js, dibuat sendiri) di belakang seluruh halaman, menempel di layar (`position: sticky`). Ada lantai raised floor, deretan rak dengan lampu status yang berkedip, kabel jaringan, dan paket data yang berjalan di antara rak.
+- **Topologi:**
+  - Empat rak proyek berlabel `agendain.com`, `qiran.my.id`, `bynana.my.id`, dan `andiamo`, terhubung ke `core-switch`.
+  - Dari `core-switch` ada kabel ke rak data (`mysql-01`, `sqlite-02`, `backup`) dan ke `cdn-edge`, yang lalu naik ke internet.
+  - Proyek Farhan menjadi host di jaringan ini.
+- **Kamera mengikuti scroll:**
+
+  | Bagian | Yang terlihat |
+  | --- | --- |
+  | Hero | Seluruh jaringan |
+  | Proyek | Rak-rak proyek |
+  | Pengalaman | `core-switch` |
+  | Keahlian | Rak data |
+  | Kontak | `cdn-edge` dan sinar ke internet |
+  | Detail proyek | Rak proyek itu sendiri |
+
+  Kamera juga bergeser sedikit mengikuti kursor.
+- **Sorotan:** rak proyek menyala dan paketnya mengalir lebih cepat saat kartu proyeknya di-hover atau sedang dibaca.
+- **Isi halaman:** setiap bagian berada di panel gelap transparan (`rgba(8, 11, 18, .82)` dengan blur), dengan jarak antarpanel 34svh supaya adegan terlihat di sela-selanya. Hero tidak memakai panel. Teksnya berada di kiri bawah dengan lapisan gelap transparan di bawahnya.
+- **Judul hero:** "Dari database sampai production." (EN: "From database to production."), IBM Plex Sans 700.
+- **Kinerja:**
+  - HP: 9 rak latar per baris dan pixel ratio maksimal 1,5. Desktop: 13 rak latar per baris.
+  - Animasi berhenti saat tab disembunyikan.
+  - Tanpa WebGL, latar memakai gradien CSS diam.
+- **Kurangi gerak:** kalau perangkat meminta `prefers-reduced-motion`, lampu dan paket diam, dan adegan hanya digambar ulang saat scroll dengan kamera langsung melompat.
+- Glow, cahaya aditif, panel transparan, dan blur hanya dipakai untuk adegan ini dan panel isinya.
 
 ## Yang tidak dipakai
 
 - Terminal palsu, efek ketik, kursor berkedip, matrix, atau glow neon.
 - Judul besar dengan huruf monospace, atau label huruf kapital dengan jarak huruf lebar (misalnya "PROJECTS", "ABOUT ME").
-- Grid latar, noise, blob, gradien, dan glassmorphism di luar hero.
+- Grid hiasan, noise, blob, dan gradien di luar adegan jaringan. Lantai raised floor di adegan adalah bagian dari ruang server, bukan hiasan.
 - Angka karangan ("10.000+ baris kode", "99% kepuasan"), bar persentase keahlian, atau bintang rating skill.
 - Emoji di antarmuka, ikon dekoratif di setiap judul, dan tombol berbentuk pill di semua tempat.
 
 ## Warna
 
-Mode gelap adalah bawaan. Mode terang tersedia lewat tombol, dan pilihan pengunjung diingat.
+**Hanya mode gelap.** Tidak ada mode terang dan tidak ada tombol tema (keputusan Farhan, 9 November 2026).
 
-| Token | Gelap (bawaan) | Terang | Dipakai untuk |
-| --- | --- | --- | --- |
-| `--bg` | `#0F1115` | `#F6F6F3` | Latar halaman |
-| `--surface` | `#161A20` | `#FFFFFF` | Kartu, bingkai tangkapan layar |
-| `--line` | `#272D36` | `#D9DCE1` | Garis pemisah, tepi |
-| `--text` | `#E7E9EC` | `#15181D` | Teks utama |
-| `--muted` | `#9AA3AF` | `#58606C` | Teks pendukung, label |
-| `--accent` | `#8EA9F2` | `#23408E` | Link, fokus, detail kecil |
-| `--accent-fill` | `#2F4FA8` | `#23408E` | Latar tombol utama, teks putih di atasnya |
+| Token | Nilai | Dipakai untuk |
+| --- | --- | --- |
+| `--bg` | `#05070C` | Latar halaman dan warna dasar adegan |
+| `--panel` | `rgba(8, 11, 18, .82)` + blur 14 px | Panel isi di atas adegan |
+| `--surface` | `#0E131C` | Bingkai tangkapan layar |
+| `--line` | `rgba(142, 169, 242, .17)` | Garis pemisah dan tepi panel |
+| `--text` | `#E7E9EC` | Teks utama |
+| `--muted` | `#9AA3AF` | Teks pendukung dan label |
+| `--accent` | `#8EA9F2` | Link, fokus, dan detail kecil |
+| `--accent-fill` | `#2F4FA8` | Latar tombol utama, dengan teks putih di atasnya |
+| `--live` | `#6FCF97` | Status Live dan sebagian lampu rak |
 
-Biru tinta di mode terang adalah `#23408E`. Di latar gelap, warna itu terlalu gelap untuk dibaca, jadi dipakai versi yang lebih terang (`#8EA9F2`) untuk teks dan link. Tombol utama tetap memakai biru tinta pekat dengan teks putih di kedua mode.
-
-Hanya ada satu warna aksen. Warna lain di halaman berasal dari tangkapan layar proyek. Semua pasangan teks dan latar dicek dengan `antislop-human/contrast-check.py` dan minimal memenuhi WCAG AA.
+Biru tinta pekat (`#2F4FA8`) dipakai untuk tombol dan tepi rak. Versi terangnya (`#8EA9F2`) dipakai untuk teks dan link supaya terbaca di latar gelap. Hanya ada satu warna aksen. Hijau hanya dipakai sebagai warna status. Semua pasangan teks dan latar sudah dicek dengan `antislop-human/contrast-check.py` dan memenuhi WCAG AA, termasuk teks redup di atas panel.
 
 ## Huruf
 
@@ -85,13 +104,13 @@ Sedang dan terkoreografi. Farhan meminta animasi yang bagus (9 November 2026, re
 
 | # | Gerakan | Kapan | Tujuan |
 | --- | --- | --- | --- |
-| 0 | Serat cahaya mengalir ke simpul di hero (WebGL) | Terus-menerus selama hero terlihat, berhenti saat tidak terlihat | Satu momen utama yang menjadi identitas situs, sesuai permintaan Farhan |
+| 0 | Ruang server: lampu status berkedip, paket data berjalan, dan kamera berpindah antar bagian jaringan mengikuti scroll | Selama halaman terbuka, berhenti saat tab disembunyikan | Identitas situs. Proyek tampil sebagai host di jaringan yang hidup |
 | 1 | Kata-kata judul hero naik dari balik garis, lalu peran, ringkasan, dan tombol muncul berurutan (sekitar 900 ms) | Sekali saat Beranda dibuka | Mengarahkan mata dari judul ke nama, lalu ke tombol Lihat proyek |
 | 2 | Tangkapan layar halaman penuh bergulir di dalam bingkai mengikuti scroll halaman | Saat kartu proyek dilewati | Pengunjung melihat seluruh situs proyek tanpa membukanya |
 | 3 | Kartu proyek muncul pelan dan naik 16 px | Sekali saat pertama masuk layar | Memberi ritme saat membaca daftar proyek |
 | 4 | Titik hijau "Live" berdenyut dua kali, lalu diam | Saat kartunya muncul | Menandai bahwa situsnya benar-benar online |
 | 5 | Bingkai dan judul proyek berpindah mulus dari kartu ke halaman detail (View Transitions) | Saat membuka atau menutup detail proyek | Pembaca tetap tahu sedang membuka proyek yang mana |
-| 6 | Penanda pilihan meluncur di tombol ID/EN dan Gelap/Terang (pola "pill glide") | Saat diklik | Menunjukkan pilihan yang aktif |
+| 6 | Penanda pilihan meluncur di tombol ID/EN (pola "pill glide") | Saat diklik | Menunjukkan pilihan yang aktif |
 | 7 | Garis linimasa pengalaman tergambar mengikuti scroll, dan tiap baris menyala saat dilewati | Saat menggulir Pengalaman | Menunjukkan urutan waktu |
 | 8 | Garis progres baca tipis berwarna biru tinta di atas halaman | Di halaman detail proyek | Menunjukkan sisa studi kasus yang belum dibaca |
 | 9 | Panah ↗ bergeser 2 px dan tepi kartu berubah ke warna aksen | Hover dan fokus | Menandai elemen yang bisa diklik |
