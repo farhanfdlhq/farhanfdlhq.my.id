@@ -287,3 +287,17 @@ main > section, #hero { scroll-margin-top: 76px; }
   @view-transition { navigation: auto; }
   ::view-transition-group(*) { animation-duration: .45s; animation-timing-function: cubic-bezier(.2, .75, .2, 1); }
 }
+
+/* Linimasa: garis merah digambar per baris mengikuti garis bayangan di 60% tinggi layar,
+   dan titik baris itu terisi penuh merah tepat saat ujung garis sampai di titiknya */
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .timeline::after { display: none; }
+    .timeline li::after { content: ""; position: absolute; left: -19px; top: 25.5px; width: 1px; height: 100%; background: var(--red); transform-origin: top; transform: scaleY(0); animation: segdraw linear both; animation-timeline: view(block 60% 40%); animation-range: cover 0% cover 100%; }
+    .timeline li:first-child::after { top: 11.5px; height: calc(100% + 14px); }
+    .timeline li:last-child::after { display: none; }
+    .timeline li::before { animation: dotfill linear both; animation-timeline: view(block 60% 40%); animation-range: cover 0% cover 2%; }
+  }
+}
+@keyframes segdraw { to { transform: scaleY(1); } }
+@keyframes dotfill { from { background: var(--bg); } to { background: var(--red); box-shadow: 0 0 10px rgba(255, 77, 61, .55); } }
