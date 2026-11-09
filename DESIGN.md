@@ -9,7 +9,7 @@ Riwayat: versi 1 sampai 6 memakai arah "lembar spesifikasi" dengan biru tinta. P
 Seperti halaman produk perangkat keras. Satu objek menjadi pusat perhatian: meja kerja dengan PC yang dibongkar sampai ke CPU. Hitam pekat, garis putih es, huruf sangat lebar, dan sedikit kata. Nuansa IT-nya datang dari komputer itu dan dari jaringan node yang terus bertukar paket data di sekelilingnya.
 
 - Hanya mode gelap. Tidak ada tombol tema.
-- Tidak ada nama domain atau label teks di dalam animasi.
+- Tidak ada label teks di dalam animasi, kecuali nama domain Farhan yang timbul samar di casing PC.
 - Hero tanpa kalimat pernyataan. Nama adalah judulnya.
 
 ## Warna
@@ -61,10 +61,11 @@ Revisi 9 November 2026 (ide Farhan): adegan dimulai dari meja kerja, lalu kamera
 
 - **Isi meja:**
   - Monitor dengan baris kode abstrak yang bergulir (garis tanpa teks).
-  - Keyboard RGB (gelombang warna per tombol), mouse RGB, dan headset RGB di atas stand.
+  - Keyboard RGB (gelombang warna per tombol), mouse RGB, dan headset RGB yang tergantung di stand (headband bertumpu di sandaran, earcup dengan bantalan, cincin RGB di sisi luar).
   - Router dengan lampu hijau dan dua antena.
   - Strip LED RGB di tepi depan meja.
   - Casing PC dengan lampu power merah, ventilasi, dan dua strip RGB di depan.
+  - Nama domain `farhanfdlhq.my.id` timbul samar di panel samping casing (permintaan Farhan). Ini satu-satunya teks di dalam adegan, dan ikut bergeser saat panel dibuka.
 - **Isi PC:** motherboard, CPU (substrat berpin, IHS, dan die merah yang bercahaya), pendingin CPU dengan kipas, 4 RAM, GPU dengan dua kipas, PSU, SSD, dan dua kipas casing. Semua kipas berputar dan cincinnya RGB. RAM punya lampu RGB di atasnya.
 - **Jaringan:**
   - Router tersambung kabel LAN ke PC.
