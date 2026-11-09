@@ -8,11 +8,23 @@ Arah visual untuk website pribadi Farhan. Dipakai bersama skill anti-slop: file 
 
 Pilihan Farhan (9 November 2026): kesan teknis dan presisi, mode gelap sebagai bawaan, aksen biru tinta, nama ditampilkan sebelum proyek, huruf IBM Plex, gerak sedang dan terkoreografi (direvisi dari minimal), tanpa foto diri, dan judul peran "UI/UX | Software Engineer".
 
+## Hero sinematik
+
+Revisi 9 November 2026 setelah Farhan menunjukkan referensi style.ai.id: layar pertama dibuat sinematik, sedangkan bagian lainnya tetap tenang bergaya lembar spesifikasi.
+
+- **Adegan:** jalur cahaya yang terhubung. Serat-serat biru tinta mengalir dari tepi layar, berputar, lalu bertemu di satu simpul terang. Adegan ini menggambarkan serat optik (proyek ISP), rute perjalanan (Agendain), dan data yang sampai ke production. Dibuat dengan WebGL (three.js) dalam kode sendiri, tanpa video atau gambar.
+- **Judul:** kalimat pernyataan besar "Dari database sampai production." (EN: "From database to production."), IBM Plex Sans 700, `clamp(2.75rem, 12.5cqw, 6.25rem)`. Di bawahnya ada nama, peran, satu kalimat ringkasan, tombol "Lihat proyek", serta link Unduh CV dan Email.
+- **Tata letak:** teks di kiri bawah. Simpul cahaya berada di kanan pada layar lebar dan di kanan atas pada HP. Lapisan gelap transparan di bawah teks menjaga kontras.
+- **Warna hero:** tetap malam (`#05070C`) di mode gelap maupun terang. Glow, cahaya aditif, dan gradien transparan hanya boleh dipakai di hero.
+- **Interaksi:** kamera bergeser sedikit mengikuti kursor dan scroll.
+- **Kinerja:** jumlah serat 90 di HP dan 150 di desktop. Pixel ratio dibatasi 1,5 di HP. Animasi berhenti saat hero tidak terlihat atau tab disembunyikan. Kalau WebGL tidak tersedia, tampil gambar CSS diam dengan komposisi yang sama.
+- **Kurangi gerak:** kalau perangkat meminta `prefers-reduced-motion`, adegan dirender satu bingkai diam saja.
+
 ## Yang tidak dipakai
 
 - Terminal palsu, efek ketik, kursor berkedip, matrix, atau glow neon.
 - Judul besar dengan huruf monospace, atau label huruf kapital dengan jarak huruf lebar (misalnya "PROJECTS", "ABOUT ME").
-- Grid latar, noise, blob, gradien, glassmorphism.
+- Grid latar, noise, blob, gradien, dan glassmorphism di luar hero.
 - Angka karangan ("10.000+ baris kode", "99% kepuasan"), bar persentase keahlian, atau bintang rating skill.
 - Emoji di antarmuka, ikon dekoratif di setiap judul, dan tombol berbentuk pill di semua tempat.
 
@@ -73,7 +85,8 @@ Sedang dan terkoreografi. Farhan meminta animasi yang bagus (9 November 2026, re
 
 | # | Gerakan | Kapan | Tujuan |
 | --- | --- | --- | --- |
-| 1 | Kata-kata nama naik dari balik garis, lalu peran, ringkasan, dan tombol muncul berurutan (sekitar 900 ms) | Sekali saat Beranda dibuka | Mengarahkan mata dari nama ke tombol Unduh CV |
+| 0 | Serat cahaya mengalir ke simpul di hero (WebGL) | Terus-menerus selama hero terlihat, berhenti saat tidak terlihat | Satu momen utama yang menjadi identitas situs, sesuai permintaan Farhan |
+| 1 | Kata-kata judul hero naik dari balik garis, lalu peran, ringkasan, dan tombol muncul berurutan (sekitar 900 ms) | Sekali saat Beranda dibuka | Mengarahkan mata dari judul ke nama, lalu ke tombol Lihat proyek |
 | 2 | Tangkapan layar halaman penuh bergulir di dalam bingkai mengikuti scroll halaman | Saat kartu proyek dilewati | Pengunjung melihat seluruh situs proyek tanpa membukanya |
 | 3 | Kartu proyek muncul pelan dan naik 16 px | Sekali saat pertama masuk layar | Memberi ritme saat membaca daftar proyek |
 | 4 | Titik hijau "Live" berdenyut dua kali, lalu diam | Saat kartunya muncul | Menandai bahwa situsnya benar-benar online |

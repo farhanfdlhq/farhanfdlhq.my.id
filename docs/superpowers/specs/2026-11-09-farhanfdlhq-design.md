@@ -2,7 +2,7 @@
 
 Tanggal: 9 November 2026
 Status: draf, menunggu persetujuan
-Mockup: https://claude.ai/artifact/QVgQ1ovueJ5UPccyhtcnKN (versi 2, dengan animasi)
+Mockup: https://claude.ai/artifact/QVgQ1ovueJ5UPccyhtcnKN (versi 3, hero WebGL)
 
 ## Untuk apa dan untuk siapa
 
