@@ -82,6 +82,24 @@ try {
   check("transisi antarhalaman diaktifkan lewat CSS", await page.evaluate(() => [...document.styleSheets].some((s) => { try { return [...s.cssRules].some((r) => r.cssText.includes("@view-transition")); } catch { return false; } })));
   await ctx.close();
 
+  // ---------- SEO ----------
+  {
+    const html = await (await fetch(BASE + "/")).text();
+    check("SEO: hreflang en di Beranda", /<link rel="alternate" hrefLang="en" href="http:\/\/localhost:3399\/en\/"/i.test(html));
+    check("SEO: JSON-LD Person tanpa telepon", html.includes('"@type":"Person"') && !/telephone/i.test(html));
+    const det = await (await fetch(BASE + "/en/projects/qiran/")).text();
+    check("SEO: og:image proyek", det.includes('property="og:image" content="http://localhost:3399/og/qiran/"'));
+    const og = await fetch(BASE + "/og/qiran/");
+    check("SEO: gambar OG PNG", og.status === 200 && og.headers.get("content-type") === "image/png");
+    check("SEO: gambar OG draf 404", (await fetch(BASE + "/og/tidak-ada/")).status === 404);
+    const sm = await (await fetch(BASE + "/sitemap.xml")).text();
+    check("SEO: sitemap berisi proyek dua bahasa", sm.includes("/proyek/agendain/") && sm.includes("/en/projects/agendain/") && !sm.includes("/admin"));
+    const rb = await (await fetch(BASE + "/robots.txt")).text();
+    check("SEO: robots menutup admin", rb.includes("Disallow: /admin/"));
+    const mf = await fetch(BASE + "/manifest.webmanifest");
+    check("SEO: manifest", mf.status === 200 && (await mf.json()).icons.length === 2);
+  }
+
   // ---------- Admin proyek ----------
   {
     const actx = await browser.newContext({ viewport: { width: 1280, height: 900 } });

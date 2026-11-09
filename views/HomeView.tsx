@@ -1,6 +1,7 @@
 import { PublicShell } from "@/components/site/PublicShell";
 import { ProjectCard } from "@/components/site/ProjectCard";
 import { CopyEmail } from "@/components/site/CopyEmail";
+import { jsonLdString, personJsonLd } from "@/lib/seo";
 import { certifications, education, experiences, primaryCv, profile, publishedProjects, skills } from "@/lib/content";
 import { homePath, projectsPath } from "@/lib/paths";
 import { t, type Lang } from "@/lib/i18n";
@@ -14,6 +15,7 @@ export function HomeView({ lang }: { lang: Lang }) {
   const certs = certifications();
   return (
     <PublicShell lang={lang} path={homePath(lang)} isHome>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdString(personJsonLd(lang)) }} />
       <section className="hero" id="hero" aria-labelledby="h-hero">
         <div className="hero-scrim" aria-hidden="true" />
         <div className="hero-inner">
