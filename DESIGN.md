@@ -132,4 +132,8 @@ Teks bahasa Inggris ditulis ulang dengan wajar, tidak diterjemahkan kata per kat
 
 ## Logo
 
-Dibuat dengan skill `logo-generator` setelah mockup disetujui. Logo memakai warna dan huruf dari file ini, harus terbaca sebagai favicon 16 px, dan tidak memakai gradien.
+Final (pilihan Farhan, 9 November 2026): huruf **f** geometris dengan garis tebal dan ujung membulat, plus titik persegi merah di kanan bawah. Logo ini diambil dari wordmark `farhanfdlhq.` di header. Dibuat dengan skill `logo-generator` lewat dua putaran (7 varian, lalu 6 varian dari pilihan 1, 2, dan 5).
+
+- Semua file dan aturan pakainya ada di `brand/README.md`.
+- Di header, logo 22 px dipasang di depan wordmark.
+- Favicon memakai versi dengan latar hitam membulat.
