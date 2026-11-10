@@ -12,9 +12,10 @@ export async function currentUser(): Promise<User | null> {
   return getSessionUser(jar.get(SESSION_COOKIE)?.value);
 }
 
-export async function requireAdmin(): Promise<User> {
+/** next: halaman admin yang sedang dibuka, supaya setelah masuk langsung kembali ke sana. */
+export async function requireAdmin(next?: string): Promise<User> {
   const user = await currentUser();
-  if (!user) redirect("/admin/masuk/");
+  if (!user) redirect(next ? `/admin/masuk/?next=${encodeURIComponent(next)}` : "/admin/masuk/");
   return user;
 }
 

@@ -14,6 +14,8 @@ export function PeekButton({ labelOn, labelOff }: { labelOn: string; labelOff: s
   }, []);
   useEffect(() => {
     document.getElementById("site")?.classList.toggle("peek", on);
+    // Isi yang disembunyikan juga dikeluarkan dari urutan Tab dan pembaca layar
+    document.querySelectorAll<HTMLElement>("main, .hero-inner, .foot, .navlinks, #lang").forEach((el) => { el.inert = on; });
     if (!on) return;
     const esc = (e: KeyboardEvent) => { if (e.key === "Escape") { setOn(false); document.getElementById("peek")?.focus(); } };
     document.addEventListener("keydown", esc);

@@ -39,6 +39,9 @@ pull_and_reexec "$@"
 
 if [ ! -d node_modules ] || [ "${LOCK_BEFORE:-}" != "$(sha1sum package-lock.json | cut -d' ' -f1)" ]; then
   echo "==> Daftar paket berubah, pasang ulang"
+  # npm ci mengganti node_modules yang sedang dipakai situs lama, jadi situs bisa error sebentar sampai restart.
+  # Hanya terjadi saat package-lock.json berubah; deploy biasa tidak menyentuh node_modules.
+  echo "    Catatan: selama pemasangan dan build (sekitar 1-3 menit) situs bisa sesekali error."
   npm ci --include=dev --no-audit --no-fund
 fi
 

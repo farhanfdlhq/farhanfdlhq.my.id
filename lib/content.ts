@@ -1,7 +1,7 @@
 /** Data publik untuk halaman: proyek, profil, riwayat, keahlian, dan CV. */
 import { getDb } from "./db";
 import { getSetting } from "./settings";
-import { pick } from "./i18n";
+import { langAttr, pick } from "./i18n";
 import type { Lang } from "./lang";
 
 export type ProjectRow = {
@@ -47,13 +47,15 @@ export function allTech(): string[] {
   return [...set].sort((a, b) => a.localeCompare(b));
 }
 
-export type Profile = { name: string; role: string; city: string; email: string; github: string; linkedin: string; heroLine: string; about: string; seoTitle: string; seoDesc: string };
+export type Profile = { name: string; role: string; city: string; email: string; github: string; linkedin: string; heroLine: string; about: string; heroLang?: "id"; aboutLang?: "id"; seoTitle: string; seoDesc: string };
 
 export function profile(lang: Lang): Profile {
   return {
     name: getSetting("name"), role: getSetting("role"), city: getSetting("city"), email: getSetting("email"),
     github: getSetting("github_url"), linkedin: getSetting("linkedin_url"),
     heroLine: getSetting("hero_line", lang), about: getSetting("about", lang),
+    heroLang: lang === "en" && !getSetting("hero_line_en").trim() ? "id" : undefined,
+    aboutLang: lang === "en" && !getSetting("about_en").trim() ? "id" : undefined,
     seoTitle: getSetting("seo_title", lang), seoDesc: getSetting("seo_desc", lang),
   };
 }
@@ -62,16 +64,16 @@ type Row = Record<string, unknown> & { id: number };
 const all = (table: string) => getDb().prepare(`SELECT * FROM ${table} ORDER BY sort, id`).all() as Row[];
 
 export function experiences(lang: Lang) {
-  return all("experiences").map((r) => ({ id: r.id, role: pick(r, "role", lang).text, org: String(r.org), period: pick(r, "period", lang).text }));
+  return all("experiences").map((r) => { const role = pick(r, "role", lang), period = pick(r, "period", lang); return { id: r.id, role: role.text, org: String(r.org), period: period.text, lang: langAttr(role, period) }; });
 }
 export function education(lang: Lang) {
-  return all("education").map((r) => ({ id: r.id, school: String(r.school), degree: pick(r, "degree", lang).text, detail: pick(r, "detail", lang).text, yearEnd: r.year_end as number | null }));
+  return all("education").map((r) => { const degree = pick(r, "degree", lang), detail = pick(r, "detail", lang); return { id: r.id, school: String(r.school), degree: degree.text, detail: detail.text, yearEnd: r.year_end as number | null, lang: langAttr(degree, detail) }; });
 }
 export function certifications() {
   return all("certifications").map((r) => ({ id: r.id, name: String(r.name), issuer: String(r.issuer) }));
 }
 export function skills(lang: Lang) {
-  return all("skills").map((r) => ({ id: r.id, group: pick(r, "group", lang).text, items: String(r.items) }));
+  return all("skills").map((r) => { const group = pick(r, "group", lang); return { id: r.id, group: group.text, items: String(r.items), lang: langAttr(group) }; });
 }
 
 /** CV utama untuk bahasa halaman: file utama berbahasa itu (atau "both"), lalu file utama mana saja. */

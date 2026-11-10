@@ -9,7 +9,7 @@ export const metadata = { title: "Proyek" };
 
 export default async function AdminProjects() {
   // Layout tidak cukup: navigasi RSC bisa melewati layout, jadi setiap halaman memeriksa login sendiri
-  await requireAdmin();
+  await requireAdmin("/admin/");
   const list = allProjectsForAdmin();
   return (
     <>

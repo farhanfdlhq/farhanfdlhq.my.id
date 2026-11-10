@@ -40,11 +40,19 @@ export function ProjectForm({ p }: { p: ProjectRow | null }) {
         <label htmlFor="repo_url">Link repo <span className="opt">(opsional, hanya kalau boleh dibuka publik)</span></label>
         <input id="repo_url" name="repo_url" type="url" inputMode="url" autoCapitalize="none" placeholder="https://github.com/..." defaultValue={p?.repo_url ?? ""} />
       </div>
-      <div className="choice-row" role="group" aria-label="Status">
-        <label className="choice"><input type="radio" name="status" value="draft" defaultChecked={!p || p.status === "draft"} /><span>Draf</span></label>
-        <label className="choice"><input type="radio" name="status" value="published" defaultChecked={p?.status === "published"} /><span>Terbit</span></label>
-        <label className="choice"><input type="checkbox" name="featured" value="1" defaultChecked={!!p?.featured} /><span>Unggulan di Beranda</span></label>
-      </div>
+      <fieldset className="field choice-field">
+        <legend className="label">Status</legend>
+        <div className="choice-row">
+          <label className="choice"><input type="radio" name="status" value="draft" defaultChecked={!p || p.status === "draft"} /><span>Draf</span></label>
+          <label className="choice"><input type="radio" name="status" value="published" defaultChecked={p?.status === "published"} /><span>Terbit</span></label>
+        </div>
+      </fieldset>
+      <fieldset className="field choice-field">
+        <legend className="label">Beranda</legend>
+        <div className="choice-row">
+          <label className="choice"><input type="checkbox" name="featured" value="1" defaultChecked={!!p?.featured} /><span>Jadikan unggulan</span></label>
+        </div>
+      </fieldset>
       <div className="btn-row">
         <button className="btn primary" type="submit">{p ? "Simpan" : "Buat proyek"}</button>
         <a className="btn btn-quiet" href="/admin/">Kembali</a>

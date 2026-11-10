@@ -6,7 +6,7 @@ export const metadata = { title: "Riwayat" };
 
 export default async function HistoryAdmin() {
   // Layout tidak cukup: navigasi RSC bisa melewati layout, jadi setiap halaman memeriksa login sendiri
-  await requireAdmin();
+  await requireAdmin("/admin/riwayat/");
   return (
     <>
       <AdminNav current="/admin/riwayat/" />

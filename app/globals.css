@@ -27,7 +27,7 @@ button, a, summary { cursor: pointer; }
 .pill .ind { position: absolute; top: 2px; bottom: 2px; left: 2px; width: calc((100% - 4px) / 2); border-radius: 3px; background: var(--surface); border: 1px solid var(--line); transform: translateX(calc(var(--at, 0) * 100%)); transition: transform .32s cubic-bezier(.3, 1.35, .5, 1); }
 .pill button { position: relative; font: 500 13px/1 var(--mono); color: var(--muted); background: transparent; border: 0; min-height: 34px; padding: 0 9px; transition: color .2s; }
 .pill button[aria-pressed="true"] { color: var(--text); }
-.chip { font: 500 13px/1 var(--mono); color: var(--muted); background: transparent; border: 1px solid var(--line); border-radius: 4px; min-width: 44px; min-height: 36px; padding: 0 10px; }
+.chip { position: relative; font: 500 13px/1 var(--mono); color: var(--muted); background: transparent; border: 1px solid var(--line); border-radius: 4px; min-width: 44px; min-height: 36px; padding: 0 10px; }
 .chip:hover { color: var(--text); }
 @container (min-width: 720px) {
   .navlinks { display: flex; }
@@ -235,7 +235,7 @@ main > section::after { content: ""; position: absolute; left: -4px; top: 30px; 
 @container (min-width: 900px) {
   .beat { height: 16svh; }
 }
-.eye { display: inline-grid; place-items: center; width: 40px; height: 38px; border: 1px solid var(--line); border-radius: 2px; background: transparent; color: var(--muted); transition: color .2s, border-color .2s, background .2s; }
+.eye { display: inline-grid; place-items: center; width: 44px; height: 44px; border: 1px solid var(--line); border-radius: 2px; background: transparent; color: var(--muted); transition: color .2s, border-color .2s, background .2s; }
 .eye:hover { color: var(--text); border-color: var(--muted); }
 .eye .eye-shut { display: none; }
 .peek .eye { color: var(--bg); background: var(--text); border-color: var(--text); }
@@ -264,7 +264,7 @@ main h2 { font-size: clamp(1.6rem, 9.2cqi, 3.4rem); overflow-wrap: anywhere; }
 .mark .wm span { color: var(--red); }
 
 /* Halaman publik di Next.js: bagian yang tidak ada di mockup */
-.pill.langs a { position: relative; display: inline-grid; place-items: center; font: 500 13px/1 var(--mono); color: var(--muted); text-decoration: none; min-height: 34px; min-width: 36px; padding: 0 9px; transition: color .2s; }
+.pill.langs a { position: relative; display: inline-grid; place-items: center; font: 500 13px/1 var(--mono); color: var(--muted); text-decoration: none; min-height: 34px; min-width: 44px; padding: 0 9px; transition: color .2s; }
 .pill.langs a[aria-current="true"] { color: var(--text); }
 .more { margin: 28px 0 0; }
 .subhead { margin: 30px 0 14px; font: 500 13px/1 var(--mono); color: var(--red); text-transform: none; }
@@ -301,3 +301,6 @@ main > section, #hero { scroll-margin-top: 76px; }
 }
 @keyframes segdraw { to { transform: scaleY(1); } }
 @keyframes dotfill { from { background: var(--bg); } to { background: var(--red); box-shadow: 0 0 10px rgba(255, 77, 61, .55); } }
+
+/* Area sentuh minimal 44 px tanpa mengubah ukuran yang terlihat */
+.pill.langs a::after, .chip::after { content: ""; position: absolute; inset: -5px 0; }

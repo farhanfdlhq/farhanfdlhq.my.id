@@ -6,6 +6,14 @@ const BASE = process.env.BASE || "http://127.0.0.1:3399";
 const results = [];
 const check = (name, ok, extra = "") => { results.push({ name, ok }); console.log(`${ok ? "PASS" : "FAIL"}  ${name}${extra ? "  " + extra : ""}`); };
 const browser = await chromium.launch();
+// Area sentuh minimal 44x44: titik 21 px dari tengah ke empat arah harus tetap mengenai elemen itu
+const hitArea = (page, sel) => page.evaluate((s) => {
+  const el = document.querySelector(s);
+  if (!el) return "tidak ada";
+  const r = el.getBoundingClientRect(), cx = r.left + r.width / 2, cy = r.top + r.height / 2;
+  const ok = [[cx, cy - 21], [cx, cy + 21], [cx - 21, cy], [cx + 21, cy]].every(([x, y]) => { const hit = document.elementFromPoint(x, y); return hit && (hit === el || el.contains(hit)); });
+  return ok ? "ok" : `${Math.round(r.width)}x${Math.round(r.height)}`;
+}, sel);
 const errors = [];
 const watch = (page) => {
   page.on("pageerror", (e) => errors.push(e.message));
@@ -65,6 +73,12 @@ try {
     const w = await page.evaluate(() => document.documentElement.scrollWidth);
     check(`HP 390: tidak ada scroll samping di ${p}`, w <= 390, `lebar ${w}`);
   }
+  await page.goto(BASE + "/");
+  for (const sel of [".pill.langs a", "#kontak .chip"]) {
+    await page.evaluate((s) => document.querySelector(s)?.scrollIntoView({ block: "center" }), sel);
+    const r = await hitArea(page, sel);
+    check(`HP 390: area sentuh ${sel} minimal 44 px`, r === "ok", r);
+  }
   await ctx.close();
 
   // ---------- Gerak ----------
@@ -98,7 +112,7 @@ try {
     check("SEO: hreflang en di Beranda", /<link rel="alternate" hrefLang="en" href="http:\/\/localhost:3399\/en\/"/i.test(html));
     check("SEO: JSON-LD Person tanpa telepon", html.includes('"@type":"Person"') && !/telephone/i.test(html));
     const det = await (await fetch(BASE + "/en/projects/qiran/")).text();
-    check("SEO: og:image proyek", det.includes('property="og:image" content="http://localhost:3399/og/qiran/"'));
+    check("SEO: og:image proyek", det.includes('property="og:image" content="http://localhost:3399/og/qiran/?lang=en"'));
     const og = await fetch(BASE + "/og/qiran/");
     check("SEO: gambar OG PNG", og.status === 200 && og.headers.get("content-type") === "image/png");
     check("SEO: gambar OG draf 404", (await fetch(BASE + "/og/tidak-ada/")).status === 404);
@@ -115,13 +129,18 @@ try {
     const actx = await browser.newContext({ viewport: { width: 1280, height: 900 } });
     const ap = await actx.newPage();
     watch(ap);
-    await ap.goto(BASE + "/admin/");
+    await ap.goto(BASE + "/admin/cv/");
     check("admin tanpa login diarahkan ke halaman masuk", ap.url().includes("/admin/masuk/"));
+    check("admin: halaman masuk mengingat halaman tujuan", ap.url().includes("next=%2Fadmin%2Fcv%2F"), ap.url());
     await ap.fill("#email", process.env.ADMIN_EMAIL);
     await ap.fill("#password", process.env.ADMIN_PW);
     await ap.click("button[type=submit]");
-    await ap.waitForURL(BASE + "/admin/");
+    const backToCv = await ap.waitForURL(BASE + "/admin/cv/", { timeout: 8000 }).then(() => true, () => false);
+    check("admin: setelah masuk kembali ke halaman tujuan", backToCv, ap.url());
+    await ap.goto(BASE + "/admin/");
     check("admin: login berhasil", (await ap.locator("h1").textContent()) === "Proyek");
+    const small = await ap.locator(".row-actions .btn-small").first().boundingBox();
+    check("admin: tombol kecil setinggi minimal 44 px", small && small.height >= 44, String(small?.height));
     await ap.goto(BASE + "/admin/cv/");
     const rscReq = ap.waitForRequest((r) => r.url().includes("_rsc") && new URL(r.url()).pathname === "/admin/");
     await ap.evaluate(() => window.next.router.push("/admin/"));
@@ -132,6 +151,7 @@ try {
     check("admin: navigasi RSC tanpa cookie tidak membocorkan isi admin", !replayBody.includes("Jadikan draf") && !replayBody.includes("admin-row"), `${replay.status} ${replayBody.length} byte`);
     await ap.waitForURL(BASE + "/admin/");
     await ap.click("text=Proyek baru");
+    check("admin: grup status punya label yang terlihat", await ap.locator("fieldset legend", { hasText: "Status" }).isVisible().catch(() => false));
     await ap.fill("#title", "Uji Draf");
     await ap.fill("#summary_id", "Proyek uji yang hanya berisi teks bahasa Indonesia.");
     await ap.click("button[type=submit]:has-text('Buat proyek')");
@@ -145,6 +165,8 @@ try {
     await ap.locator(".admin-row", { hasText: "Uji Draf" }).locator(".badge", { hasText: "Terbit" }).waitFor();
     const pub = await ap.request.get(BASE + "/proyek/uji-draf/");
     check("admin: setelah terbit halaman 200", pub.status() === 200, String(pub.status()));
+    const enHtml = await ap.request.get(BASE + "/en/projects/uji-draf/").then((r) => r.text());
+    check("EN: teks cadangan bahasa Indonesia ditandai lang=id", /<p class="lede" lang="id">/.test(enHtml));
     const en = await ap.request.get(BASE + "/en/projects/uji-draf/");
     check("admin: halaman EN memakai teks ID", en.status() === 200 && (await en.text()).includes("hanya berisi teks bahasa Indonesia"));
     await ap.locator(".admin-row", { hasText: "Uji Draf" }).locator("button", { hasText: "Hapus" }).click();
@@ -234,6 +256,9 @@ try {
     await gpage.click("#peek");
     const hidden = await gpage.waitForFunction(() => getComputedStyle(document.querySelector("main")).opacity === "0", null, { timeout: 4000 }).then(() => true, () => false);
     check("tombol mata: isi disembunyikan", hidden);
+    check("tombol mata: isi yang tersembunyi tidak bisa difokus (inert)", await gpage.evaluate(() => document.querySelector("main").inert === true));
+    const eyeHit = await hitArea(gpage, "#peek");
+    check("tombol mata: area sentuh minimal 44 px", eyeHit === "ok", eyeHit);
     await gpage.keyboard.press("Escape");
     const back = await gpage.waitForFunction(() => getComputedStyle(document.querySelector("main")).opacity === "1", null, { timeout: 4000 }).then(() => true, () => false);
     check("Esc: isi kembali", back, await gpage.evaluate(() => `opacity ${getComputedStyle(document.querySelector("main")).opacity}, peek ${document.getElementById("site").classList.contains("peek")}`));
@@ -270,6 +295,14 @@ try {
   } finally {
     await noGl.close();
   }
+  // Bagian kosong: tidak tampil sebagai panel, tapi titik henti adegan 3D tetap ada
+  const Database = createRequire(import.meta.url)("better-sqlite3");
+  const db = new Database(process.env.DATA_DIR + "/fdq.sqlite");
+  db.prepare("DELETE FROM skills").run();
+  db.close();
+  const emptyHtml = await (await fetch(BASE + "/")).text();
+  check("Keahlian kosong: panelnya disembunyikan", !emptyHtml.includes('id="keahlian"'));
+  check("Keahlian kosong: titik henti adegan 3D tetap ada", emptyHtml.includes('id="h-skill"'));
 } finally {
   await browser.close();
 }

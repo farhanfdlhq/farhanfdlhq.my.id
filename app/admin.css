@@ -19,7 +19,7 @@
 .btn-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
 .btn-quiet { background: transparent; color: var(--text); border: 1px solid var(--line); }
 .btn-danger { background: transparent; color: #FF8A7D; border: 1px solid currentColor; }
-.btn-small { min-height: 36px; padding: 0 14px; font-size: 14px; }
+.btn-small { min-height: 44px; padding: 0 14px; font-size: 14px; }
 .btn:disabled { opacity: .6; cursor: progress; }
 .pw-wrap { position: relative; }
 .pw-wrap input { padding-right: 52px; }

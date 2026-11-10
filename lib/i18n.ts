@@ -100,6 +100,9 @@ export function t(lang: Lang, key: UiKey): string {
   return UI[lang][key];
 }
 
+/** Atribut lang untuk teks cadangan: di halaman EN, teks ID yang dipakai sebagai cadangan dibaca pembaca layar dengan suara Indonesia. */
+export const langAttr = (...picked: { fallback: boolean }[]): "id" | undefined => (picked.some((x) => x.fallback) ? "id" : undefined);
+
 /** Ambil kolom dua bahasa. EN yang kosong atau berisi spasi saja kembali ke ID, dan ditandai fallback. */
 export function pick(row: object, field: string, lang: Lang): { text: string; fallback: boolean } {
   const r = row as Record<string, unknown>;

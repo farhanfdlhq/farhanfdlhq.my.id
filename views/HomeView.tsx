@@ -14,6 +14,7 @@ export function HomeView({ lang }: { lang: Lang }) {
   const words = me.name.split(/\s+/).filter(Boolean);
   const edu = education(lang);
   const certs = certifications();
+  const exps = experiences(lang), skillRows = skills(lang);
   return (
     <PublicShell lang={lang} path={homePath(lang)} isHome>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdString(personJsonLd(lang)) }} />
@@ -24,7 +25,7 @@ export function HomeView({ lang }: { lang: Lang }) {
             {words.map((w, i) => <span key={i}><span className="w"><span style={{ "--i": i } as React.CSSProperties}>{w}</span></span>{i < words.length - 1 ? " " : ""}</span>)}
           </h1>
           <p className="who seq" style={{ "--d": 2 } as React.CSSProperties}>
-            <b>{me.role}</b>{me.city ? (lang === "en" ? ` in ${me.city}.` : ` di ${me.city}.`) : ""} {me.heroLine}
+            <b>{me.role}</b>{me.city ? (lang === "en" ? ` in ${me.city}.` : ` di ${me.city}.`) : ""} <span lang={me.heroLang}>{me.heroLine}</span>
           </p>
           <div className="hero-act seq" style={{ "--d": 4 } as React.CSSProperties}>
             <a className="btn hero-btn" href="#proyek">{t(lang, "see_projects")} <span className="arr">›</span></a>
@@ -45,24 +46,27 @@ export function HomeView({ lang }: { lang: Lang }) {
         </section>
 
         <div className="beat" id="beat-open" aria-hidden="true" />
-        <section aria-labelledby="h-about" id="tentang">
-          <h2 data-n="02" id="h-about">{t(lang, "about")}</h2>
-          {lines(me.about).map((l, i) => <p className="about" key={i}>{l}</p>)}
-        </section>
+        {/* Bagian kosong tidak tampil sebagai panel, tapi id-nya tetap ada sebagai titik henti adegan 3D (components/scene/story.ts) */}
+        {lines(me.about).length ? (
+          <section aria-labelledby="h-about" id="tentang">
+            <h2 data-n="02" id="h-about">{t(lang, "about")}</h2>
+            {lines(me.about).map((l, i) => <p className="about" key={i} lang={me.aboutLang}>{l}</p>)}
+          </section>
+        ) : <div className="beat" id="h-about" aria-hidden="true" />}
 
         <div className="beat" id="beat-explode" aria-hidden="true" />
-        <section aria-labelledby="h-exp" id="pengalaman">
+        {exps.length || edu.length || certs.length ? <section aria-labelledby="h-exp" id="pengalaman">
           <h2 data-n="03" id="h-exp">{t(lang, "experience")}</h2>
           <ol className="timeline">
-            {experiences(lang).map((e) => (
-              <li key={e.id}><span className="when">{e.period}</span><span><span className="what">{e.role}</span>{e.org ? ` · ${e.org}` : ""}</span></li>
+            {exps.map((e) => (
+              <li key={e.id} lang={e.lang}><span className="when">{e.period}</span><span><span className="what">{e.role}</span>{e.org ? ` · ${e.org}` : ""}</span></li>
             ))}
           </ol>
           {edu.length ? <>
             <h3 className="subhead">{t(lang, "education")}</h3>
             <ol className="timeline">
               {edu.map((e) => (
-                <li key={e.id}><span className="when">{e.yearEnd ?? ""}</span><span><span className="what">{e.degree}</span> · {e.school}{e.detail ? <span className="muted detail"> {e.detail}</span> : null}</span></li>
+                <li key={e.id} lang={e.lang}><span className="when">{e.yearEnd ?? ""}</span><span><span className="what">{e.degree}</span> · {e.school}{e.detail ? <span className="muted detail"> {e.detail}</span> : null}</span></li>
               ))}
             </ol>
           </> : null}
@@ -70,13 +74,15 @@ export function HomeView({ lang }: { lang: Lang }) {
             <h3 className="subhead">{t(lang, "certifications")}</h3>
             <ul className="certs">{certs.map((c) => <li key={c.id}><span className="what">{c.name}</span>{c.issuer ? ` · ${c.issuer}` : ""}</li>)}</ul>
           </> : null}
-        </section>
+        </section> : <div className="beat" id="h-exp" aria-hidden="true" />}
 
         <div className="beat" id="beat-cpu" aria-hidden="true" />
-        <section aria-labelledby="h-skill" id="keahlian">
-          <h2 data-n="04" id="h-skill">{t(lang, "skills")}</h2>
-          <dl className="skills">{skills(lang).map((s) => <div key={s.id}><dt>{s.group}</dt><dd>{s.items}</dd></div>)}</dl>
-        </section>
+        {skillRows.length ? (
+          <section aria-labelledby="h-skill" id="keahlian">
+            <h2 data-n="04" id="h-skill">{t(lang, "skills")}</h2>
+            <dl className="skills">{skillRows.map((s) => <div key={s.id} lang={s.lang}><dt>{s.group}</dt><dd>{s.items}</dd></div>)}</dl>
+          </section>
+        ) : <div className="beat" id="h-skill" aria-hidden="true" />}
 
         <section aria-labelledby="h-contact" id="kontak">
           <h2 data-n="05" id="h-contact">{t(lang, "contact")}</h2>

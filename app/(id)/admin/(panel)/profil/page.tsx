@@ -9,9 +9,9 @@ export const metadata = { title: "Profil" };
 
 export default async function ProfileAdmin() {
   // Layout tidak cukup: navigasi RSC bisa melewati layout, jadi setiap halaman memeriksa login sendiri
-  await requireAdmin();
+  await requireAdmin("/admin/profil/");
   const s = (k: SettingKey) => getSetting(k);
-  const pair = (k: "hero_line" | "about" | "seo_title" | "seo_desc") => ({ id: s(`${k}_id`), en: s(`${k}_en`) });
+  const pair = (k: "hero_line" | "about" | "seo_title" | "seo_desc" | "seo_projects_desc") => ({ id: s(`${k}_id`), en: s(`${k}_en`) });
   return (
     <>
       <AdminNav current="/admin/profil/" />
@@ -35,7 +35,8 @@ export default async function ProfileAdmin() {
           <LangFields name="about" label="Tentang" values={pair("about")} hint="Satu paragraf per baris." multiline rows={6} />
           <h2 className="form-sec">SEO</h2>
           <LangFields name="seo_title" label="Judul di hasil pencarian" values={pair("seo_title")} hint="Sekitar 50–60 huruf." />
-          <LangFields name="seo_desc" label="Deskripsi di hasil pencarian" values={pair("seo_desc")} hint="Sekitar 140–160 huruf." multiline rows={3} />
+          <LangFields name="seo_desc" label="Deskripsi di hasil pencarian" values={pair("seo_desc")} hint="Untuk Beranda. Sekitar 140–160 huruf." multiline rows={3} />
+          <LangFields name="seo_projects_desc" label="Deskripsi halaman Proyek" values={pair("seo_projects_desc")} hint="Kosong berarti memakai kalimat bawaan. Sekitar 140–160 huruf." multiline rows={3} />
           <div><button className="btn primary" type="submit">Simpan profil</button></div>
         </ActionForm>
       </main>

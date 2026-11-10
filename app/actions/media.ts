@@ -1,9 +1,9 @@
 "use server";
 import { revalidatePath } from "next/cache";
 import { requireAdmin } from "@/lib/auth";
-import { UploadError, storeImage } from "@/lib/uploads";
+import { UploadError } from "@/lib/uploads";
 import { CV_LANGS, makePrimaryCv, removeCv, storeCv, type CvLang } from "@/lib/cv";
-import { addProjectImage, moveProjectImage, removeProjectImage, saveImageAlt, setHeroFromImage } from "@/lib/media";
+import { moveProjectImage, uploadProjectImageData, removeProjectImage, saveImageAlt, setHeroFromImage } from "@/lib/media";
 import type { ActionState } from "@/components/admin/ActionForm";
 
 const fileOf = (form: FormData) => {
@@ -29,11 +29,10 @@ export async function uploadProjectImage(_prev: ActionState | null, form: FormDa
   const f = fileOf(form);
   if (!projectId) return { ok: false, errors: { file: "Simpan proyeknya dulu, baru unggah gambar." } };
   if (!f) return { ok: false, errors: { file: "Pilih foto dulu." } };
-  return guard(async () => {
-    addProjectImage(projectId, await storeImage(Buffer.from(await f.arrayBuffer()), f.name));
-    done();
-    return { ok: true, message: "Gambar diunggah." };
-  });
+  const r = await uploadProjectImageData(projectId, Buffer.from(await f.arrayBuffer()), f.name);
+  if (!r.ok) return r;
+  done();
+  return { ok: true, message: "Gambar diunggah." };
 }
 
 export async function saveImageAltAction(_prev: ActionState | null, form: FormData): Promise<ActionState> {

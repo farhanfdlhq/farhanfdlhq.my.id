@@ -1,5 +1,6 @@
 import { getDb } from "@/lib/db";
-import { removeUpload } from "@/lib/uploads";
+import { removeUpload, storeImage, UploadError } from "@/lib/uploads";
+import type { FormResult } from "@/lib/projects-admin";
 import type { ProjectImage } from "@/lib/content";
 
 /** Tambah gambar ke galeri proyek. Kalau proyek belum punya gambar utama, gambar ini dipakai. */
@@ -55,4 +56,16 @@ export function projectFiles(projectId: number): string[] {
   const urls = (db.prepare("SELECT url FROM project_images WHERE project_id = ?").all(projectId) as { url: string }[]).map((r) => r.url);
   const hero = (db.prepare("SELECT hero_image FROM projects WHERE id = ?").get(projectId) as { hero_image: string } | undefined)?.hero_image;
   return [...new Set([...urls, ...(hero ? [hero] : [])])];
+}
+
+/** Simpan gambar untuk proyek. Proyek dicek dulu supaya unggahan dari tab lama tidak meninggalkan file tanpa pemilik. */
+export async function uploadProjectImageData(projectId: number, buf: Buffer, name: string): Promise<FormResult> {
+  if (!getDb().prepare("SELECT 1 FROM projects WHERE id = ?").get(projectId)) return { ok: false, errors: { file: "Proyek ini sudah dihapus. Buka lagi daftar proyek." } };
+  try {
+    addProjectImage(projectId, await storeImage(buf, name));
+    return { ok: true };
+  } catch (e) {
+    if (e instanceof UploadError) return { ok: false, errors: { file: e.message } };
+    throw e;
+  }
 }

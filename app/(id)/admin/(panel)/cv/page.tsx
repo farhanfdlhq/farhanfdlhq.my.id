@@ -12,7 +12,7 @@ const date = (ms: number) => new Intl.DateTimeFormat("id-ID", { day: "numeric", 
 
 export default async function CvAdmin() {
   // Layout tidak cukup: navigasi RSC bisa melewati layout, jadi setiap halaman memeriksa login sendiri
-  await requireAdmin();
+  await requireAdmin("/admin/cv/");
   const list = allCvs();
   return (
     <>

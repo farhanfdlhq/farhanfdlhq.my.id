@@ -1,4 +1,4 @@
-import { pick, type Lang } from "@/lib/i18n";
+import { langAttr, pick, type Lang } from "@/lib/i18n";
 import type { ProjectRow } from "@/lib/content";
 import { projectPath } from "@/lib/paths";
 import { hostOf } from "@/lib/text";
@@ -6,6 +6,7 @@ import { Spec } from "./Spec";
 
 export function ProjectCard({ p, lang }: { p: ProjectRow; lang: Lang }) {
   const host = hostOf(p.live_url) || p.title;
+  const sum = pick(p, "summary", lang);
   return (
     <article className="proj" data-host={p.slug}>
       <div className="frame" style={{ viewTransitionName: `shot-${p.slug}` }}>
@@ -15,7 +16,7 @@ export function ProjectCard({ p, lang }: { p: ProjectRow; lang: Lang }) {
         </div>
       </div>
       <h3 style={{ viewTransitionName: `title-${p.slug}` }}><a href={projectPath(lang, p.slug)}>{p.title} <span className="arr">→</span></a></h3>
-      <p>{pick(p, "summary", lang).text}</p>
+      <p lang={langAttr(sum)}>{sum.text}</p>
       <Spec p={p} lang={lang} />
     </article>
   );

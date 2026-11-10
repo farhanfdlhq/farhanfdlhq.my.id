@@ -3,14 +3,14 @@ import { PublicShell } from "@/components/site/PublicShell";
 import { Spec } from "@/components/site/Spec";
 import { neighbors, projectBySlug, projectImages } from "@/lib/content";
 import { projectPath, projectsPath } from "@/lib/paths";
-import { pick, t, type Lang } from "@/lib/i18n";
+import { langAttr, pick, t, type Lang } from "@/lib/i18n";
 import { hostOf, leadSentence, lines } from "@/lib/text";
 
-function Prose({ title, text, list }: { title: string; text: string; list?: boolean }) {
-  const ls = lines(text);
+function Prose({ title, picked, list }: { title: string; picked: { text: string; fallback: boolean }; list?: boolean }) {
+  const ls = lines(picked.text);
   if (!ls.length) return null;
   return (
-    <section className="prose">
+    <section className="prose" lang={langAttr(picked)}>
       <h2>{title}</h2>
       {list ? <ul>{ls.map((l, i) => { const { lead, rest } = leadSentence(l); return <li key={i}>{lead ? <strong>{lead} </strong> : null}{rest}</li>; })}</ul>
         : ls.map((l, i) => <p key={i}>{l}</p>)}
@@ -22,6 +22,8 @@ export function ProjectView({ lang, slug }: { lang: Lang; slug: string }) {
   const p = projectBySlug(slug);
   if (!p) notFound();
   const { prev, next } = neighbors(slug);
+  const ctxP = pick(p, "context", lang);
+  const lede = ctxP.text ? ctxP : pick(p, "summary", lang);
   const images = projectImages(p.id).filter((im) => im.url !== p.hero_image);
   const host = hostOf(p.live_url) || p.title;
   return (
@@ -31,7 +33,7 @@ export function ProjectView({ lang, slug }: { lang: Lang; slug: string }) {
         <a className="back" href={projectsPath(lang)}>{t(lang, "back")}</a>
         <div className="detail-head">
           <h1 style={{ viewTransitionName: `title-${p.slug}`, width: "fit-content" }}>{p.title}</h1>
-          {pick(p, "context", lang).text || pick(p, "summary", lang).text ? <p className="lede">{pick(p, "context", lang).text || pick(p, "summary", lang).text}</p> : null}
+          {lede.text ? <p className="lede" lang={langAttr(lede)}>{lede.text}</p> : null}
           <Spec p={p} lang={lang} withPeriod full />
         </div>
         {p.hero_image ? (
@@ -40,9 +42,9 @@ export function ProjectView({ lang, slug }: { lang: Lang; slug: string }) {
             <div className="vp"><img src={p.hero_image} width={960} height={600} alt={lang === "en" ? `${p.title} homepage` : `Beranda ${p.title}`} /></div>
           </div>
         ) : null}
-        <Prose title={t(lang, "problem")} text={pick(p, "problem", lang).text} />
-        <Prose title={t(lang, "approach")} text={pick(p, "approach", lang).text} list />
-        <Prose title={t(lang, "result")} text={pick(p, "result", lang).text} />
+        <Prose title={t(lang, "problem")} picked={pick(p, "problem", lang)} />
+        <Prose title={t(lang, "approach")} picked={pick(p, "approach", lang)} list />
+        <Prose title={t(lang, "result")} picked={pick(p, "result", lang)} />
         {images.length ? (
           <section className="gallery-sec" aria-label={t(lang, "gallery")}>
             <h2>{t(lang, "gallery")}</h2>

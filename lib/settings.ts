@@ -6,10 +6,11 @@ export const SETTING_KEYS = [
   "name", "role", "city", "email", "github_url", "linkedin_url",
   "hero_line_id", "hero_line_en", "about_id", "about_en",
   "seo_title_id", "seo_title_en", "seo_desc_id", "seo_desc_en",
+  "seo_projects_desc_id", "seo_projects_desc_en",
 ] as const;
 export type SettingKey = (typeof SETTING_KEYS)[number];
 /** Kunci tanpa akhiran bahasa, misalnya "about" untuk about_id dan about_en. */
-export type BilingualKey = "hero_line" | "about" | "seo_title" | "seo_desc";
+export type BilingualKey = "hero_line" | "about" | "seo_title" | "seo_desc" | "seo_projects_desc";
 
 function raw(key: string): string {
   const row = getDb().prepare("SELECT value FROM settings WHERE key = ?").get(key) as { value: string } | undefined;
