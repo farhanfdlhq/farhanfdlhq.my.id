@@ -112,3 +112,6 @@
 .admin main.admin-main > section { padding: 24px 0 0; border: 0; border-top: 1px solid var(--line); border-radius: 0; background: none; backdrop-filter: none; -webkit-backdrop-filter: none; }
 .admin-main > .form + .admin-list, .admin-main > .form + .muted { margin-top: 32px; }
 .lang-pair > .hint, .field-solo > .hint { font-size: 14px; color: var(--muted); margin: 0; }
+/* Halaman masuk juga memakai <main>: rel dan jarak milik halaman publik tidak berlaku di sini */
+main.admin.login { position: static; padding: 24px 16px; gap: 0; }
+main.admin.login::before { content: none; }

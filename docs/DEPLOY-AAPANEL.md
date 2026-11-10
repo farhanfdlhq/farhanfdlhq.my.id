@@ -203,7 +203,7 @@ tail -n 3 /www/wwwlogs/farhanfdlhq.my.id.log
 cd /opt/farhanfdlhq && ./scripts/deploy.sh
 ```
 
-**Backup harian.** Database disalin dengan SQLite backup (aman walau aplikasi jalan), ditambah folder `uploads/` dan `cv/`. Disimpan 14 hari. Daftarkan di aaPanel **Cron → Add Cron Job → Shell Script**, jadwal harian:
+**Backup (opsional).** Database disalin dengan SQLite backup (aman walau aplikasi jalan), ditambah folder `uploads/` dan `cv/`. Disimpan 14 hari. Jalankan kapan perlu, atau daftarkan di aaPanel **Cron → Add Cron Job → Shell Script** kalau ingin otomatis:
 
 ```bash
 export PATH=/www/server/nodejs/v24.13.0/bin:$PATH && cd /opt/farhanfdlhq && BACKUP_DIR=/www/backup/farhanfdlhq ./scripts/backup.sh

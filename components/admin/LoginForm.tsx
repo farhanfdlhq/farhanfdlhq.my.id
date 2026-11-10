@@ -19,7 +19,6 @@ export function LoginForm({ next }: { next: string }) {
       </div>
       {state.message ? <p className="form-msg err" role="alert">{state.message}</p> : null}
       <div><button className="btn primary" type="submit" disabled={pending}>{pending ? "Memeriksa…" : "Masuk"}</button></div>
-      <p className="form-note">Lupa password? Buat password baru dari terminal server: npm run user -- reset --email email-kamu</p>
     </form>
   );
 }
