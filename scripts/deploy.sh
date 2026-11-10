@@ -20,11 +20,17 @@ echo "==> Node $(node -v)"
 
 # git pull bisa mengubah file skrip ini sendiri. Supaya versi terbaru yang dijalankan,
 # skrip memuat ulang dirinya setelah pull. Dibungkus fungsi agar bash membaca semuanya sebelum pull.
+# Folder kode bisa dimiliki user www (aaPanel menyerahkannya ke user Node Project), sedangkan skrip ini jalan sebagai root.
+# Git menolak repo milik user lain ("dubious ownership"), jadi folder ini dipercaya khusus untuk perintah git di skrip ini.
+git_() { git -c safe.directory="$(pwd -P)" "$@"; }
+
 pull_and_reexec() {
   if [ "${DEPLOY_PULLED:-}" != "1" ]; then
+    # package-lock.json dilacak git; kalau hilang dari folder, dipulihkan supaya npm ci bisa jalan
+    [ -f package-lock.json ] || git_ checkout -- package-lock.json
     export LOCK_BEFORE="$(sha1sum package-lock.json | cut -d' ' -f1)"
     echo "==> Ambil kode terbaru"
-    git pull --ff-only
+    git_ pull --ff-only
     export DEPLOY_PULLED=1
     exec bash "$0" "$@"
   fi
