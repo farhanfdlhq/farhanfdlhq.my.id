@@ -152,19 +152,17 @@ Cek isinya (harus ada belasan baris `set_real_ip_from` dan satu `real_ip_header`
 cat /www/server/nginx/conf/cloudflare-real-ip.conf
 ```
 
-**Tambahan config Nginx.** Di aaPanel 8 Main Configuration File terkunci, jadi ditulis di Proxy Project → **Modify → Config → Customized Configuration Files**:
+**Tambahan config Nginx.** Di aaPanel 8 Main Configuration File terkunci. Buka Proxy Project → **Modify → Config file → Customized Configuration Files**, pilih blok **server**, lalu tambahkan:
 
-1. Blok **server**:
-   ```nginx
-   client_max_body_size 20m;
-   include /www/server/nginx/conf/cloudflare-real-ip.conf;
-   ```
-2. Blok **location /** (di blok server baris ini diabaikan):
-   ```nginx
-   proxy_set_header X-Forwarded-Proto $scheme;
-   proxy_set_header X-Real-IP $remote_addr;
-   ```
-   Baris `X-Real-IP` wajib ada. Aplikasi memercayai header ini lebih dulu untuk menghitung batas login. Kalau Nginx tidak mengisinya, pengunjung bisa mengirim nilai palsu.
+```nginx
+client_max_body_size 20m;
+include /www/server/nginx/conf/cloudflare-real-ip.conf;
+```
+
+Yang tidak perlu ditambahkan:
+
+- `proxy_set_header X-Real-IP $remote_addr;` sudah ditulis aaPanel di blok `location ^~ /`. Jangan ditulis lagi, karena header dobel membuat aplikasi menerima dua IP.
+- `X-Forwarded-Proto` tidak dibaca aplikasi ini. Redirect di aplikasi memakai alamat relatif dan cookie `Secure` diatur dari mode production, jadi tidak ada redirect berulang tanpa header itu.
 
 Cek:
 
@@ -172,7 +170,7 @@ Cek:
 nginx -t && grep -rn "Forwarded-Proto\|X-Real-IP\|client_max_body_size\|cloudflare-real-ip" /www/server/panel/vhost/nginx/ | grep -i farhanfdlhq
 ```
 
-Hasil yang benar: `test is successful` dan baris grep untuk keempatnya. Kalau `X-Real-IP` muncul dua kali (satu dari aaPanel), tidak apa-apa. Peringatan `protocol options redefined` aman diabaikan.
+Hasil yang benar: `test is successful`, satu baris `client_max_body_size`, satu baris `cloudflare-real-ip`, dan `X-Real-IP` tepat satu kali. Peringatan `protocol options redefined` aman diabaikan.
 
 ## 5. Nyalakan Cloudflare
 
@@ -219,7 +217,7 @@ Isi satu backup: `fdq.sqlite` dan `files.tar.gz` (berisi `uploads/` dan `cv/`).
 
 | Gejala | Penyebab dan solusi |
 | --- | --- |
-| *Too many redirects* | SSL Cloudflare masih Flexible (ganti ke Full strict), atau `X-Forwarded-Proto` belum ada di blok location. |
+| *Too many redirects* | SSL Cloudflare masih Flexible. Ganti ke Full (strict). |
 | Error 526 | Origin Certificate belum terpasang, atau Key dan Certificate tertukar. |
 | 502 Bad Gateway | Node Project belum jalan atau port bukan 3300. Lihat log project di aaPanel. |
 | Login kembali ke halaman masuk | Buka lewat `https://farhanfdlhq.my.id`, bukan IP atau http. Cookie login hanya dikirim lewat https. |
