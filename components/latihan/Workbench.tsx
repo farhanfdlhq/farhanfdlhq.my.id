@@ -142,9 +142,12 @@ export function Workbench({ id, lang, starter }: Props) {
       {!supported ? <p className="run-error" role="alert">{t(lang, "unsupported")}</p> : null}
       {!canSave ? <p className="muted">{t(lang, "storage_off")}</p> : null}
       <div className="results">
-        <p className="run-summary" role="status" aria-live="polite">{summary}</p>
-        {outcome?.kind === "message" ? <p className="run-error">{outcome.text}</p> : null}
-        {result?.error ? <pre className="run-error"><code>{result.error}</code></pre> : null}
+        {/* Ringkasan, pesan waktu habis, dan error kode ada di satu region status supaya ikut diumumkan pembaca layar */}
+        <div className="run-status" role="status" aria-live="polite">
+          <p className="run-summary">{summary}</p>
+          {outcome?.kind === "message" ? <p className="run-error">{outcome.text}</p> : null}
+          {result?.error ? <pre className="run-error"><code>{result.error}</code></pre> : null}
+        </div>
         {result && result.results.length ? (
           <ol className="test-results">
             {result.results.map((r, i) => {

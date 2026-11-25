@@ -51,6 +51,8 @@ pre { margin: 0; font: 400 14px/1.55 var(--mono); background: rgba(0, 0, 0, .45)
 .actions { display: flex; flex-wrap: wrap; gap: 10px; }
 .actions .btn:disabled { opacity: .55; cursor: not-allowed; }
 .results { display: grid; gap: 10px; min-width: 0; }
+.run-status { display: grid; gap: 10px; }
+.run-status:empty { display: none; }
 .run-summary { margin: 0; font-weight: 600; }
 .run-summary:empty { display: none; }
 .run-error { margin: 0; color: var(--text); border: 1px solid var(--red); padding: 10px 12px; border-radius: 2px; }

@@ -79,6 +79,14 @@ describe("katalog di repo", () => {
         expect(r.results.filter((x) => !x.pass)).toEqual([]);
         expect(r.ok).toBe(true);
       });
+      if (s.kind === "class") {
+        it("nilai kembalian metode pengubah tidak dinilai", () => {
+          // Solusi yang benar tapi metodenya mengembalikan this (gaya chaining) harus tetap lulus
+          const patch = `\n;(() => { const P = ${s.entry}.prototype; for (const k of Object.getOwnPropertyNames(P)) { if (k === "constructor" || typeof P[k] !== "function") continue; const f = P[k]; P[k] = function (...a) { const r = f.apply(this, a); return r === undefined ? this : r; }; } })();`;
+          const r = grade(s.solution + patch, spec);
+          expect(r.results.filter((x) => !x.pass)).toEqual([]);
+        });
+      }
       it("kode awal gagal", () => {
         expect(grade(s.starter, spec).ok).toBe(false);
       });

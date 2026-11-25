@@ -60,9 +60,15 @@
       ],
       "expected": [
         null,
-        null,
-        null,
-        null,
+        {
+          "any": true
+        },
+        {
+          "any": true
+        },
+        {
+          "any": true
+        },
         true,
         false,
         true,
@@ -151,10 +157,18 @@
       ],
       "expected": [
         null,
-        null,
-        null,
-        null,
-        null,
+        {
+          "any": true
+        },
+        {
+          "any": true
+        },
+        {
+          "any": true
+        },
+        {
+          "any": true
+        },
         [
           "a",
           "ab",
@@ -168,7 +182,9 @@
         ],
         true,
         false,
-        null,
+        {
+          "any": true
+        },
         [
           "ab",
           "abc"
@@ -212,9 +228,15 @@
       ],
       "expected": [
         null,
-        null,
-        null,
-        null,
+        {
+          "any": true
+        },
+        {
+          "any": true
+        },
+        {
+          "any": true
+        },
         [
           "tea",
           "ten"

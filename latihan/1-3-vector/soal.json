@@ -12,13 +12,13 @@
   "text": {
     "id": {
       "title": "Vector buatanmu sendiri",
-      "story": "Buat class `Vector`, yaitu array yang membesar dan mengecil sendiri. Anggap array JavaScript di dalamnya hanya punya indeks dan panjang tetap: jangan pakai `push`, `pop`, `splice`, `shift`, atau `unshift`.\n`new Vector(capacity)` memulai kapasitas di 16, atau pangkat dua terkecil yang tidak kurang dari `capacity` kalau angkanya lebih besar. Saat penuh, kapasitas berlipat dua. Setelah elemen dihapus dan jumlahnya tinggal seperempat kapasitas atau kurang, kapasitas dibagi dua, tapi tidak pernah di bawah 16.\nMetode yang dibutuhkan: `size()`, `capacity()`, `isEmpty()`, `at(i)`, `push(x)`, `insert(i, x)`, `prepend(x)`, `pop()`, `delete(i)`, `remove(x)` yang menghapus semua `x`, dan `find(x)` yang mengembalikan indeks pertama atau `-1`. Indeks di luar batas, dan `pop()` saat kosong, melempar error.",
+      "story": "Buat class `Vector`, yaitu array yang membesar dan mengecil sendiri. Anggap array JavaScript di dalamnya hanya punya indeks dan panjang tetap: jangan pakai `push`, `pop`, `splice`, `shift`, atau `unshift`.\n`new Vector(capacity)` memulai kapasitas di 16, atau pangkat dua terkecil yang tidak kurang dari `capacity` kalau angkanya lebih besar. Saat menambah ke vector yang sudah penuh, kapasitas berlipat dua dulu. Setelah elemen dihapus dan jumlahnya tinggal seperempat kapasitas atau kurang, kapasitas dibagi dua, tapi tidak pernah di bawah 16.\nMetode yang dibutuhkan: `size()`, `capacity()`, `isEmpty()`, `at(i)`, `push(x)`, `insert(i, x)`, `prepend(x)`, `pop()`, `delete(i)`, `remove(x)` yang menghapus semua `x`, dan `find(x)` yang mengembalikan indeks pertama atau `-1`. Indeks di luar batas, dan `pop()` saat kosong, melempar error.",
       "hint1": "Simpan dua hal: array berukuran kapasitas dan jumlah elemen yang benar-benar terisi. `size()` adalah jumlah itu, bukan panjang array.",
       "hint2": "`insert` menggeser elemen ke kanan mulai dari belakang. `delete` menggeser ke kiri mulai dari indeks yang dihapus. Untuk membesar atau mengecil, buat array baru lalu salin elemennya satu per satu."
     },
     "en": {
       "title": "Build your own vector",
-      "story": "Build a `Vector` class: an array that grows and shrinks by itself. Treat the JavaScript array inside it as fixed size with indexes only, so no `push`, `pop`, `splice`, `shift`, or `unshift`.\n`new Vector(capacity)` starts at a capacity of 16, or the smallest power of two that is at least `capacity` when that number is bigger. When it's full, capacity doubles. After a removal leaves a quarter of the capacity or less in use, capacity halves, but never below 16.\nMethods: `size()`, `capacity()`, `isEmpty()`, `at(i)`, `push(x)`, `insert(i, x)`, `prepend(x)`, `pop()`, `delete(i)`, `remove(x)` which removes every `x`, and `find(x)` which returns the first index or `-1`. An index out of range, or `pop()` on an empty vector, throws an error.",
+      "story": "Build a `Vector` class: an array that grows and shrinks by itself. Treat the JavaScript array inside it as fixed size with indexes only, so no `push`, `pop`, `splice`, `shift`, or `unshift`.\n`new Vector(capacity)` starts at a capacity of 16, or the smallest power of two that is at least `capacity` when that number is bigger. When you add to a full vector, capacity doubles first. After a removal leaves a quarter of the capacity or less in use, capacity halves, but never below 16.\nMethods: `size()`, `capacity()`, `isEmpty()`, `at(i)`, `push(x)`, `insert(i, x)`, `prepend(x)`, `pop()`, `delete(i)`, `remove(x)` which removes every `x`, and `find(x)` which returns the first index or `-1`. An index out of range, or `pop()` on an empty vector, throws an error.",
       "hint1": "Keep two things: an array as long as the capacity, and the count of slots actually in use. `size()` is that count, not the array length.",
       "hint2": "`insert` shifts elements right, starting from the back. `delete` shifts them left, starting at the deleted index. To grow or shrink, make a new array and copy the elements over one by one."
     }
@@ -53,8 +53,12 @@
       ],
       "expected": [
         null,
-        null,
-        null,
+        {
+          "any": true
+        },
+        {
+          "any": true
+        },
         2,
         2,
         false,
@@ -137,10 +141,18 @@
       ],
       "expected": [
         null,
-        null,
-        null,
-        null,
-        null,
+        {
+          "any": true
+        },
+        {
+          "any": true
+        },
+        {
+          "any": true
+        },
+        {
+          "any": true
+        },
         2,
         -1,
         0,
@@ -203,16 +215,30 @@
       ],
       "expected": [
         null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
+        {
+          "any": true
+        },
+        {
+          "any": true
+        },
+        {
+          "any": true
+        },
+        {
+          "any": true
+        },
+        {
+          "any": true
+        },
+        {
+          "any": true
+        },
         2,
         2,
         3,
-        null,
+        {
+          "any": true
+        },
         3,
         {
           "throws": true
@@ -331,23 +357,57 @@
       ],
       "expected": [
         null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
+        {
+          "any": true
+        },
+        {
+          "any": true
+        },
+        {
+          "any": true
+        },
+        {
+          "any": true
+        },
+        {
+          "any": true
+        },
+        {
+          "any": true
+        },
+        {
+          "any": true
+        },
+        {
+          "any": true
+        },
+        {
+          "any": true
+        },
+        {
+          "any": true
+        },
+        {
+          "any": true
+        },
+        {
+          "any": true
+        },
+        {
+          "any": true
+        },
+        {
+          "any": true
+        },
+        {
+          "any": true
+        },
+        {
+          "any": true
+        },
+        {
+          "any": true
+        },
         32,
         17,
         16,
@@ -426,8 +486,12 @@
       ],
       "expected": [
         null,
-        null,
-        null,
+        {
+          "any": true
+        },
+        {
+          "any": true
+        },
         {
           "throws": true
         },
@@ -532,24 +596,58 @@
       ],
       "expected": [
         null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
+        {
+          "any": true
+        },
+        {
+          "any": true
+        },
+        {
+          "any": true
+        },
+        {
+          "any": true
+        },
+        {
+          "any": true
+        },
+        {
+          "any": true
+        },
+        {
+          "any": true
+        },
+        {
+          "any": true
+        },
+        {
+          "any": true
+        },
+        {
+          "any": true
+        },
+        {
+          "any": true
+        },
+        {
+          "any": true
+        },
+        {
+          "any": true
+        },
+        {
+          "any": true
+        },
+        {
+          "any": true
+        },
+        {
+          "any": true
+        },
         16,
-        null,
+        {
+          "any": true
+        },
         32,
         0,
         16,

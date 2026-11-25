@@ -17,8 +17,10 @@ export function testLines(kind: "function" | "class", entry: string, test: Test)
   const name = v === entry ? `${v}0` : v;
   return t.ops.map(([op, ...a], i) => {
     const want = t.expected[i];
-    const throws = typeof want === "object" && want !== null && !Array.isArray(want) && (want as { throws?: unknown }).throws === true;
+    const marker = typeof want === "object" && want !== null && !Array.isArray(want) ? (want as { throws?: unknown; any?: unknown }) : null;
     if (i === 0) return { call: `const ${name} = new ${entry}(${args(a)})`, expected: "" };
-    return { call: `${name}.${op}(${args(a)})`, expected: throws ? "error" : want === null ? "" : show(want as Json) };
+    if (marker?.throws === true) return { call: `${name}.${op}(${args(a)})`, expected: "error" };
+    if (marker?.any === true) return { call: `${name}.${op}(${args(a)})`, expected: "" };
+    return { call: `${name}.${op}(${args(a)})`, expected: show(want as Json) };
   });
 }

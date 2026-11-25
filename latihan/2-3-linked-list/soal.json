@@ -54,9 +54,15 @@
       ],
       "expected": [
         null,
-        null,
-        null,
-        null,
+        {
+          "any": true
+        },
+        {
+          "any": true
+        },
+        {
+          "any": true
+        },
         [
           0,
           1,
@@ -145,17 +151,27 @@
       ],
       "expected": [
         null,
-        null,
-        null,
-        null,
-        null,
+        {
+          "any": true
+        },
+        {
+          "any": true
+        },
+        {
+          "any": true
+        },
+        {
+          "any": true
+        },
         [
           1,
           2,
           3,
           4
         ],
-        null,
+        {
+          "any": true
+        },
         [
           2,
           3,
@@ -211,11 +227,21 @@
       ],
       "expected": [
         null,
-        null,
-        null,
-        null,
-        null,
-        null,
+        {
+          "any": true
+        },
+        {
+          "any": true
+        },
+        {
+          "any": true
+        },
+        {
+          "any": true
+        },
+        {
+          "any": true
+        },
         [
           4,
           3,
@@ -223,7 +249,9 @@
           1
         ],
         1,
-        null,
+        {
+          "any": true
+        },
         [
           4,
           3,
@@ -259,7 +287,9 @@
       ],
       "expected": [
         null,
-        null,
+        {
+          "any": true
+        },
         {
           "throws": true
         },
@@ -299,10 +329,16 @@
       ],
       "expected": [
         null,
-        null,
+        {
+          "any": true
+        },
         [],
-        null,
-        null,
+        {
+          "any": true
+        },
+        {
+          "any": true
+        },
         [
           7
         ],
@@ -342,12 +378,18 @@
       ],
       "expected": [
         null,
-        null,
+        {
+          "any": true
+        },
         1,
-        null,
+        {
+          "any": true
+        },
         2,
         true,
-        null,
+        {
+          "any": true
+        },
         [
           3
         ]

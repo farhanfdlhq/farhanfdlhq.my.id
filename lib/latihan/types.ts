@@ -4,8 +4,8 @@ export type Json = null | boolean | number | string | Json[] | { [k: string]: Js
 export type FunctionTest = { args: Json[]; expected?: Json; throws?: true; unordered?: true; hidden?: true; example?: true };
 /** ops[0] selalu ["new", ...argumen konstruktor]. */
 export type Op = [string, ...Json[]];
-/** expected sepanjang ops. Untuk "new" isinya null. */
-export type ClassTest = { ops: Op[]; expected: (Json | { throws: true })[]; hidden?: true; example?: true };
+/** expected sepanjang ops. Untuk "new" isinya null. {any: true} berarti nilai kembaliannya tidak dinilai (metode pengubah). */
+export type ClassTest = { ops: Op[]; expected: (Json | { throws: true } | { any: true })[]; hidden?: true; example?: true };
 export type Test = FunctionTest | ClassTest;
 
 export type GradeSpec = { kind: "function" | "class"; entry: string; tests: Test[] };

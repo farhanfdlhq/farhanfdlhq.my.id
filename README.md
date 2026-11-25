@@ -48,7 +48,7 @@ Soal latihan ada di `latihan/<level>-<urutan>-<id>/`, satu folder per soal:
 - `starter.js`: kode awal di editor.
 - `solution.js`: solusi acuan.
 
-Test fungsi berbentuk `{ "args": [...], "expected": ... }`. Test kelas berbentuk `{ "ops": [["new"], ["push", 1], ["pop"]], "expected": [null, null, 1] }`. Tandai `"example": true` untuk contoh di halaman soal dan `"hidden": true` untuk test tersembunyi. `"throws": true` berarti harus melempar error. Soal dengan beberapa jawaban benar perlu aturan di ceritanya supaya jawabannya tunggal.
+Test fungsi berbentuk `{ "args": [...], "expected": ... }`. Test kelas berbentuk `{ "ops": [["new"], ["push", 1], ["pop"]], "expected": [null, null, 1] }`. Tandai `"example": true` untuk contoh di halaman soal dan `"hidden": true` untuk test tersembunyi. `"throws": true` berarti harus melempar error. Di test kelas, `{"throws": true}` di `expected` berarti operasi itu harus melempar error, dan `{"any": true}` berarti nilai kembaliannya tidak dinilai (dipakai untuk metode pengubah seperti `push` atau `insert`). Soal dengan beberapa jawaban benar perlu aturan di ceritanya supaya jawabannya tunggal.
 
 `npm test` menolak soal yang solusinya tidak lulus semua test, kode awalnya justru lulus, atau teksnya belum lengkap. Teks soal bisa ditimpa, dan soal bisa disembunyikan, dari menu **Latihan** di admin. Urutan topik mengikuti [coding-interview-university](https://github.com/jwasham/coding-interview-university) (CC BY-SA 4.0).
 

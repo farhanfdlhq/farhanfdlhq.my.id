@@ -211,7 +211,10 @@ function fdqHarness() {
       var args = clone(apply(arrSlice, ops[i], [1])) || [];
       var label = name + "(" + apply(strSlice, fmt(args), [1, -1]) + ")";
       var want = expected[i];
-      var wantThrow = want !== null && typeof want === "object" && !isArray(want) && want.throws === true && keys(want).length === 1;
+      var marker = want !== null && typeof want === "object" && !isArray(want) && keys(want).length === 1;
+      var wantThrow = marker && want.throws === true;
+      // {"any": true}: nilai kembalian tidak dinilai (metode pengubah boleh mengembalikan apa saja, asal tidak error)
+      var wantAny = marker && want.any === true;
       var method;
       try { method = obj[name]; } catch (e) { method = undefined; }
       if (typeof method !== "function") return { pass: false, error: cut("Metode " + name + " tidak ada.") };
@@ -223,6 +226,7 @@ function fdqHarness() {
         return { pass: false, error: cut(label + ": " + errText(e)) };
       }
       if (wantThrow) return { pass: false, got: cut(label + " → " + fmt(out) + " (seharusnya melempar error)") };
+      if (wantAny) continue;
       var n;
       try { n = norm(out, []); } catch (e) { n = BAD; }
       if (!eq(n, want, false)) return { pass: false, got: cut(label + " → " + fmt(out)) };

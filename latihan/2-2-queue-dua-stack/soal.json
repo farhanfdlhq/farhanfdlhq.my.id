@@ -49,8 +49,12 @@
       ],
       "expected": [
         null,
-        null,
-        null,
+        {
+          "any": true
+        },
+        {
+          "any": true
+        },
         1,
         1,
         1
@@ -113,10 +117,16 @@
       ],
       "expected": [
         null,
-        null,
-        null,
+        {
+          "any": true
+        },
+        {
+          "any": true
+        },
         1,
-        null,
+        {
+          "any": true
+        },
         2,
         3,
         0
@@ -166,11 +176,21 @@
       ],
       "expected": [
         null,
-        null,
-        null,
-        null,
-        null,
-        null,
+        {
+          "any": true
+        },
+        {
+          "any": true
+        },
+        {
+          "any": true
+        },
+        {
+          "any": true
+        },
+        {
+          "any": true
+        },
         1,
         2,
         3,
@@ -197,7 +217,9 @@
       ],
       "expected": [
         null,
-        null,
+        {
+          "any": true
+        },
         "a",
         {
           "throws": true

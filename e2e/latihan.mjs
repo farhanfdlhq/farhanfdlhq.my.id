@@ -117,6 +117,10 @@ try {
   const t0 = Date.now();
   await runAndWait();
   check("loop tak berujung berhenti dengan pesan waktu habis", (await wp.locator(".run-error").textContent() ?? "").includes("2 detik") && Date.now() - t0 < 4500, String(Date.now() - t0) + " ms");
+  check("waktu habis diumumkan lewat region status", ((await wp.locator('[role="status"]').textContent()) ?? "").includes("2 detik"));
+  await setCode("function reverseString(s) {");
+  await runAndWait();
+  check("syntax error diumumkan lewat region status", ((await wp.locator('[role="status"]').textContent()) ?? "").includes("SyntaxError"));
   await setCode("function reverseString(s) { let o = ''; for (let i = s.length - 1; i >= 0; i--) o += s[i]; return o }");
   await runAndWait();
   check("setelah waktu habis, run berikutnya tetap jalan", (await summary()).includes("Semua test lulus"), await summary());

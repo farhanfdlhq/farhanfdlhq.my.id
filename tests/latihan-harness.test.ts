@@ -114,6 +114,12 @@ describe("harness: soal kelas", () => {
     expect(grade(lax, spec).ok).toBe(false);
   });
 
+  it("expected {any:true} menerima nilai apa pun, tapi tidak error", () => {
+    const spec: GradeSpec = { kind: "class", entry: "Stack", tests: [{ ops: [["new"], ["push", 1], ["size"]], expected: [null, { any: true }, 1] }] };
+    expect(grade(stack.replace("push(x){ this.a.push(x) }", "push(x){ return this.a.push(x) }"), spec).ok).toBe(true);
+    expect(grade(stack.replace("push(x){ this.a.push(x) }", "push(x){ throw new Error('x') }"), spec).ok).toBe(false);
+  });
+
   it("operasi gagal menyebut operasinya", () => {
     const spec: GradeSpec = { kind: "class", entry: "Stack", tests: [{ ops: [["new"], ["push", 1], ["pop"]], expected: [null, null, 5] }] };
     const r = grade(stack, spec);
