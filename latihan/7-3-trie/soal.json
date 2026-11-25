@@ -1,0 +1,229 @@
+{
+  "id": "trie",
+  "level": 7,
+  "order": 3,
+  "kind": "class",
+  "entry": "Trie",
+  "target": "O(panjang kata) per insert dan has",
+  "topic": {
+    "id": "Trie",
+    "en": "Tries"
+  },
+  "text": {
+    "id": {
+      "title": "Trie",
+      "story": "Buat class `Trie` untuk menyimpan kata. Setiap node mewakili satu huruf, dan jalur dari akar membentuk awalan kata.\nMetode: `insert(w)` (kata yang sudah ada diabaikan), `has(w)` yang bernilai `true` hanya untuk kata yang pernah dimasukkan utuh, `startsWith(p)` yang bernilai `true` kalau ada kata tersimpan yang diawali `p`, dan `wordsWith(p)` yang mengembalikan semua kata berawalan `p`, urut seperti kamus.",
+      "hint1": "Setiap node butuh dua hal: anak-anak per huruf (objek atau `Map`) dan penanda apakah sebuah kata berakhir di node itu.",
+      "hint2": "Untuk `wordsWith`, jalan dulu ke node akhir awalan `p`, lalu kumpulkan semua kata di bawahnya dengan DFS. Kunjungi anak dalam urutan huruf supaya hasilnya langsung urut."
+    },
+    "en": {
+      "title": "Trie",
+      "story": "Build a `Trie` class for storing words. Each node stands for one letter, and the path from the root spells a prefix.\nMethods: `insert(w)` (ignore words already stored), `has(w)` which is `true` only for whole words that were inserted, `startsWith(p)` which is `true` when some stored word begins with `p`, and `wordsWith(p)` which returns every word starting with `p` in dictionary order.",
+      "hint1": "Each node needs two things: its children by letter (an object or a `Map`) and a flag for whether a word ends there.",
+      "hint2": "For `wordsWith`, walk to the node at the end of `p`, then collect every word below it with DFS. Visit children in letter order and the result comes out sorted."
+    }
+  },
+  "tests": [
+    {
+      "ops": [
+        [
+          "new"
+        ],
+        [
+          "insert",
+          "car"
+        ],
+        [
+          "insert",
+          "cat"
+        ],
+        [
+          "insert",
+          "dog"
+        ],
+        [
+          "has",
+          "car"
+        ],
+        [
+          "has",
+          "ca"
+        ],
+        [
+          "startsWith",
+          "ca"
+        ],
+        [
+          "wordsWith",
+          "ca"
+        ]
+      ],
+      "expected": [
+        null,
+        null,
+        null,
+        null,
+        true,
+        false,
+        true,
+        [
+          "car",
+          "cat"
+        ]
+      ],
+      "example": true
+    },
+    {
+      "ops": [
+        [
+          "new"
+        ],
+        [
+          "has",
+          "a"
+        ],
+        [
+          "startsWith",
+          "a"
+        ],
+        [
+          "wordsWith",
+          "a"
+        ],
+        [
+          "startsWith",
+          ""
+        ]
+      ],
+      "expected": [
+        null,
+        false,
+        false,
+        [],
+        false
+      ]
+    },
+    {
+      "ops": [
+        [
+          "new"
+        ],
+        [
+          "insert",
+          "abc"
+        ],
+        [
+          "insert",
+          "b"
+        ],
+        [
+          "insert",
+          "a"
+        ],
+        [
+          "insert",
+          "ab"
+        ],
+        [
+          "wordsWith",
+          "a"
+        ],
+        [
+          "wordsWith",
+          ""
+        ],
+        [
+          "has",
+          "ab"
+        ],
+        [
+          "startsWith",
+          "abcd"
+        ],
+        [
+          "insert",
+          "ab"
+        ],
+        [
+          "wordsWith",
+          "ab"
+        ]
+      ],
+      "expected": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        [
+          "a",
+          "ab",
+          "abc"
+        ],
+        [
+          "a",
+          "ab",
+          "abc",
+          "b"
+        ],
+        true,
+        false,
+        null,
+        [
+          "ab",
+          "abc"
+        ]
+      ],
+      "hidden": true
+    },
+    {
+      "ops": [
+        [
+          "new"
+        ],
+        [
+          "insert",
+          "tea"
+        ],
+        [
+          "insert",
+          "ten"
+        ],
+        [
+          "insert",
+          "to"
+        ],
+        [
+          "wordsWith",
+          "te"
+        ],
+        [
+          "wordsWith",
+          "x"
+        ],
+        [
+          "has",
+          "t"
+        ],
+        [
+          "startsWith",
+          "t"
+        ]
+      ],
+      "expected": [
+        null,
+        null,
+        null,
+        null,
+        [
+          "tea",
+          "ten"
+        ],
+        [],
+        false,
+        true
+      ],
+      "hidden": true
+    }
+  ]
+}

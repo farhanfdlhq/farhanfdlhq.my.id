@@ -99,6 +99,11 @@ describe("katalog di repo", () => {
     });
   }
 
+  it("tujuh level, masing-masing tepat tiga soal", () => {
+    expect(list).toHaveLength(21);
+    for (const l of LEVELS) expect(list.filter((s) => s.level === l.n), `level ${l.n}`).toHaveLength(3);
+  });
+
   it("Level 1 sampai 4 berisi 12 soal", () => {
     expect(list.filter((s) => s.level <= 4).length).toBe(12);
   });

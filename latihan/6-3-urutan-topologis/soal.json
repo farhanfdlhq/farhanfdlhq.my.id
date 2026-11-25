@@ -1,0 +1,207 @@
+{
+  "id": "urutan-topologis",
+  "level": 6,
+  "order": 3,
+  "kind": "function",
+  "entry": "topoSort",
+  "target": "O(n² + jumlah sisi) cukup",
+  "topic": {
+    "id": "Topological sort",
+    "en": "Topological sort"
+  },
+  "text": {
+    "id": {
+      "title": "Urutan topologis",
+      "story": "Simpul `0` sampai `n - 1` adalah tugas, dan sisi berarah `[a, b]` berarti `a` harus selesai sebelum `b`. Tulis `topoSort(n, edges)` yang mengembalikan urutan semua tugas yang memenuhi setiap aturan itu.\nSupaya jawabannya satu: setiap kali ada beberapa tugas yang sudah boleh dikerjakan, ambil yang nomornya paling kecil. Kalau tidak ada urutan yang mungkin karena ada siklus, kembalikan `null`.",
+      "hint1": "Hitung untuk tiap simpul berapa sisi yang masuk ke sana. Tugas yang hitungannya 0 sudah boleh dikerjakan.",
+      "hint2": "Ambil tugas siap dengan nomor terkecil, masukkan ke hasil, lalu kurangi hitungan semua tujuannya. Kalau hasil akhirnya kurang dari `n` tugas, ada siklus."
+    },
+    "en": {
+      "title": "Topological order",
+      "story": "Nodes `0` to `n - 1` are tasks, and a directed edge `[a, b]` means `a` must finish before `b`. Write `topoSort(n, edges)` that returns an order of all tasks that respects every rule.\nTo keep the answer unique: whenever several tasks are ready, take the one with the smallest number. If no order exists because of a cycle, return `null`.",
+      "hint1": "For each node, count how many edges point into it. A task with a count of 0 is ready.",
+      "hint2": "Take the ready task with the smallest number, add it to the result, then lower the count of everything it points to. If the result ends up shorter than `n`, there's a cycle."
+    }
+  },
+  "tests": [
+    {
+      "args": [
+        4,
+        [
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            2
+          ],
+          [
+            1,
+            3
+          ],
+          [
+            2,
+            3
+          ]
+        ]
+      ],
+      "expected": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "example": true
+    },
+    {
+      "args": [
+        3,
+        [
+          [
+            2,
+            0
+          ],
+          [
+            1,
+            0
+          ]
+        ]
+      ],
+      "expected": [
+        1,
+        2,
+        0
+      ],
+      "example": true
+    },
+    {
+      "args": [
+        3,
+        [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            2,
+            0
+          ]
+        ]
+      ],
+      "expected": null
+    },
+    {
+      "args": [
+        3,
+        []
+      ],
+      "expected": [
+        0,
+        1,
+        2
+      ]
+    },
+    {
+      "args": [
+        6,
+        [
+          [
+            5,
+            2
+          ],
+          [
+            5,
+            0
+          ],
+          [
+            4,
+            0
+          ],
+          [
+            4,
+            1
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            3,
+            1
+          ]
+        ]
+      ],
+      "expected": [
+        4,
+        5,
+        0,
+        2,
+        3,
+        1
+      ],
+      "hidden": true
+    },
+    {
+      "args": [
+        5,
+        [
+          [
+            0,
+            1
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            3,
+            2
+          ]
+        ]
+      ],
+      "expected": null,
+      "hidden": true
+    },
+    {
+      "args": [
+        1,
+        []
+      ],
+      "expected": [
+        0
+      ],
+      "hidden": true
+    },
+    {
+      "args": [
+        4,
+        [
+          [
+            3,
+            0
+          ],
+          [
+            3,
+            1
+          ],
+          [
+            2,
+            1
+          ]
+        ]
+      ],
+      "expected": [
+        2,
+        3,
+        0,
+        1
+      ],
+      "hidden": true
+    }
+  ]
+}

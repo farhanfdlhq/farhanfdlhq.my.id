@@ -1,0 +1,138 @@
+{
+  "id": "permutasi",
+  "level": 7,
+  "order": 1,
+  "kind": "function",
+  "entry": "permutations",
+  "target": "O(n · n!)",
+  "topic": {
+    "id": "Rekursi",
+    "en": "Recursion"
+  },
+  "text": {
+    "id": {
+      "title": "Permutasi",
+      "story": "Tulis `permutations(s)` yang mengembalikan semua susunan berbeda dari huruf-huruf di string `s`, urut seperti kamus (perbandingan `<` biasa di JavaScript). Kalau ada huruf kembar, susunan yang sama hanya muncul sekali.\nString kosong punya tepat satu susunan, yaitu string kosong.",
+      "hint1": "Secara rekursif: untuk setiap huruf yang belum dipakai, taruh di depan, lalu susun sisa hurufnya.",
+      "hint2": "Urutkan huruf-hurufnya dulu. Di setiap posisi, lewati huruf yang sama dengan huruf sebelumnya yang belum dipakai, supaya tidak ada susunan ganda dan hasilnya otomatis urut."
+    },
+    "en": {
+      "title": "Permutations",
+      "story": "Write `permutations(s)` that returns every distinct arrangement of the letters in `s`, in dictionary order (plain `<` comparison in JavaScript). If letters repeat, each arrangement appears only once.\nThe empty string has exactly one arrangement: the empty string.",
+      "hint1": "Recursively: for each unused letter, put it first, then arrange the remaining letters.",
+      "hint2": "Sort the letters first. At each position, skip a letter equal to the previous unused one, so there are no duplicates and the output comes out sorted."
+    }
+  },
+  "tests": [
+    {
+      "args": [
+        "abc"
+      ],
+      "expected": [
+        "abc",
+        "acb",
+        "bac",
+        "bca",
+        "cab",
+        "cba"
+      ],
+      "example": true
+    },
+    {
+      "args": [
+        "aab"
+      ],
+      "expected": [
+        "aab",
+        "aba",
+        "baa"
+      ],
+      "example": true
+    },
+    {
+      "args": [
+        ""
+      ],
+      "expected": [
+        ""
+      ]
+    },
+    {
+      "args": [
+        "a"
+      ],
+      "expected": [
+        "a"
+      ]
+    },
+    {
+      "args": [
+        "bca"
+      ],
+      "expected": [
+        "abc",
+        "acb",
+        "bac",
+        "bca",
+        "cab",
+        "cba"
+      ],
+      "hidden": true
+    },
+    {
+      "args": [
+        "aabb"
+      ],
+      "expected": [
+        "aabb",
+        "abab",
+        "abba",
+        "baab",
+        "baba",
+        "bbaa"
+      ],
+      "hidden": true
+    },
+    {
+      "args": [
+        "dcba"
+      ],
+      "expected": [
+        "abcd",
+        "abdc",
+        "acbd",
+        "acdb",
+        "adbc",
+        "adcb",
+        "bacd",
+        "badc",
+        "bcad",
+        "bcda",
+        "bdac",
+        "bdca",
+        "cabd",
+        "cadb",
+        "cbad",
+        "cbda",
+        "cdab",
+        "cdba",
+        "dabc",
+        "dacb",
+        "dbac",
+        "dbca",
+        "dcab",
+        "dcba"
+      ],
+      "hidden": true
+    },
+    {
+      "args": [
+        "aaa"
+      ],
+      "expected": [
+        "aaa"
+      ],
+      "hidden": true
+    }
+  ]
+}

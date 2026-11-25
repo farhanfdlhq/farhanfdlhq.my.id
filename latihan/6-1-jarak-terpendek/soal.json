@@ -1,0 +1,284 @@
+{
+  "id": "jarak-terpendek",
+  "level": 6,
+  "order": 1,
+  "kind": "function",
+  "entry": "shortestPath",
+  "target": "O(n + jumlah sisi)",
+  "topic": {
+    "id": "BFS",
+    "en": "BFS"
+  },
+  "text": {
+    "id": {
+      "title": "Jarak terpendek",
+      "story": "Sebuah graf tak berarah punya simpul bernomor `0` sampai `n - 1`. `edges` berisi pasangan `[a, b]` yang berarti ada sisi antara `a` dan `b`.\nTulis `shortestPath(n, edges, from, to)` yang mengembalikan jumlah sisi pada jalur terpendek dari `from` ke `to`, atau `-1` kalau tidak ada jalur. Dari simpul ke dirinya sendiri jaraknya 0.",
+      "hint1": "Ubah `edges` menjadi daftar tetangga per simpul dulu. Ingat sisinya dua arah, jadi tambahkan `b` ke tetangga `a` dan sebaliknya.",
+      "hint2": "BFS menjelajah per lapis jarak: semua simpul berjarak 1, lalu berjarak 2, dan seterusnya. Simpan jarak tiap simpul saat pertama kali dikunjungi, dan jangan kunjungi simpul yang sama dua kali."
+    },
+    "en": {
+      "title": "Shortest path",
+      "story": "An undirected graph has nodes numbered `0` to `n - 1`. `edges` holds pairs `[a, b]`, each meaning there's an edge between `a` and `b`.\nWrite `shortestPath(n, edges, from, to)` that returns the number of edges on the shortest path from `from` to `to`, or `-1` if there's no path. The distance from a node to itself is 0.",
+      "hint1": "Turn `edges` into a neighbor list per node first. Edges go both ways, so add `b` to `a`'s neighbors and the other way round.",
+      "hint2": "BFS explores in layers of distance: every node 1 step away, then 2 steps, and so on. Record each node's distance the first time you reach it, and never visit a node twice."
+    }
+  },
+  "tests": [
+    {
+      "args": [
+        6,
+        [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            0,
+            4
+          ],
+          [
+            4,
+            3
+          ]
+        ],
+        0,
+        3
+      ],
+      "expected": 2,
+      "example": true
+    },
+    {
+      "args": [
+        6,
+        [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            0,
+            4
+          ],
+          [
+            4,
+            3
+          ]
+        ],
+        0,
+        5
+      ],
+      "expected": -1,
+      "example": true
+    },
+    {
+      "args": [
+        6,
+        [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            0,
+            4
+          ],
+          [
+            4,
+            3
+          ]
+        ],
+        2,
+        2
+      ],
+      "expected": 0
+    },
+    {
+      "args": [
+        2,
+        [
+          [
+            0,
+            1
+          ]
+        ],
+        1,
+        0
+      ],
+      "expected": 1
+    },
+    {
+      "args": [
+        10,
+        [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            3,
+            4
+          ],
+          [
+            4,
+            5
+          ],
+          [
+            5,
+            6
+          ],
+          [
+            6,
+            7
+          ],
+          [
+            7,
+            8
+          ],
+          [
+            8,
+            9
+          ]
+        ],
+        0,
+        9
+      ],
+      "expected": 9,
+      "hidden": true
+    },
+    {
+      "args": [
+        10,
+        [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            3,
+            4
+          ],
+          [
+            4,
+            5
+          ],
+          [
+            5,
+            6
+          ],
+          [
+            6,
+            7
+          ],
+          [
+            7,
+            8
+          ],
+          [
+            8,
+            9
+          ],
+          [
+            0,
+            9
+          ]
+        ],
+        0,
+        8
+      ],
+      "expected": 2,
+      "hidden": true
+    },
+    {
+      "args": [
+        4,
+        [
+          [
+            0,
+            1
+          ],
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            2,
+            1
+          ]
+        ],
+        0,
+        2
+      ],
+      "expected": 2,
+      "hidden": true
+    },
+    {
+      "args": [
+        5,
+        [
+          [
+            3,
+            4
+          ]
+        ],
+        0,
+        4
+      ],
+      "expected": -1,
+      "hidden": true
+    },
+    {
+      "args": [
+        1,
+        [],
+        0,
+        0
+      ],
+      "expected": 0,
+      "hidden": true
+    }
+  ]
+}

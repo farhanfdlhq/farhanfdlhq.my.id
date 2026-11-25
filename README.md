@@ -40,9 +40,22 @@ npm run typecheck && npm test && npm run build && npm run test:e2e
 
 `test:e2e` memakai production build, folder data sementara, dan akun admin acak. Tambahkan `SHOTS_DIR=<folder>` untuk menyimpan tangkapan layar panel admin di lebar 390 dan 1280 px.
 
+## Latihan coding
+
+Soal latihan ada di `latihan/<level>-<urutan>-<id>/`, satu folder per soal:
+
+- `soal.json`: id, level (1 sampai 7), urutan, `kind` (`function` atau `class`), nama fungsi atau kelas (`entry`), target kompleksitas, topik, teks ID dan EN (judul, cerita, dua petunjuk), dan test.
+- `starter.js`: kode awal di editor.
+- `solution.js`: solusi acuan.
+
+Test fungsi berbentuk `{ "args": [...], "expected": ... }`. Test kelas berbentuk `{ "ops": [["new"], ["push", 1], ["pop"]], "expected": [null, null, 1] }`. Tandai `"example": true` untuk contoh di halaman soal dan `"hidden": true` untuk test tersembunyi. `"throws": true` berarti harus melempar error. Soal dengan beberapa jawaban benar perlu aturan di ceritanya supaya jawabannya tunggal.
+
+`npm test` menolak soal yang solusinya tidak lulus semua test, kode awalnya justru lulus, atau teksnya belum lengkap. Teks soal bisa ditimpa, dan soal bisa disembunyikan, dari menu **Latihan** di admin. Urutan topik mengikuti [coding-interview-university](https://github.com/jwasham/coding-interview-university) (CC BY-SA 4.0).
+
 ## Dokumen
 
 - [Deploy di aaPanel](docs/DEPLOY-AAPANEL.md): dari domain sampai situs online, plus update dan backup.
 - [Audit keamanan](docs/AUDIT-KEAMANAN.md): risiko, penanganan, dan file kodenya.
 - [DESIGN.md](DESIGN.md): arah desain.
 - [Spesifikasi](docs/superpowers/specs/2026-11-09-farhanfdlhq-design.md) dan [rencana kerja](docs/superpowers/plans/2026-11-09-farhanfdlhq.md).
+- Latihan coding: [spesifikasi](docs/superpowers/specs/2026-11-25-latihan-coding-design.md) dan [rencana kerja](docs/superpowers/plans/2026-11-25-latihan-coding.md).
