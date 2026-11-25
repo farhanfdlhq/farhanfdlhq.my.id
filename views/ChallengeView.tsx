@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { PublicShell } from "@/components/site/PublicShell";
 import { Attribution } from "@/components/latihan/Attribution";
 import { InlineCode, Paragraphs } from "@/components/latihan/InlineCode";
+import { Workbench } from "@/components/latihan/Workbench";
 import { LEVELS } from "@/lib/latihan/catalog";
 import { soalById, soalNeighbors, soalText } from "@/lib/latihan/content";
 import { testLines } from "@/lib/latihan/format";
@@ -35,7 +36,7 @@ export function ChallengeView({ lang, id }: { lang: Lang; id: string }) {
         <section className="work" aria-labelledby="h-work">
           <h2 id="h-work">{t(lang, "starter_code")}</h2>
           <noscript><p className="muted">{t(lang, "needs_js")}</p></noscript>
-          <pre className="starter"><code>{s.starter}</code></pre>
+          <Workbench id={s.id} lang={lang} starter={s.starter} />
         </section>
         <section className="hints" aria-label={t(lang, "hint")}>
           {[tx.hint1, tx.hint2].map((h, i) => (

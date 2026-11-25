@@ -42,3 +42,33 @@ pre { margin: 0; font: 400 14px/1.55 var(--mono); background: rgba(0, 0, 0, .45)
 .hint[open] summary { color: var(--muted); }
 .foot-note { flex-basis: 100%; order: 3; font-size: 13px; }
 .foot-note a { color: var(--muted); }
+
+/* Workbench */
+.workbench { display: grid; gap: 14px; min-width: 0; }
+.editor-wrap { min-width: 0; }
+.editor { min-width: 0; }
+.editor-help { margin: 6px 0 0; font-size: 13px; }
+.actions { display: flex; flex-wrap: wrap; gap: 10px; }
+.actions .btn:disabled { opacity: .55; cursor: not-allowed; }
+.results { display: grid; gap: 10px; min-width: 0; }
+.run-summary { margin: 0; font-weight: 600; }
+.run-summary:empty { display: none; }
+.run-error { margin: 0; color: var(--text); border: 1px solid var(--red); padding: 10px 12px; border-radius: 2px; }
+pre.run-error { white-space: pre-wrap; }
+.test-results { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.test-results li { border: 1px solid var(--line); border-radius: 2px; padding: 10px 12px; display: grid; gap: 6px; min-width: 0; }
+.test-results li.fail { border-color: rgba(255, 77, 61, .55); }
+.test-results pre { background: none; border: 0; padding: 0; white-space: pre-wrap; overflow-wrap: anywhere; }
+.verdict { font-size: 12px; text-transform: uppercase; letter-spacing: .04em; }
+.pass .verdict { color: var(--text); }
+.fail .verdict { color: var(--red); }
+.got { margin: 0; overflow-wrap: anywhere; }
+.output h3, .solution h3 { margin: 0 0 8px; font: 500 13px/1 var(--mono); color: var(--muted); text-transform: uppercase; }
+.output pre { max-height: 320px; overflow: auto; white-space: pre-wrap; overflow-wrap: anywhere; }
+.solution { border-top: 1px solid var(--line); padding-top: 14px; }
+.runner-host { display: none; }
+dialog.confirm { max-width: min(420px, calc(100vw - 32px)); padding: 22px; color: var(--text); background: #0C0D0F; border: 1px solid var(--line); border-radius: 2px; }
+dialog.confirm::backdrop { background: rgba(0, 0, 0, .65); }
+dialog.confirm h2 { font-size: 1.15rem; margin: 0 0 10px; }
+dialog.confirm p { margin: 0 0 18px; }
+.confirm-actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 10px; }

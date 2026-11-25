@@ -148,8 +148,10 @@ function fdqHarness() {
 
   function grade(code, spec) {
     var logs = [];
+    // Selama test tersembunyi berjalan, log tidak dicatat supaya inputnya tidak terbaca dari Output
+    var muted = false;
     function log() {
-      if (logs.length >= MAX_LOGS) return;
+      if (muted || logs.length >= MAX_LOGS) return;
       var parts = "";
       for (var i = 0; i < arguments.length; i++) parts += (i ? " " : "") + fmt(arguments[i], true);
       logs[logs.length] = cut(parts);
@@ -175,7 +177,9 @@ function fdqHarness() {
     var results = [];
     var allPass = true;
     for (var t = 0; t < tests.length; t++) {
+      muted = !!tests[t].hidden;
       var r = kind === "class" ? runClass(target, tests[t]) : runFunction(target, tests[t]);
+      muted = false;
       if (!r.pass) allPass = false;
       results[results.length] = r;
     }

@@ -60,7 +60,7 @@ const id = {
   expected: "Harapan",
   hint: "Petunjuk",
   needs_js: "Menjalankan kode butuh JavaScript. Kode awal di bawah bisa kamu salin.",
-  starter_code: "Kode awal",
+  starter_code: "Kode",
   back_practice: "← Semua soal",
   attribution_pre: "Urutan topik mengikuti",
   attribution_by: "karya John Washam,",
@@ -87,6 +87,8 @@ const id = {
   yes_show: "Ya, tampilkan",
   load_failed: "Data soal gagal dimuat. Coba lagi.",
   storage_off: "Progres tidak bisa disimpan di browser ini.",
+  show_solution: "Lihat solusi",
+  hide_solution: "Tutup solusi",
   footer_copy: "©",
 };
 
@@ -150,7 +152,7 @@ const en: Record<UiKey, string> = {
   expected: "Expected",
   hint: "Hint",
   needs_js: "Running code needs JavaScript. You can copy the starter code below.",
-  starter_code: "Starter code",
+  starter_code: "Code",
   back_practice: "← All problems",
   attribution_pre: "Topic order follows",
   attribution_by: "by John Washam,",
@@ -177,6 +179,8 @@ const en: Record<UiKey, string> = {
   yes_show: "Yes, show it",
   load_failed: "Couldn't load the problem data. Try again.",
   storage_off: "This browser won't save your progress.",
+  show_solution: "Show solution",
+  hide_solution: "Hide solution",
   footer_copy: "©",
 };
 

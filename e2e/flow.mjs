@@ -101,7 +101,8 @@ try {
   check("detail: garis progres baca bertambah saat scroll", before !== after, `${before} -> ${after}`);
   await page.goto(BASE + "/");
   await page.locator(".proj").first().scrollIntoViewIfNeeded();
-  await page.waitForTimeout(400);
+  // Di mesin yang sibuk kelas .seen bisa datang lebih dari 400 ms setelah scroll
+  await page.locator(".proj.seen").first().waitFor({ timeout: 3000 }).catch(() => {});
   check("titik Live berdenyut saat kartu terlihat", (await page.locator(".proj.seen").count()) >= 1);
   check("transisi antarhalaman diaktifkan lewat CSS", await page.evaluate(() => [...document.styleSheets].some((s) => { try { return [...s.cssRules].some((r) => r.cssText.includes("@view-transition")); } catch { return false; } })));
   await ctx.close();

@@ -79,6 +79,12 @@ describe("harness: soal fungsi", () => {
     expect(r.logs[1]).toBe('{"a":[1]}');
   });
 
+  it("log dari test tersembunyi tidak ditampilkan", () => {
+    const spec: GradeSpec = { kind: "function", entry: "f", tests: [{ args: ["terlihat"], expected: 1 }, { args: ["rahasia"], expected: 1, hidden: true }] };
+    const r = grade("console.log('awal'); function f(x){ console.log(x); return 1 }", spec);
+    expect(r.logs).toEqual(["awal", "terlihat"]);
+  });
+
   it("kode pengunjung menimpa global atau memakai nama harness", () => {
     const code = "JSON.stringify = () => 'x'; JSON.parse = () => 0; Array.prototype.map = null; Object.keys = null; var results = 1, grade = 2, deepEqual = 3; function add(a,b){return a+b}";
     const r = grade(code, addSpec);
