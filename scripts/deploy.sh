@@ -49,7 +49,9 @@ echo "==> Build di folder sementara (situs tetap jalan)"
 # File tipe dari build lama bisa menyebut halaman yang sudah dihapus dan menggagalkan pemeriksaan TypeScript.
 # Folder itu tidak dipakai saat aplikasi berjalan, jadi aman dihapus.
 rm -rf .next-new .next/types
-if ! NEXT_DIST_DIR=.next-new npm run build; then
+# Next bisa selesai dengan kode 0 tanpa benar-benar membangun (misalnya saat berhenti menawarkan upgrade keamanan),
+# jadi hasilnya juga dicek: build yang utuh selalu punya BUILD_ID.
+if ! NEXT_DIST_DIR=.next-new npm run build || [ ! -f .next-new/BUILD_ID ]; then
   rm -rf .next-new
   echo "" >&2
   echo "BUILD GAGAL. Situs tidak diubah dan tetap memakai versi sebelumnya." >&2
