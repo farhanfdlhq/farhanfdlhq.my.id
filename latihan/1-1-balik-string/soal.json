@@ -1,0 +1,75 @@
+{
+  "id": "balik-string",
+  "level": 1,
+  "order": 1,
+  "kind": "function",
+  "entry": "reverseString",
+  "target": "O(n)",
+  "topic": {
+    "id": "String",
+    "en": "Strings"
+  },
+  "text": {
+    "id": {
+      "title": "Balik string",
+      "story": "Tulis fungsi `reverseString(s)` yang mengembalikan string `s` dengan urutan karakter terbalik.\nKerjakan tanpa `split`, `reverse`, dan `join`, supaya kamu menyusun hasilnya sendiri dengan loop.",
+      "hint1": "Mulai dari indeks terakhir, `s.length - 1`, lalu mundur sampai 0.",
+      "hint2": "String kosong dan string satu karakter juga harus jalan. Cek loop-mu untuk kedua kasus itu."
+    },
+    "en": {
+      "title": "Reverse a string",
+      "story": "Write `reverseString(s)` that returns `s` with its characters in reverse order.\nDo it without `split`, `reverse`, or `join`, so you build the result yourself with a loop.",
+      "hint1": "Start at the last index, `s.length - 1`, and walk back to 0.",
+      "hint2": "An empty string and a one character string must work too. Check your loop for both."
+    }
+  },
+  "tests": [
+    {
+      "args": [
+        "abc"
+      ],
+      "expected": "cba",
+      "example": true
+    },
+    {
+      "args": [
+        "halo"
+      ],
+      "expected": "olah",
+      "example": true
+    },
+    {
+      "args": [
+        ""
+      ],
+      "expected": ""
+    },
+    {
+      "args": [
+        "a"
+      ],
+      "expected": "a"
+    },
+    {
+      "args": [
+        "racecar"
+      ],
+      "expected": "racecar",
+      "hidden": true
+    },
+    {
+      "args": [
+        "Ab 12!"
+      ],
+      "expected": "!21 bA",
+      "hidden": true
+    },
+    {
+      "args": [
+        "  spasi"
+      ],
+      "expected": "isaps  ",
+      "hidden": true
+    }
+  ]
+}

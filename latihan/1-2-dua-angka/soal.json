@@ -1,0 +1,150 @@
+{
+  "id": "dua-angka",
+  "level": 1,
+  "order": 2,
+  "kind": "function",
+  "entry": "twoSum",
+  "target": "O(n)",
+  "topic": {
+    "id": "Array dan hash map",
+    "en": "Arrays and hash maps"
+  },
+  "text": {
+    "id": {
+      "title": "Dua angka berjumlah target",
+      "story": "Diberi array angka `nums` dan angka `target`, kembalikan indeks dua elemen yang jumlahnya sama dengan `target`, dalam bentuk `[i, j]` dengan `i < j`. Satu elemen tidak boleh dipakai dua kali.\nKalau ada beberapa pasangan, kembalikan pasangan dengan `j` paling kecil. Kalau tidak ada pasangan sama sekali, kembalikan `null`.\nDua loop bersarang sudah benar, tapi butuh O(n²). Coba satu kali jalan saja.",
+      "hint1": "Untuk setiap `nums[j]`, angka pasangannya pasti `target - nums[j]`. Pertanyaannya: apakah angka itu sudah muncul di sebelah kiri?",
+      "hint2": "Simpan angka yang sudah dilewati di `Map`, dari nilai ke indeks pertama kemunculannya. Periksa dulu, baru simpan, supaya elemen yang sama tidak dipasangkan dengan dirinya sendiri."
+    },
+    "en": {
+      "title": "Two numbers that add up to a target",
+      "story": "Given an array `nums` and a number `target`, return the indexes of two elements that add up to `target`, as `[i, j]` with `i < j`. You can't use the same element twice.\nIf several pairs work, return the one with the smallest `j`. If no pair works, return `null`.\nTwo nested loops give the right answer in O(n²). Try a single pass instead.",
+      "hint1": "For each `nums[j]`, its partner has to be `target - nums[j]`. The question is whether that number already appeared to the left.",
+      "hint2": "Keep the numbers you've passed in a `Map`, from value to the index where it first appeared. Check before you store, so an element never pairs with itself."
+    }
+  },
+  "tests": [
+    {
+      "args": [
+        [
+          2,
+          7,
+          11,
+          15
+        ],
+        9
+      ],
+      "expected": [
+        0,
+        1
+      ],
+      "example": true
+    },
+    {
+      "args": [
+        [
+          3,
+          2,
+          4
+        ],
+        6
+      ],
+      "expected": [
+        1,
+        2
+      ],
+      "example": true
+    },
+    {
+      "args": [
+        [
+          3,
+          3
+        ],
+        6
+      ],
+      "expected": [
+        0,
+        1
+      ]
+    },
+    {
+      "args": [
+        [
+          1,
+          2,
+          3
+        ],
+        7
+      ],
+      "expected": null
+    },
+    {
+      "args": [
+        [
+          3,
+          4,
+          1,
+          2
+        ],
+        5
+      ],
+      "expected": [
+        1,
+        2
+      ],
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          0,
+          4,
+          3,
+          0
+        ],
+        0
+      ],
+      "expected": [
+        0,
+        3
+      ],
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          -1,
+          -2,
+          -3,
+          -4,
+          -5
+        ],
+        -8
+      ],
+      "expected": [
+        2,
+        4
+      ],
+      "hidden": true
+    },
+    {
+      "args": [
+        [
+          5
+        ],
+        10
+      ],
+      "expected": null,
+      "hidden": true
+    },
+    {
+      "args": [
+        [],
+        0
+      ],
+      "expected": null,
+      "hidden": true
+    }
+  ]
+}
