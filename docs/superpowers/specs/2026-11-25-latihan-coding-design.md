@@ -1,6 +1,6 @@
 # Desain: Latihan coding berlevel
 
-Tanggal: 2026-11-25. Status: draf untuk disetujui Farhan.
+Tanggal: 2026-11-25. Status: menunggu persetujuan Farhan.
 
 ## Kenapa
 
@@ -65,7 +65,7 @@ Pilihan lain yang sudah diputuskan bersama Farhan:
 
 ## Level dan soal
 
-Sebanyak 7 level, 3 soal per level, total 21 soal pada peluncuran. Claude menulis drafnya, lalu Farhan memeriksa sebelum terbit.
+Sebanyak 7 level, 3 soal per level, total 21 soal pada peluncuran. Claude menulis semua soal. **Soal langsung terbit saat deploy** (keputusan Farhan). Farhan memeriksanya setelah publik dan menyembunyikan yang bermasalah lewat admin. Tidak ada status draf.
 
 | Level | Topik | Contoh soal (draf, bisa diganti) |
 |---|---|---|
@@ -242,4 +242,4 @@ Aturan ini diturunkan dari keputusan B dan dari pola celah di Claude-BugHunter (
 - Struktur komponen.
 - Cara memuat CodeMirror.
 - Detail tampilan dalam batas `DESIGN.md` dan mockup.
-- Isi 21 soal, dengan Farhan memeriksa sebelum terbit.
+- Isi 21 soal. Farhan memeriksanya setelah terbit.
