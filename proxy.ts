@@ -1,6 +1,6 @@
 import { NextResponse, type NextRequest } from "next/server";
 
-/** Alamat proyek dengan kode persen rusak (misalnya %E0%A4%A) membuat Next gagal sebelum halaman jalan dan menjawab 500. Dijawab 404 di sini. */
+/** Alamat proyek dan latihan dengan kode persen rusak (misalnya %E0%A4%A) membuat Next gagal sebelum halaman jalan dan menjawab 500. Dijawab 404 di sini. */
 export function proxy(req: NextRequest) {
   try {
     decodeURIComponent(req.nextUrl.pathname);
@@ -10,4 +10,4 @@ export function proxy(req: NextRequest) {
   }
 }
 
-export const config = { matcher: ["/proyek/:path*", "/en/projects/:path*"] };
+export const config = { matcher: ["/proyek/:path*", "/en/projects/:path*", "/latihan/:path*", "/en/practice/:path*", "/api/latihan/:path*"] };

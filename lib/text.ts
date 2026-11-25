@@ -17,3 +17,19 @@ export function hostOf(url: string): string {
 export function safeDecode(s: string): string | null {
   try { return decodeURIComponent(s); } catch { return null; }
 }
+
+/** Teks dengan `kode` di antara backtick, dipecah supaya kodenya bisa dirender sebagai <code>. Backtick tanpa pasangan dibiarkan. */
+export function codeSpans(text: string): (string | { code: string })[] {
+  const out: (string | { code: string })[] = [];
+  let rest = text;
+  for (;;) {
+    const a = rest.indexOf("`");
+    const b = a < 0 ? -1 : rest.indexOf("`", a + 1);
+    if (b < 0) break;
+    if (a > 0) out.push(rest.slice(0, a));
+    out.push({ code: rest.slice(a + 1, b) });
+    rest = rest.slice(b + 1);
+  }
+  if (rest) out.push(rest);
+  return out;
+}

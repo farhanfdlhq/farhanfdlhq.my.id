@@ -9,13 +9,13 @@ import { profile } from "@/lib/content";
 import type { Lang } from "@/lib/i18n";
 
 /** Bingkai semua halaman publik: adegan di belakang, kepala, isi, dan kaki. */
-export function PublicShell({ lang, path, isHome, children }: { lang: Lang; path: string; isHome?: boolean; children: React.ReactNode }) {
+export function PublicShell({ lang, path, isHome, footNote, children }: { lang: Lang; path: string; isHome?: boolean; footNote?: React.ReactNode; children: React.ReactNode }) {
   return (
     <div className={isHome ? "site is-home" : "site"} id="site">
       <SceneSlot lang={lang} />
       <Header lang={lang} path={path} tools={<PeekButton labelOn={t(lang, "peek_on")} labelOff={t(lang, "peek_off")} />} />
       {children}
-      <Footer name={profile(lang).name} />
+      <Footer name={profile(lang).name} note={footNote} />
       <Motion />
       <SceneLoader />
     </div>

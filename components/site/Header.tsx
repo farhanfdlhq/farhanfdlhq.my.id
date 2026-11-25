@@ -1,5 +1,5 @@
 import { LogoMark } from "./LogoMark";
-import { homePath, alternatePath } from "@/lib/paths";
+import { homePath, alternatePath, practicePath } from "@/lib/paths";
 import { t, type Lang } from "@/lib/i18n";
 
 /** Kepala situs: logo, menu, dan pilihan bahasa (tautan biasa, jadi jalan tanpa JavaScript). */
@@ -16,6 +16,7 @@ export function Header({ lang, path, tools }: { lang: Lang; path: string; tools?
           <a href={`${home}#proyek`}>{t(lang, "nav_projects")}</a>
           <a href={`${home}#tentang`}>{t(lang, "nav_about")}</a>
           <a href={`${home}#kontak`}>{t(lang, "nav_contact")}</a>
+          <a href={practicePath(lang)} aria-current={path.startsWith(practicePath(lang)) ? "page" : undefined}>{t(lang, "nav_practice")}</a>
         </span>
         <span className="tools">
           {tools}

@@ -3,7 +3,8 @@ import type { Metadata } from "next";
 import type { Lang } from "./lang";
 import { pick, t } from "./i18n";
 import { projectBySlug } from "./content";
-import { homePath, projectPath, projectsPath } from "./paths";
+import { challengePath, homePath, practicePath, projectPath, projectsPath } from "./paths";
+import { soalById, soalText } from "./latihan/content";
 import { pageMetadata } from "./seo";
 import { getSetting } from "./settings";
 
@@ -21,4 +22,20 @@ export function projectMetadata(lang: Lang, slug: string): Metadata {
   const p = projectBySlug(slug);
   if (!p) return { title: lang === "en" ? "Page not found" : "Halaman tidak ditemukan", robots: { index: false } };
   return pageMetadata({ lang, path: projectPath(lang, p.slug), title: p.title, description: pick(p, "summary", lang).text, image: `/og/${encodeURIComponent(p.slug)}/${lang === "en" ? "?lang=en" : ""}` });
+}
+
+export function practiceMetadata(lang: Lang): Metadata {
+  return pageMetadata({ lang, path: practicePath(lang), title: t(lang, "practice"), description: getSetting("seo_latihan_desc", lang) || t(lang, "practice_seo") });
+}
+
+export function challengeMetadata(lang: Lang, id: string): Metadata {
+  const s = soalById(id);
+  if (!s) return { title: lang === "en" ? "Page not found" : "Halaman tidak ditemukan", robots: { index: false } };
+  const tx = soalText(s, lang);
+  const lead = tx.story.split(/\r?\n/)[0].replace(/`/g, "");
+  return pageMetadata({
+    lang, path: challengePath(lang, s.id), title: `${tx.title} · ${t(lang, "practice")}`,
+    description: lead.length > 160 ? lead.slice(0, 157).trimEnd() + "…" : lead,
+    image: `/og/latihan/${encodeURIComponent(s.id)}/${lang === "en" ? "?lang=en" : ""}`,
+  });
 }
