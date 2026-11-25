@@ -37,6 +37,18 @@ const nextConfig: NextConfig = {
           },
         ],
       },
+      {
+        // Runner latihan: dokumen iframe sandbox yang menjalankan kode pengunjung. Aturan ini setelah aturan umum supaya nilainya menang.
+        source: "/latihan-runner/:path*",
+        headers: [
+          { key: "X-Frame-Options", value: "SAMEORIGIN" },
+          { key: "X-Robots-Tag", value: "noindex" },
+          {
+            key: "Content-Security-Policy",
+            value: "default-src 'none'; script-src 'self' 'unsafe-eval'; worker-src blob: 'self'; connect-src 'none'; frame-ancestors 'self'; base-uri 'none'; form-action 'none'",
+          },
+        ],
+      },
     ];
   },
 };

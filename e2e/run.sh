@@ -12,6 +12,9 @@ PORT=3399 SITE_URL=http://localhost:3399 node node_modules/next/dist/bin/next st
 SERVER=$!
 trap 'kill $SERVER 2>/dev/null; rm -rf "$DATA_DIR"' EXIT
 for _ in $(seq 1 60); do curl -sf -o /dev/null http://127.0.0.1:3399/ && break; sleep 0.5; done
-BASE=http://127.0.0.1:3399 node e2e/flow.mjs
+RC=0
+BASE=http://127.0.0.1:3399 node e2e/flow.mjs || RC=1
+BASE=http://127.0.0.1:3399 node e2e/latihan.mjs || RC=1
 # Tangkapan layar panel admin di 390 px dan 1280 px, hanya kalau SHOTS_DIR diisi
 if [ -n "${SHOTS_DIR:-}" ]; then BASE=http://127.0.0.1:3399 node e2e/admin-shots.mjs "$SHOTS_DIR"; fi
+exit $RC
