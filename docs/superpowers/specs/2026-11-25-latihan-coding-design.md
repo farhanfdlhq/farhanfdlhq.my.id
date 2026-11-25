@@ -91,6 +91,8 @@ Satu folder per soal, misalnya `latihan/2-kurung-seimbang/`. Isinya:
   - **Fungsi**: daftar `{ args, expected }`.
   - **Struktur data**: daftar skenario, tiap skenario berupa urutan operasi `[metode, ...argumen]` dan hasil yang diharapkan dari tiap operasi. Contoh: `new Stack(); push 1; push 2; pop → 2; size → 1`.
 - Perbandingan hasil memakai kesamaan dalam (deep equal) untuk nilai JSON. Urutan array dianggap penting, kecuali soal menandai `unordered`.
+- **Satu jawaban benar per test (keputusan Claude).** Soal yang wajarnya punya banyak jawaban diberi aturan di teks soal supaya jawabannya tunggal. Contoh: topological sort "kalau ada beberapa pilihan, ambil simpul dengan nama terkecil dulu", dua angka berjumlah target "pasangan pertama dari kiri", dan jarak terpendek mengembalikan panjangnya, bukan jalurnya. Tidak ada checker JS per soal, supaya format test tetap JSON netral bahasa untuk tahap Python.
+- Test boleh mengharapkan error dilempar (`throws: true`), misalnya `at()` di luar batas pada Vector.
 - Sebagian test ditandai **tersembunyi**. Hasilnya hanya "lulus" atau "gagal", tanpa menampilkan input, supaya solusi tidak bisa ditulis dengan mencocokkan contoh. Untuk peluncuran, test yang tidak tersembunyi ada 2 sampai 4 per soal.
 
 **Wajib di `npm test`:**
@@ -202,6 +204,10 @@ Aturan ini diturunkan dari keputusan B dan dari pola celah di Claude-BugHunter (
   - Hanya dirender sebagai teks lewat React, tanpa `innerHTML` atau `dangerouslySetInnerHTML`.
   - Ukuran dibatasi, misalnya 200 baris log dan 2.000 karakter per nilai, dengan nilai yang lebih panjang dipotong.
 - Kode tidak pernah dimuat dari URL (query atau hash).
+
+**Browser yang tidak bisa (keputusan Claude)**: saat halaman soal dibuka, runner mencoba membuat worker blob kecil. Kalau gagal, tombol **Jalankan** dinonaktifkan dan muncul pesan bahwa browser ini belum bisa menjalankan kode dengan aman. Kode tidak pernah dijalankan di thread utama iframe sebagai cadangan, karena loop tak berujung di sana bisa membekukan seluruh tab. e2e berjalan di Chromium. Safari iOS dicek manual oleh Farhan di HP saat peninjauan.
+
+**Rute runner disajikan sebagai berkas statis** (HTML + JS milik sendiri), bukan halaman Next, karena skrip inline Next akan diblokir CSP runner.
 
 **Server**: tidak ada endpoint baru yang menerima kode atau jawaban pengunjung.
 
