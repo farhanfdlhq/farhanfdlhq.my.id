@@ -96,6 +96,8 @@ const MIGRATIONS: string[] = [
     uploaded_at INTEGER NOT NULL
   );
   `,
+  // Penimpaan teks soal latihan dari admin. Teks bawaan ada di folder latihan/ di repo.
+  `CREATE TABLE latihan_text (id TEXT PRIMARY KEY, ${bi("title")}, ${bi("story")}, ${bi("hint1")}, ${bi("hint2")}, hidden INTEGER NOT NULL DEFAULT 0);`,
 ];
 
 function migrate(db: DB) {
