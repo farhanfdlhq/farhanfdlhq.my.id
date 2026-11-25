@@ -179,6 +179,63 @@ try {
   const msw = await mwp.evaluate(() => document.documentElement.scrollWidth);
   check("390 px dengan editor tanpa scroll horizontal", msw <= 390, String(msw));
   await mw.close();
+
+  // ---------- Admin latihan ----------
+  const actx = await browser.newContext({ viewport: { width: 1280, height: 900 } });
+  const ap = await actx.newPage();
+  watch(ap);
+  await ap.goto(BASE + "/admin/latihan/");
+  check("admin latihan tanpa login diarahkan ke masuk", ap.url().includes("/admin/masuk/") && ap.url().includes("next=%2Fadmin%2Flatihan%2F"), ap.url());
+  await ap.fill("#email", process.env.ADMIN_EMAIL);
+  await ap.fill("#password", process.env.ADMIN_PW);
+  await ap.click("button[type=submit]");
+  await ap.waitForURL(BASE + "/admin/latihan/", { timeout: 8000 }).catch(() => {});
+  check("admin latihan: daftar soal per level", (await ap.locator("h1").textContent()) === "Latihan" && (await ap.locator(".admin-row").count()) >= 3);
+  check("admin nav: menu Latihan", (await ap.locator('.admin-nav a[href="/admin/latihan/"][aria-current="page"]').count()) === 1);
+
+  await ap.goto(BASE + "/admin/latihan/vector/");
+  check("admin edit: teks bawaan jadi placeholder", ((await ap.locator("#title_en").getAttribute("placeholder")) ?? "").includes("Build your own vector"));
+  await ap.fill("#title_en", "Vector, made by hand");
+  await ap.click("main form button[type=submit]");
+  await ap.locator(".toast", { hasText: "Disimpan." }).waitFor({ timeout: 5000 }).catch(() => {});
+  await ap.goto(BASE + "/en/practice/vector/");
+  check("judul EN dari admin tampil di situs", (await ap.locator("h1").textContent())?.includes("Vector, made by hand"));
+  await ap.goto(BASE + "/admin/latihan/vector/");
+  await ap.fill("#title_en", "");
+  await ap.click("main form button[type=submit]");
+  await ap.locator(".toast", { hasText: "Disimpan." }).waitFor({ timeout: 5000 }).catch(() => {});
+
+  await ap.goto(BASE + "/admin/latihan/");
+  await ap.locator('.admin-row:has(a[href="/admin/latihan/dua-angka/"]) button', { hasText: "Sembunyikan" }).click();
+  await ap.locator("dialog[open] button", { hasText: "Sembunyikan" }).click();
+  await ap.waitForTimeout(800);
+  for (const path of ["/latihan/dua-angka/", "/en/practice/dua-angka/", "/api/latihan/dua-angka/solution/"]) {
+    const r = await fetch(BASE + path);
+    check(`soal tersembunyi 404: ${path}`, r.status === 404, String(r.status));
+  }
+  const listHtml = await (await fetch(BASE + "/latihan/")).text();
+  check("soal tersembunyi hilang dari daftar", !listHtml.includes("/latihan/dua-angka/"));
+  const nextHtml = await (await fetch(BASE + "/latihan/balik-string/")).text();
+  check("soal tersembunyi bukan tautan berikutnya", !nextHtml.includes("/latihan/dua-angka/") && nextHtml.includes("/latihan/vector/"));
+  check("soal tersembunyi hilang dari sitemap", !(await (await fetch(BASE + "/sitemap.xml")).text()).includes("dua-angka"));
+  await ap.goto(BASE + "/admin/latihan/");
+  await ap.locator('.admin-row:has(a[href="/admin/latihan/dua-angka/"]) button', { hasText: "Tampilkan" }).click();
+  await ap.waitForTimeout(800);
+  check("soal ditampilkan lagi", (await fetch(BASE + "/latihan/dua-angka/")).status === 200);
+
+  await ap.goto(BASE + "/admin/latihan/");
+  await ap.fill("#latihan_intro_id", "Pengantar dari admin.");
+  await ap.locator("form.intro-form button[type=submit]").click();
+  await ap.locator(".toast", { hasText: "Disimpan." }).waitFor({ timeout: 5000 }).catch(() => {});
+  check("pengantar dari admin tampil", (await (await fetch(BASE + "/latihan/")).text()).includes("Pengantar dari admin."));
+
+  await ap.setViewportSize({ width: 390, height: 844 });
+  for (const path of ["/admin/latihan/", "/admin/latihan/vector/"]) {
+    await ap.goto(BASE + path);
+    const sw = await ap.evaluate(() => document.documentElement.scrollWidth);
+    check(`admin 390 px tanpa scroll horizontal: ${path}`, sw <= 390, String(sw));
+  }
+  await actx.close();
 } catch (e) {
   check("latihan: tidak ada exception", false, String(e?.message ?? e).split("\n")[0]);
 } finally {

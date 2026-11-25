@@ -1,7 +1,7 @@
 import { logout } from "@/app/actions/auth";
 import { LogoMark } from "@/components/site/LogoMark";
 
-const LINKS = [["/admin/", "Proyek"], ["/admin/profil/", "Profil"], ["/admin/riwayat/", "Riwayat"], ["/admin/cv/", "CV"]] as const;
+const LINKS = [["/admin/", "Proyek"], ["/admin/profil/", "Profil"], ["/admin/riwayat/", "Riwayat"], ["/admin/cv/", "CV"], ["/admin/latihan/", "Latihan"]] as const;
 
 export function AdminNav({ current }: { current?: string }) {
   return (
