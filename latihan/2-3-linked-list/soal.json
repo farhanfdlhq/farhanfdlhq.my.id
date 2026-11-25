@@ -1,0 +1,358 @@
+{
+  "id": "linked-list",
+  "level": 2,
+  "order": 3,
+  "kind": "class",
+  "entry": "LinkedList",
+  "target": "pushFront, popFront, pushBack O(1)",
+  "topic": {
+    "id": "Linked list",
+    "en": "Linked lists"
+  },
+  "text": {
+    "id": {
+      "title": "Linked list",
+      "story": "Buat class `LinkedList` berupa rantai node `{ value, next }`. Jangan menyimpan elemen di array.\nMetode: `size()`, `isEmpty()`, `valueAt(i)`, `pushFront(v)`, `popFront()`, `pushBack(v)`, `popBack()`, `insert(i, v)` yang menyisipkan supaya `v` berada di indeks `i`, `erase(i)`, `reverse()` yang membalik urutan di tempat, dan `toArray()` untuk melihat isinya.\nIndeks di luar batas melempar error. `insert` boleh memakai `i` sama dengan `size()` untuk menambah di akhir. `popFront` dan `popBack` saat kosong juga melempar error.",
+      "hint1": "Simpan `head`, `tail`, dan jumlah node. Banyak bug muncul saat list berubah dari kosong ke satu elemen atau sebaliknya, jadi perbarui `tail` dengan hati-hati.",
+      "hint2": "Untuk `reverse`, jalan dari depan sambil membalik arah `next` setiap node. Kamu butuh tiga variabel: node sebelumnya, node sekarang, dan node berikutnya."
+    },
+    "en": {
+      "title": "Linked list",
+      "story": "Build a `LinkedList` class as a chain of `{ value, next }` nodes. Don't keep the elements in an array.\nMethods: `size()`, `isEmpty()`, `valueAt(i)`, `pushFront(v)`, `popFront()`, `pushBack(v)`, `popBack()`, `insert(i, v)` which inserts so that `v` ends up at index `i`, `erase(i)`, `reverse()` which reverses the list in place, and `toArray()` to see its contents.\nAn index out of range throws an error. `insert` accepts `i` equal to `size()` to add at the end. `popFront` and `popBack` on an empty list throw too.",
+      "hint1": "Keep a `head`, a `tail`, and a node count. Many bugs show up when the list goes from empty to one element or back, so update `tail` carefully.",
+      "hint2": "For `reverse`, walk from the front and flip each node's `next`. You need three variables: the previous node, the current one, and the next one."
+    }
+  },
+  "tests": [
+    {
+      "ops": [
+        [
+          "new"
+        ],
+        [
+          "pushBack",
+          1
+        ],
+        [
+          "pushBack",
+          2
+        ],
+        [
+          "pushFront",
+          0
+        ],
+        [
+          "toArray"
+        ],
+        [
+          "size"
+        ],
+        [
+          "valueAt",
+          1
+        ]
+      ],
+      "expected": [
+        null,
+        null,
+        null,
+        null,
+        [
+          0,
+          1,
+          2
+        ],
+        3,
+        1
+      ],
+      "example": true
+    },
+    {
+      "ops": [
+        [
+          "new"
+        ],
+        [
+          "isEmpty"
+        ],
+        [
+          "popFront"
+        ],
+        [
+          "popBack"
+        ],
+        [
+          "valueAt",
+          0
+        ]
+      ],
+      "expected": [
+        null,
+        true,
+        {
+          "throws": true
+        },
+        {
+          "throws": true
+        },
+        {
+          "throws": true
+        }
+      ]
+    },
+    {
+      "ops": [
+        [
+          "new"
+        ],
+        [
+          "pushBack",
+          1
+        ],
+        [
+          "pushBack",
+          3
+        ],
+        [
+          "insert",
+          1,
+          2
+        ],
+        [
+          "insert",
+          3,
+          4
+        ],
+        [
+          "toArray"
+        ],
+        [
+          "erase",
+          0
+        ],
+        [
+          "toArray"
+        ],
+        [
+          "popBack"
+        ],
+        [
+          "popFront"
+        ],
+        [
+          "toArray"
+        ]
+      ],
+      "expected": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        [
+          1,
+          2,
+          3,
+          4
+        ],
+        null,
+        [
+          2,
+          3,
+          4
+        ],
+        4,
+        2,
+        [
+          3
+        ]
+      ]
+    },
+    {
+      "ops": [
+        [
+          "new"
+        ],
+        [
+          "pushBack",
+          1
+        ],
+        [
+          "pushBack",
+          2
+        ],
+        [
+          "pushBack",
+          3
+        ],
+        [
+          "pushBack",
+          4
+        ],
+        [
+          "reverse"
+        ],
+        [
+          "toArray"
+        ],
+        [
+          "popBack"
+        ],
+        [
+          "pushBack",
+          9
+        ],
+        [
+          "toArray"
+        ],
+        [
+          "size"
+        ]
+      ],
+      "expected": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        [
+          4,
+          3,
+          2,
+          1
+        ],
+        1,
+        null,
+        [
+          4,
+          3,
+          2,
+          9
+        ],
+        4
+      ],
+      "hidden": true
+    },
+    {
+      "ops": [
+        [
+          "new"
+        ],
+        [
+          "insert",
+          0,
+          "a"
+        ],
+        [
+          "insert",
+          5,
+          "x"
+        ],
+        [
+          "erase",
+          1
+        ],
+        [
+          "toArray"
+        ]
+      ],
+      "expected": [
+        null,
+        null,
+        {
+          "throws": true
+        },
+        {
+          "throws": true
+        },
+        [
+          "a"
+        ]
+      ],
+      "hidden": true
+    },
+    {
+      "ops": [
+        [
+          "new"
+        ],
+        [
+          "reverse"
+        ],
+        [
+          "toArray"
+        ],
+        [
+          "pushFront",
+          7
+        ],
+        [
+          "reverse"
+        ],
+        [
+          "toArray"
+        ],
+        [
+          "isEmpty"
+        ]
+      ],
+      "expected": [
+        null,
+        null,
+        [],
+        null,
+        null,
+        [
+          7
+        ],
+        false
+      ],
+      "hidden": true
+    },
+    {
+      "ops": [
+        [
+          "new"
+        ],
+        [
+          "pushBack",
+          1
+        ],
+        [
+          "popBack"
+        ],
+        [
+          "pushBack",
+          2
+        ],
+        [
+          "popFront"
+        ],
+        [
+          "isEmpty"
+        ],
+        [
+          "pushBack",
+          3
+        ],
+        [
+          "toArray"
+        ]
+      ],
+      "expected": [
+        null,
+        null,
+        1,
+        null,
+        2,
+        true,
+        null,
+        [
+          3
+        ]
+      ],
+      "hidden": true
+    }
+  ]
+}

@@ -1,0 +1,281 @@
+{
+  "id": "min-heap",
+  "level": 4,
+  "order": 3,
+  "kind": "class",
+  "entry": "MinHeap",
+  "target": "insert dan extractMin O(log n)",
+  "topic": {
+    "id": "Heap",
+    "en": "Heaps"
+  },
+  "text": {
+    "id": {
+      "title": "Min heap",
+      "story": "Buat class `MinHeap`, yaitu binary heap yang disimpan di satu array. Elemen terkecil selalu ada di indeks 0, dan anak dari indeks `i` ada di `2i + 1` dan `2i + 2`.\nMetode: `insert(x)`, `peek()` yang mengembalikan elemen terkecil tanpa mengambilnya, `extractMin()` yang mengambil elemen terkecil, dan `size()`. `peek` dan `extractMin` mengembalikan `null` kalau heap kosong. Jangan pakai `sort`.",
+      "hint1": "`insert`: taruh elemen di akhir array, lalu tukar dengan induknya (indeks `(i - 1) >> 1`) selama elemen itu lebih kecil.",
+      "hint2": "`extractMin`: simpan elemen di indeks 0, pindahkan elemen terakhir ke indeks 0, lalu tukar ke bawah dengan anak yang lebih kecil selama anak itu lebih kecil."
+    },
+    "en": {
+      "title": "Min heap",
+      "story": "Build a `MinHeap` class: a binary heap stored in one array. The smallest element is always at index 0, and the children of index `i` sit at `2i + 1` and `2i + 2`.\nMethods: `insert(x)`, `peek()` which returns the smallest element without removing it, `extractMin()` which removes and returns it, and `size()`. `peek` and `extractMin` return `null` when the heap is empty. No `sort`.",
+      "hint1": "`insert`: put the element at the end of the array, then swap it with its parent (index `(i - 1) >> 1`) while it's smaller.",
+      "hint2": "`extractMin`: save index 0, move the last element to index 0, then swap it down with its smaller child while that child is smaller."
+    }
+  },
+  "tests": [
+    {
+      "ops": [
+        [
+          "new"
+        ],
+        [
+          "insert",
+          5
+        ],
+        [
+          "insert",
+          2
+        ],
+        [
+          "insert",
+          8
+        ],
+        [
+          "peek"
+        ],
+        [
+          "extractMin"
+        ],
+        [
+          "extractMin"
+        ],
+        [
+          "size"
+        ]
+      ],
+      "expected": [
+        null,
+        null,
+        null,
+        null,
+        2,
+        2,
+        5,
+        1
+      ],
+      "example": true
+    },
+    {
+      "ops": [
+        [
+          "new"
+        ],
+        [
+          "peek"
+        ],
+        [
+          "extractMin"
+        ],
+        [
+          "size"
+        ]
+      ],
+      "expected": [
+        null,
+        null,
+        null,
+        0
+      ]
+    },
+    {
+      "ops": [
+        [
+          "new"
+        ],
+        [
+          "insert",
+          9
+        ],
+        [
+          "insert",
+          4
+        ],
+        [
+          "insert",
+          7
+        ],
+        [
+          "insert",
+          1
+        ],
+        [
+          "insert",
+          8
+        ],
+        [
+          "insert",
+          2
+        ],
+        [
+          "insert",
+          6
+        ],
+        [
+          "insert",
+          3
+        ],
+        [
+          "insert",
+          5
+        ],
+        [
+          "extractMin"
+        ],
+        [
+          "extractMin"
+        ],
+        [
+          "extractMin"
+        ],
+        [
+          "extractMin"
+        ],
+        [
+          "extractMin"
+        ],
+        [
+          "extractMin"
+        ],
+        [
+          "extractMin"
+        ],
+        [
+          "extractMin"
+        ],
+        [
+          "extractMin"
+        ],
+        [
+          "size"
+        ]
+      ],
+      "expected": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        0
+      ],
+      "hidden": true
+    },
+    {
+      "ops": [
+        [
+          "new"
+        ],
+        [
+          "insert",
+          3
+        ],
+        [
+          "insert",
+          1
+        ],
+        [
+          "insert",
+          3
+        ],
+        [
+          "insert",
+          1
+        ],
+        [
+          "extractMin"
+        ],
+        [
+          "extractMin"
+        ],
+        [
+          "extractMin"
+        ],
+        [
+          "extractMin"
+        ],
+        [
+          "extractMin"
+        ]
+      ],
+      "expected": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        1,
+        1,
+        3,
+        3,
+        null
+      ],
+      "hidden": true
+    },
+    {
+      "ops": [
+        [
+          "new"
+        ],
+        [
+          "insert",
+          10
+        ],
+        [
+          "insert",
+          -1
+        ],
+        [
+          "peek"
+        ],
+        [
+          "insert",
+          -5
+        ],
+        [
+          "extractMin"
+        ],
+        [
+          "peek"
+        ],
+        [
+          "size"
+        ]
+      ],
+      "expected": [
+        null,
+        null,
+        null,
+        -1,
+        null,
+        -5,
+        -1,
+        2
+      ],
+      "hidden": true
+    }
+  ]
+}

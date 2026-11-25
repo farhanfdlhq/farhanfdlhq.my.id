@@ -99,6 +99,10 @@ describe("katalog di repo", () => {
     });
   }
 
+  it("Level 1 sampai 4 berisi 12 soal", () => {
+    expect(list.filter((s) => s.level <= 4).length).toBe(12);
+  });
+
   it("Level 1 berisi tiga soal pertama", () => {
     expect(list.filter((s) => s.level === 1).map((s) => s.id)).toEqual(["balik-string", "dua-angka", "vector"]);
   });

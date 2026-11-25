@@ -1,0 +1,209 @@
+{
+  "id": "queue-dua-stack",
+  "level": 2,
+  "order": 2,
+  "kind": "class",
+  "entry": "Queue",
+  "target": "O(1) rata-rata per operasi",
+  "topic": {
+    "id": "Queue",
+    "en": "Queues"
+  },
+  "text": {
+    "id": {
+      "title": "Queue dari dua stack",
+      "story": "Buat class `Queue` (antrean: yang masuk pertama keluar pertama) hanya dengan dua array yang dipakai sebagai stack, jadi cukup `push`, `pop`, dan `length`. Jangan pakai `shift` atau `unshift`.\nMetode: `enqueue(x)` menambah di belakang, `dequeue()` mengambil dari depan dan melempar error kalau kosong, `peek()` melihat elemen depan tanpa mengambilnya (`null` kalau kosong), dan `size()`.",
+      "hint1": "Satu stack untuk menerima elemen baru, satu lagi untuk mengeluarkan. Memindahkan isi stack ke stack lain membalik urutannya.",
+      "hint2": "Pindahkan isi stack masuk ke stack keluar hanya saat stack keluar kosong. Dengan begitu setiap elemen dipindah paling banyak sekali."
+    },
+    "en": {
+      "title": "A queue from two stacks",
+      "story": "Build a `Queue` class (first in, first out) using only two arrays treated as stacks, so just `push`, `pop`, and `length`. No `shift` or `unshift`.\nMethods: `enqueue(x)` adds to the back, `dequeue()` takes from the front and throws an error when empty, `peek()` looks at the front without removing it (`null` when empty), and `size()`.",
+      "hint1": "One stack takes new elements, the other hands them out. Moving a stack into another one reverses the order.",
+      "hint2": "Move the inbox stack into the outbox only when the outbox is empty. That way each element moves at most once."
+    }
+  },
+  "tests": [
+    {
+      "ops": [
+        [
+          "new"
+        ],
+        [
+          "enqueue",
+          1
+        ],
+        [
+          "enqueue",
+          2
+        ],
+        [
+          "peek"
+        ],
+        [
+          "dequeue"
+        ],
+        [
+          "size"
+        ]
+      ],
+      "expected": [
+        null,
+        null,
+        null,
+        1,
+        1,
+        1
+      ],
+      "example": true
+    },
+    {
+      "ops": [
+        [
+          "new"
+        ],
+        [
+          "dequeue"
+        ],
+        [
+          "peek"
+        ],
+        [
+          "size"
+        ]
+      ],
+      "expected": [
+        null,
+        {
+          "throws": true
+        },
+        null,
+        0
+      ]
+    },
+    {
+      "ops": [
+        [
+          "new"
+        ],
+        [
+          "enqueue",
+          1
+        ],
+        [
+          "enqueue",
+          2
+        ],
+        [
+          "dequeue"
+        ],
+        [
+          "enqueue",
+          3
+        ],
+        [
+          "dequeue"
+        ],
+        [
+          "dequeue"
+        ],
+        [
+          "size"
+        ]
+      ],
+      "expected": [
+        null,
+        null,
+        null,
+        1,
+        null,
+        2,
+        3,
+        0
+      ],
+      "hidden": true
+    },
+    {
+      "ops": [
+        [
+          "new"
+        ],
+        [
+          "enqueue",
+          1
+        ],
+        [
+          "enqueue",
+          2
+        ],
+        [
+          "enqueue",
+          3
+        ],
+        [
+          "enqueue",
+          4
+        ],
+        [
+          "enqueue",
+          5
+        ],
+        [
+          "dequeue"
+        ],
+        [
+          "dequeue"
+        ],
+        [
+          "dequeue"
+        ],
+        [
+          "dequeue"
+        ],
+        [
+          "dequeue"
+        ]
+      ],
+      "expected": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "hidden": true
+    },
+    {
+      "ops": [
+        [
+          "new"
+        ],
+        [
+          "enqueue",
+          "a"
+        ],
+        [
+          "dequeue"
+        ],
+        [
+          "dequeue"
+        ]
+      ],
+      "expected": [
+        null,
+        null,
+        "a",
+        {
+          "throws": true
+        }
+      ],
+      "hidden": true
+    }
+  ]
+}

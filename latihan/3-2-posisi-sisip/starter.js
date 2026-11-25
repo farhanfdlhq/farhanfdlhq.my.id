@@ -1,0 +1,3 @@
+function searchInsert(arr, x) {
+
+}

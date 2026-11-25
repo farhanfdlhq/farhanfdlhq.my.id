@@ -1,0 +1,269 @@
+{
+  "id": "bst",
+  "level": 4,
+  "order": 1,
+  "kind": "class",
+  "entry": "BST",
+  "target": "O(tinggi tree) per operasi",
+  "topic": {
+    "id": "Binary search tree",
+    "en": "Binary search trees"
+  },
+  "text": {
+    "id": {
+      "title": "Binary search tree",
+      "story": "Buat class `BST`. Setiap node punya nilai, anak kiri, dan anak kanan. Semua nilai di subtree kiri lebih kecil dari node itu, dan semua nilai di subtree kanan lebih besar.\nMetode: `insert(v)` (nilai yang sudah ada diabaikan), `contains(v)`, `min()` dan `max()` (`null` kalau tree kosong), `height()` (tree kosong 0, satu node 1), dan `inorder()` yang mengembalikan semua nilai sebagai array urut naik.",
+      "hint1": "Untuk `insert` dan `contains`, mulai dari akar lalu belok kiri kalau nilainya lebih kecil, atau kanan kalau lebih besar.",
+      "hint2": "`height` dan `inorder` paling mudah ditulis rekursif. Tinggi sebuah node adalah 1 ditambah tinggi anak yang paling tinggi."
+    },
+    "en": {
+      "title": "Binary search tree",
+      "story": "Build a `BST` class. Each node has a value, a left child, and a right child. Every value in the left subtree is smaller than the node, and every value in the right subtree is bigger.\nMethods: `insert(v)` (ignore values already in the tree), `contains(v)`, `min()` and `max()` (`null` for an empty tree), `height()` (0 for empty, 1 for a single node), and `inorder()` which returns all values as an ascending array.",
+      "hint1": "For `insert` and `contains`, start at the root and go left when the value is smaller, right when it's bigger.",
+      "hint2": "`height` and `inorder` are easiest as recursive functions. A node's height is 1 plus the height of its taller child."
+    }
+  },
+  "tests": [
+    {
+      "ops": [
+        [
+          "new"
+        ],
+        [
+          "insert",
+          5
+        ],
+        [
+          "insert",
+          3
+        ],
+        [
+          "insert",
+          8
+        ],
+        [
+          "contains",
+          3
+        ],
+        [
+          "contains",
+          4
+        ],
+        [
+          "inorder"
+        ],
+        [
+          "height"
+        ]
+      ],
+      "expected": [
+        null,
+        null,
+        null,
+        null,
+        true,
+        false,
+        [
+          3,
+          5,
+          8
+        ],
+        2
+      ],
+      "example": true
+    },
+    {
+      "ops": [
+        [
+          "new"
+        ],
+        [
+          "min"
+        ],
+        [
+          "max"
+        ],
+        [
+          "height"
+        ],
+        [
+          "inorder"
+        ],
+        [
+          "contains",
+          1
+        ]
+      ],
+      "expected": [
+        null,
+        null,
+        null,
+        0,
+        [],
+        false
+      ]
+    },
+    {
+      "ops": [
+        [
+          "new"
+        ],
+        [
+          "insert",
+          5
+        ],
+        [
+          "insert",
+          3
+        ],
+        [
+          "insert",
+          8
+        ],
+        [
+          "insert",
+          1
+        ],
+        [
+          "insert",
+          4
+        ],
+        [
+          "insert",
+          9
+        ],
+        [
+          "insert",
+          3
+        ],
+        [
+          "inorder"
+        ],
+        [
+          "min"
+        ],
+        [
+          "max"
+        ],
+        [
+          "height"
+        ]
+      ],
+      "expected": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        [
+          1,
+          3,
+          4,
+          5,
+          8,
+          9
+        ],
+        1,
+        9,
+        3
+      ],
+      "hidden": true
+    },
+    {
+      "ops": [
+        [
+          "new"
+        ],
+        [
+          "insert",
+          1
+        ],
+        [
+          "insert",
+          2
+        ],
+        [
+          "insert",
+          3
+        ],
+        [
+          "insert",
+          4
+        ],
+        [
+          "insert",
+          5
+        ],
+        [
+          "height"
+        ],
+        [
+          "min"
+        ],
+        [
+          "max"
+        ],
+        [
+          "contains",
+          5
+        ]
+      ],
+      "expected": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        5,
+        1,
+        5,
+        true
+      ],
+      "hidden": true
+    },
+    {
+      "ops": [
+        [
+          "new"
+        ],
+        [
+          "insert",
+          -2
+        ],
+        [
+          "insert",
+          0
+        ],
+        [
+          "insert",
+          -7
+        ],
+        [
+          "contains",
+          -7
+        ],
+        [
+          "contains",
+          7
+        ],
+        [
+          "min"
+        ]
+      ],
+      "expected": [
+        null,
+        null,
+        null,
+        null,
+        true,
+        false,
+        -7
+      ],
+      "hidden": true
+    }
+  ]
+}

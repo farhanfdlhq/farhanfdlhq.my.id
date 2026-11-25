@@ -1,0 +1,82 @@
+{
+  "id": "hitung-bit",
+  "level": 3,
+  "order": 3,
+  "kind": "function",
+  "entry": "countBits",
+  "target": "O(jumlah bit 1)",
+  "topic": {
+    "id": "Operasi bit",
+    "en": "Bitwise operations"
+  },
+  "text": {
+    "id": {
+      "title": "Hitung bit 1",
+      "story": "Tulis `countBits(n)` yang mengembalikan banyaknya bit bernilai 1 pada bilangan bulat `n`, dengan `0 <= n <= 2147483647`. Contohnya 11 dalam biner adalah `1011`, jadi jawabannya 3.\nJangan mengubah angka menjadi string. Pakai operator bit seperti `&`, `>>`, atau `>>>`.",
+      "hint1": "`n & 1` memberi bit paling kanan. Setelah itu geser `n` satu langkah ke kanan dan ulangi sampai `n` menjadi 0.",
+      "hint2": "Ada cara yang lebih cepat: `n & (n - 1)` menghapus bit 1 paling kanan. Hitung berapa kali kamu bisa melakukannya sebelum `n` menjadi 0."
+    },
+    "en": {
+      "title": "Count the 1 bits",
+      "story": "Write `countBits(n)` that returns how many bits are set to 1 in the integer `n`, where `0 <= n <= 2147483647`. For example, 11 in binary is `1011`, so the answer is 3.\nDon't turn the number into a string. Use bit operators like `&`, `>>`, or `>>>`.",
+      "hint1": "`n & 1` gives you the rightmost bit. Then shift `n` right by one and repeat until `n` is 0.",
+      "hint2": "There's a faster trick: `n & (n - 1)` clears the rightmost 1 bit. Count how many times you can do that before `n` hits 0."
+    }
+  },
+  "tests": [
+    {
+      "args": [
+        11
+      ],
+      "expected": 3,
+      "example": true
+    },
+    {
+      "args": [
+        128
+      ],
+      "expected": 1,
+      "example": true
+    },
+    {
+      "args": [
+        0
+      ],
+      "expected": 0
+    },
+    {
+      "args": [
+        255
+      ],
+      "expected": 8
+    },
+    {
+      "args": [
+        2147483647
+      ],
+      "expected": 31,
+      "hidden": true
+    },
+    {
+      "args": [
+        1073741824
+      ],
+      "expected": 1,
+      "hidden": true
+    },
+    {
+      "args": [
+        1431655765
+      ],
+      "expected": 16,
+      "hidden": true
+    },
+    {
+      "args": [
+        1
+      ],
+      "expected": 1,
+      "hidden": true
+    }
+  ]
+}

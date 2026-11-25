@@ -1,0 +1,284 @@
+{
+  "id": "traversal",
+  "level": 4,
+  "order": 2,
+  "kind": "function",
+  "entry": "traverse",
+  "target": "O(n)",
+  "topic": {
+    "id": "Traversal tree",
+    "en": "Tree traversal"
+  },
+  "text": {
+    "id": {
+      "title": "Traversal tree",
+      "story": "Sebuah binary tree ditulis sebagai objek `{ v, l, r }`: `v` adalah nilai, `l` dan `r` adalah anak kiri dan kanan, atau `null` kalau tidak ada. Tree kosong adalah `null`.\nTulis `traverse(tree, order)` yang mengembalikan array nilai sesuai urutan `order`: `\"pre\"` (node, kiri, kanan), `\"in\"` (kiri, node, kanan), `\"post\"` (kiri, kanan, node), atau `\"level\"` (per tingkat dari atas, kiri ke kanan).",
+      "hint1": "Tiga urutan pertama hanya berbeda di kapan nilai node dimasukkan: sebelum, di antara, atau sesudah memproses kedua anaknya. Satu fungsi rekursif cukup.",
+      "hint2": "Untuk `\"level\"`, pakai antrean: mulai dari akar, ambil node paling depan, catat nilainya, lalu masukkan anak kiri dan kanannya ke belakang antrean."
+    },
+    "en": {
+      "title": "Tree traversal",
+      "story": "A binary tree is written as an object `{ v, l, r }`: `v` is the value, `l` and `r` are the left and right children, or `null` when missing. An empty tree is `null`.\nWrite `traverse(tree, order)` that returns an array of values in the given `order`: `\"pre\"` (node, left, right), `\"in\"` (left, node, right), `\"post\"` (left, right, node), or `\"level\"` (level by level from the top, left to right).",
+      "hint1": "The first three orders differ only in when you record the node's value: before, between, or after handling its two children. One recursive function covers all three.",
+      "hint2": "For `\"level\"`, use a queue: start with the root, take the front node, record its value, then add its left and right children to the back."
+    }
+  },
+  "tests": [
+    {
+      "args": [
+        {
+          "v": 1,
+          "l": {
+            "v": 2,
+            "l": {
+              "v": 4,
+              "l": null,
+              "r": null
+            },
+            "r": {
+              "v": 5,
+              "l": null,
+              "r": null
+            }
+          },
+          "r": {
+            "v": 3,
+            "l": null,
+            "r": {
+              "v": 6,
+              "l": null,
+              "r": null
+            }
+          }
+        },
+        "pre"
+      ],
+      "expected": [
+        1,
+        2,
+        4,
+        5,
+        3,
+        6
+      ],
+      "example": true
+    },
+    {
+      "args": [
+        {
+          "v": 1,
+          "l": {
+            "v": 2,
+            "l": {
+              "v": 4,
+              "l": null,
+              "r": null
+            },
+            "r": {
+              "v": 5,
+              "l": null,
+              "r": null
+            }
+          },
+          "r": {
+            "v": 3,
+            "l": null,
+            "r": {
+              "v": 6,
+              "l": null,
+              "r": null
+            }
+          }
+        },
+        "in"
+      ],
+      "expected": [
+        4,
+        2,
+        5,
+        1,
+        3,
+        6
+      ],
+      "example": true
+    },
+    {
+      "args": [
+        {
+          "v": 1,
+          "l": {
+            "v": 2,
+            "l": {
+              "v": 4,
+              "l": null,
+              "r": null
+            },
+            "r": {
+              "v": 5,
+              "l": null,
+              "r": null
+            }
+          },
+          "r": {
+            "v": 3,
+            "l": null,
+            "r": {
+              "v": 6,
+              "l": null,
+              "r": null
+            }
+          }
+        },
+        "post"
+      ],
+      "expected": [
+        4,
+        5,
+        2,
+        6,
+        3,
+        1
+      ]
+    },
+    {
+      "args": [
+        null,
+        "level"
+      ],
+      "expected": []
+    },
+    {
+      "args": [
+        {
+          "v": 1,
+          "l": {
+            "v": 2,
+            "l": {
+              "v": 4,
+              "l": null,
+              "r": null
+            },
+            "r": {
+              "v": 5,
+              "l": null,
+              "r": null
+            }
+          },
+          "r": {
+            "v": 3,
+            "l": null,
+            "r": {
+              "v": 6,
+              "l": null,
+              "r": null
+            }
+          }
+        },
+        "level"
+      ],
+      "expected": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "hidden": true
+    },
+    {
+      "args": [
+        {
+          "v": 7,
+          "l": null,
+          "r": null
+        },
+        "in"
+      ],
+      "expected": [
+        7
+      ],
+      "hidden": true
+    },
+    {
+      "args": [
+        {
+          "v": 3,
+          "l": {
+            "v": 2,
+            "l": {
+              "v": 1,
+              "l": null,
+              "r": null
+            },
+            "r": null
+          },
+          "r": null
+        },
+        "in"
+      ],
+      "expected": [
+        1,
+        2,
+        3
+      ],
+      "hidden": true
+    },
+    {
+      "args": [
+        {
+          "v": 3,
+          "l": {
+            "v": 2,
+            "l": {
+              "v": 1,
+              "l": null,
+              "r": null
+            },
+            "r": null
+          },
+          "r": null
+        },
+        "post"
+      ],
+      "expected": [
+        1,
+        2,
+        3
+      ],
+      "hidden": true
+    },
+    {
+      "args": [
+        {
+          "v": 3,
+          "l": {
+            "v": 2,
+            "l": {
+              "v": 1,
+              "l": null,
+              "r": null
+            },
+            "r": null
+          },
+          "r": null
+        },
+        "level"
+      ],
+      "expected": [
+        3,
+        2,
+        1
+      ],
+      "hidden": true
+    },
+    {
+      "args": [
+        null,
+        "pre"
+      ],
+      "expected": [],
+      "hidden": true
+    }
+  ]
+}

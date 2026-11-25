@@ -1,0 +1,96 @@
+{
+  "id": "kurung-seimbang",
+  "level": 2,
+  "order": 1,
+  "kind": "function",
+  "entry": "isBalanced",
+  "target": "O(n)",
+  "topic": {
+    "id": "Stack",
+    "en": "Stacks"
+  },
+  "text": {
+    "id": {
+      "title": "Kurung seimbang",
+      "story": "Tulis `isBalanced(s)` yang mengembalikan `true` kalau semua kurung di `s` berpasangan dengan benar, dan `false` kalau tidak. Kurung yang dihitung hanya `()`, `[]`, dan `{}`. Karakter lain diabaikan.\nBerpasangan berarti setiap kurung buka ditutup oleh jenis yang sama, dan yang dibuka terakhir ditutup lebih dulu. Jadi `([])` benar, sedangkan `([)]` salah.",
+      "hint1": "Kurung buka yang belum ditutup perlu diingat sesuai urutan. Yang terakhir dibuka adalah yang pertama harus ditutup.",
+      "hint2": "Pakai array sebagai stack. Kurung buka masuk dengan `push`. Saat bertemu kurung tutup, `pop` harus menghasilkan pasangannya. Di akhir, stack harus kosong."
+    },
+    "en": {
+      "title": "Balanced brackets",
+      "story": "Write `isBalanced(s)` that returns `true` if every bracket in `s` is matched correctly, and `false` otherwise. Only `()`, `[]`, and `{}` count. Ignore every other character.\nMatched means each opening bracket is closed by the same kind, and the last one opened is the first one closed. So `([])` is fine and `([)]` is not.",
+      "hint1": "You need to remember the open brackets in order. The one opened last has to close first.",
+      "hint2": "Use an array as a stack. Opening brackets go in with `push`. On a closing bracket, `pop` must give back its partner. At the end, the stack must be empty."
+    }
+  },
+  "tests": [
+    {
+      "args": [
+        "()"
+      ],
+      "expected": true,
+      "example": true
+    },
+    {
+      "args": [
+        "([]{})"
+      ],
+      "expected": true,
+      "example": true
+    },
+    {
+      "args": [
+        "(]"
+      ],
+      "expected": false
+    },
+    {
+      "args": [
+        "(("
+      ],
+      "expected": false
+    },
+    {
+      "args": [
+        ""
+      ],
+      "expected": true,
+      "hidden": true
+    },
+    {
+      "args": [
+        "a(b[c]d)e"
+      ],
+      "expected": true,
+      "hidden": true
+    },
+    {
+      "args": [
+        "}{"
+      ],
+      "expected": false,
+      "hidden": true
+    },
+    {
+      "args": [
+        "([)]"
+      ],
+      "expected": false,
+      "hidden": true
+    },
+    {
+      "args": [
+        "{[()()]}"
+      ],
+      "expected": true,
+      "hidden": true
+    },
+    {
+      "args": [
+        "())"
+      ],
+      "expected": false,
+      "hidden": true
+    }
+  ]
+}
